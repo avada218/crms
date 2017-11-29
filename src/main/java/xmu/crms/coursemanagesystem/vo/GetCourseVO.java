@@ -1,4 +1,4 @@
-package xmu.crms.coursemanagesystem.entity;
+package xmu.crms.coursemanagesystem.vo;
 
 import java.util.Date;
 
@@ -6,14 +6,12 @@ import java.util.Date;
  * @author badcode
  * @date 2017/11/29
  */
-public class Course {
+public class GetCourseVO {
 
     private Long id;
     private String name;
     private Integer numClass;
     private Integer numStudent;
-    private String description;
-    private Rule properties;
     private Date startTime;
     private Date endTime;
 
@@ -65,19 +63,15 @@ public class Course {
         this.endTime = endTime;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Rule getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Rule properties) {
-        this.properties = properties;
+    @Override
+    public String toString() {
+        return "GetCourseVO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", numClass=" + numClass +
+                ", numStudent=" + numStudent +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
     }
 }

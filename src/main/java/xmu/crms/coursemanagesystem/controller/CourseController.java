@@ -1,8 +1,11 @@
 package xmu.crms.coursemanagesystem.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xmu.crms.coursemanagesystem.entity.Course;
+import xmu.crms.coursemanagesystem.vo.AddCourseVO;
+import xmu.crms.coursemanagesystem.vo.CourseInfoVO;
+import xmu.crms.coursemanagesystem.vo.GetCourseVO;
+import xmu.crms.coursemanagesystem.vo.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,9 +20,9 @@ import java.util.List;
 public class CourseController {
 
     @GetMapping("/course")
-    public List<Course> getCourses() {
-        List<Course> courses = new ArrayList<Course>();
-        Course course1 = new Course();
+    public List<GetCourseVO> getCourses() {
+        List<GetCourseVO> courses = new ArrayList<GetCourseVO>();
+        GetCourseVO course1 = new GetCourseVO();
         course1.setId(1L);
         course1.setName("OOAD");
         course1.setNumClass(3);
@@ -31,5 +34,31 @@ public class CourseController {
         course1.setEndTime(calendar.getTime());
         courses.add(course1);
         return courses;
+    }
+
+    @DeleteMapping("/course/{id}")
+    public Response deleteCourse() {
+        return new Response(204);
+    }
+
+    @PutMapping("/course/{id}")
+    public Response modify(@ModelAttribute Course course) {
+        return new Response(204);
+    }
+
+    @PostMapping("/course")
+    public AddCourseVO add(@ModelAttribute Course course) {
+        AddCourseVO acvo = new AddCourseVO();
+        acvo.setId(1L);
+        return acvo;
+    }
+
+    @GetMapping("/course/{id}")
+    public CourseInfoVO getCourseInfo(@PathVariable("id") int id) {
+        CourseInfoVO courseInfo = new CourseInfoVO();
+        courseInfo.setId(1L);
+        courseInfo.setName("OOAD");
+        courseInfo.setDescription("OOAD is OOAD!");
+        return courseInfo;
     }
 }
