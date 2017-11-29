@@ -1,10 +1,13 @@
-package xmu.crms.coursemanagesystem.entity;
+package xmu.crms.coursemanagesystem.vo;
+
+import xmu.crms.coursemanagesystem.entity.School;
+import xmu.crms.coursemanagesystem.entity.Teacher;
 
 /**
  * @author badcode
- * @date 2017/11/27
+ * @date 2017/11/29
  */
-public class Teacher {
+public class TeacherVO {
 
     private Long id;
     private String name;
@@ -15,6 +18,20 @@ public class Teacher {
     private School school;
     private String title;
     private String avatar;
+    private String type;
+
+    public TeacherVO(Teacher teacher) {
+        setId(teacher.getId());
+        setAvatar(teacher.getAvatar());
+        setEmail(teacher.getEmail());
+        setGender(teacher.getGender());
+        setName(teacher.getName());
+        setNumber(teacher.getNumber());
+        setSchool(teacher.getSchool());
+        setTitle(teacher.getTitle());
+        setPhone(teacher.getPhone());
+        setType("teacher");
+    }
 
     public Long getId() {
         return id;
@@ -86,5 +103,29 @@ public class Teacher {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "TeacherVO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", school=" + school +
+                ", title='" + title + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }
