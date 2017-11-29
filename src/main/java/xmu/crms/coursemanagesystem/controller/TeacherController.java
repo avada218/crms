@@ -37,6 +37,7 @@ public class TeacherController {
 
     @PutMapping("/me")
     public Response modifyInfo(@ModelAttribute Teacher teacher) {
+        System.out.println(teacher.toString());
         return new Response(204);
     }
 }

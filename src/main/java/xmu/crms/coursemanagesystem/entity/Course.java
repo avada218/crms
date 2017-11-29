@@ -80,4 +80,18 @@ public class Course {
     public void setProperties(Rule properties) {
         this.properties = properties;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", numClass=" + numClass +
+                ", numStudent=" + numStudent +
+                ", description='" + description + '\'' +
+                ", properties=" + properties +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
+    }
 }

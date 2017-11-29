@@ -87,4 +87,19 @@ public class Teacher {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", school=" + school +
+                ", title='" + title + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
+    }
 }

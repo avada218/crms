@@ -48,6 +48,7 @@ public class CourseController {
 
     @PostMapping("/course")
     public AddCourseVO add(@ModelAttribute Course course) {
+        System.out.println(course.toString());
         AddCourseVO acvo = new AddCourseVO();
         acvo.setId(1L);
         return acvo;

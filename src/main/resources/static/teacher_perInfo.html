@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>老师个人信息</title>
+    <link rel="stylesheet" type="text/css" href="css/基本信息css.css"/>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+            var initUrl = '/me';
+            $.get(initUrl,function (data) {
+                console.log(data);
+                $(".userName").append(data.phone);
+                $(".teacherNo").append(data.number);
+                $(".teacherName").append(data.name);
+                $(".teacherGender").append(data.gender);
+                $(".teacherSchool").append(data.school.name);
+                $(".teacherEmail").append(data.email);
+                $(".teacherJob").append(data.title);
+                $(".phone").append(data.phone);
+            });
+
+
+    </script>
+</head>
+
+<body>
+<div class="box">
+    <div class="header">
+        <h1>课堂管理系统
+            <a>首页</a>
+            <a>帮助</a>
+            <a>退出</a>
+        </h1>
+    </div>
+    <div class="main_box">
+        <div class="main_box_left">
+            <h2>导航</h2>
+            <hr/>
+            <div>
+                <p name="basicInfo"/><a href="teacher_perInfo.html">基本信息</a><br>
+                <p name="setCourse"/><a href="#">课程设置</a><br>
+                <p name="courseInfo"/><a href="#">课程信息</a><br>
+                <p data-toggle="modal" data-target="#myModal1" name="createCourse"/><a href="#">新建课程</a><br>
+            </div>
+        </div>
+        <div class="main_box_right">
+            <h2>基本信息</h2>
+            <hr/>
+            <br/>
+            <div class="img"><img src="image/head.png" alt="头像"></div>
+            <div class="info">
+                <form action="teacher_fixPerInfo.html" method="get">
+                    <table>
+                        <tr>
+                            <td>用户名：<span class="userName"></span></td>
+                            <td>教工号：<span class="teacherNo"></span></td>
+                        </tr>
+                        <tr>
+                            <td>姓名：<span class="teacherName"></span></td>
+                            <td>性别：<span class="teacherGender"></span></td>
+                        </tr>
+                        <tr>
+                            <td>学校：<span class="teacherSchool"></span></td>
+                            <td>职称：<span class="teacherJob"></span></td>
+                        </tr>
+                        <tr>
+                            <td>E-mail：<span class="teacherEmail"></span></td>
+                            <td>联系方式：<span class="phone"></span></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="button">
+                        <input type="submit" class="doButton" value="修改">
+                    </div>
+                </form>
+            </div>  
+        </div>
+    </div>
+</div>
+</body>
+</html>
