@@ -7,6 +7,7 @@ package xmu.crms.coursemanagesystem.entity;
 public class Teacher {
 
     private Long id;
+    private String type;
     private String name;
     private String number;
     private String phone;
@@ -15,6 +16,8 @@ public class Teacher {
     private School school;
     private String title;
     private String avatar;
+    private String password;
+    private String unionId;
 
     public Long getId() {
         return id;
