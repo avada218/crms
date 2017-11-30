@@ -14,7 +14,7 @@ import xmu.crms.coursemanagesystem.vo.TeacherVO;
  * @date 2017/11/29
  */
 @RestController
-public class TeacherController {
+public class UserController {
 
     @GetMapping("/me")
     public TeacherVO getInfo() {
