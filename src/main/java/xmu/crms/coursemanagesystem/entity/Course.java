@@ -9,11 +9,12 @@ import java.util.Date;
 public class Course {
 
     private Long id;
+    private User user;
     private String name;
     private Integer numClass;
     private Integer numStudent;
     private String description;
-    private Rule properties;
+    private Proportions proportions;
     private Date startTime;
     private Date endTime;
 
@@ -23,6 +24,14 @@ public class Course {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
@@ -49,6 +58,22 @@ public class Course {
         this.numStudent = numStudent;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Proportions getProportions() {
+        return proportions;
+    }
+
+    public void setProportions(Proportions proportions) {
+        this.proportions = proportions;
+    }
+
     public Date getStartTime() {
         return startTime;
     }
@@ -65,31 +90,16 @@ public class Course {
         this.endTime = endTime;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Rule getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Rule properties) {
-        this.properties = properties;
-    }
-
     @Override
     public String toString() {
         return "Course{" +
                 "id=" + id +
+                ", user=" + user +
                 ", name='" + name + '\'' +
                 ", numClass=" + numClass +
                 ", numStudent=" + numStudent +
                 ", description='" + description + '\'' +
-                ", properties=" + properties +
+                ", proportions=" + proportions +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 '}';

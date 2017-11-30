@@ -1,11 +1,12 @@
 package xmu.crms.coursemanagesystem.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import xmu.crms.coursemanagesystem.entity.Class;
 import xmu.crms.coursemanagesystem.entity.Rule;
+import xmu.crms.coursemanagesystem.entity.Student;
 import xmu.crms.coursemanagesystem.vo.GetClassInfoVO;
 import xmu.crms.coursemanagesystem.vo.GetClassVO;
+import xmu.crms.coursemanagesystem.vo.Response;
 import xmu.crms.coursemanagesystem.vo.Time;
 
 
@@ -19,18 +20,15 @@ import java.util.List;
 @RestController
 public class ClassController {
 
-    @GetMapping("/course/{courseId}/class")
-    public List<GetClassVO> getClasses(@PathVariable("courseId") int courseId) {
-        List<GetClassVO> classes = new ArrayList<GetClassVO>();
-        GetClassVO class1 = new GetClassVO();
-        class1.setId(1L);
+    //TODO
+    @GetMapping("/class")
+    public List<Class> getClasses() {
+        List<Class> classes = new ArrayList<Class>();
+        Class class1 = new Class();
+        class1.setId(23L);
         class1.setName("周三1-2节");
-        classes.add(class1);
-        GetClassVO class2 = new GetClassVO();
-        class2.setId(2L);
-        class2.setName("周三3-4节");
-        classes.add(class2);
-        return classes;
+        class1.setSite("公寓405");
+        return null;
     }
 
     @GetMapping("/class/{classId}")
@@ -58,7 +56,23 @@ public class ClassController {
         properties.setPresentation(50);
         classInfo.setProperties(properties);
         return classInfo;
-
-
     }
+
+    @PutMapping("/class/{classId}")
+    public Response modify(@PathVariable("classId") int classId, @RequestBody Class oldClass) {
+        return new Response(204);
+    }
+
+    @DeleteMapping("/class/{classId}")
+    public Response delete(@PathVariable("classId") int classId) {
+        return new Response(204);
+    }
+
+    @GetMapping("/class/{classId}")
+    public List<Student> getClassStudent(@PathVariable int classId) {
+        List<Student> students = new ArrayList<Student>();
+        return students;
+    }
+
+
 }

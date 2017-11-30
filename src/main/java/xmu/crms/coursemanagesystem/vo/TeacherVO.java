@@ -1,7 +1,7 @@
 package xmu.crms.coursemanagesystem.vo;
 
 import xmu.crms.coursemanagesystem.entity.School;
-import xmu.crms.coursemanagesystem.entity.Teacher;
+import xmu.crms.coursemanagesystem.entity.User;
 
 /**
  * @author badcode
@@ -20,17 +20,17 @@ public class TeacherVO {
     private String avatar;
     private String type;
 
-    public TeacherVO(Teacher teacher) {
-        setId(teacher.getId());
-        setAvatar(teacher.getAvatar());
-        setEmail(teacher.getEmail());
-        setGender(teacher.getGender());
-        setName(teacher.getName());
-        setNumber(teacher.getNumber());
-        setSchool(teacher.getSchool());
-        setTitle(teacher.getTitle());
-        setPhone(teacher.getPhone());
-        setType("teacher");
+    public TeacherVO(User user) {
+        setId(user.getId());
+        setAvatar(user.getAvatar());
+        setEmail(user.getEmail());
+        setGender(user.getGender());
+        setName(user.getName());
+        setNumber(user.getNumber());
+        setSchool(user.getSchool());
+        setTitle(user.getTitle());
+        setPhone(user.getPhone());
+        setType("user");
     }
 
     public Long getId() {

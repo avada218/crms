@@ -4,7 +4,7 @@ package xmu.crms.coursemanagesystem.entity;
  * @author badcode
  * @date 2017/11/27
  */
-public class Teacher {
+public class User {
 
     private Long id;
     private String type;
@@ -25,6 +25,14 @@ public class Teacher {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -91,10 +99,27 @@ public class Teacher {
         this.avatar = avatar;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
+    }
+
     @Override
     public String toString() {
-        return "Teacher{" +
+        return "User{" +
                 "id=" + id +
+                ", type='" + type + '\'' +
                 ", name='" + name + '\'' +
                 ", number='" + number + '\'' +
                 ", phone='" + phone + '\'' +
@@ -103,6 +128,8 @@ public class Teacher {
                 ", school=" + school +
                 ", title='" + title + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", password='" + password + '\'' +
+                ", unionId='" + unionId + '\'' +
                 '}';
     }
 }
