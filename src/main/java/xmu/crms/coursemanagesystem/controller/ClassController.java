@@ -3,7 +3,6 @@ package xmu.crms.coursemanagesystem.controller;
 import org.springframework.web.bind.annotation.*;
 import xmu.crms.coursemanagesystem.entity.Class;
 import xmu.crms.coursemanagesystem.entity.Student;
-import xmu.crms.coursemanagesystem.vo.GetClassInfoVO;
 import xmu.crms.coursemanagesystem.vo.Response;
 
 
@@ -24,7 +23,7 @@ public class ClassController {
     }
 
     @GetMapping("/class/{classId}")
-    public GetClassInfoVO getClassInfo(@PathVariable("classId") int id) {
+    public Class getClassInfo(@PathVariable("classId") int id) {
         return null;
     }
 
@@ -38,7 +37,7 @@ public class ClassController {
         return new Response(204);
     }
 
-    @GetMapping("/class/{classId}")
+    @GetMapping("/class/{classId}/student")
     public List<Student> getClassStudent(@PathVariable int classId) {
         List<Student> students = new ArrayList<Student>();
         return students;

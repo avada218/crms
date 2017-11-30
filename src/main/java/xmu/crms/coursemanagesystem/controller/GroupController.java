@@ -8,12 +8,12 @@ import xmu.crms.coursemanagesystem.vo.PresentationGradeVo;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @Author: guiyu
- * @Description:
- * @Data: Created in 2017/11/29
- */
+
 @RestController
+/**
+ * @author badcode
+ * @date 2017/11/30
+ */
 public class GroupController {
     @GetMapping("/group/{groupId}/grade")
     public GetGroupVo getGroupVos(){
