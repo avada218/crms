@@ -7,11 +7,9 @@ import xmu.crms.coursemanagesystem.entity.Seminar;
 import xmu.crms.coursemanagesystem.vo.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 /**
  * @author badcode
@@ -50,10 +48,8 @@ public class CourseController {
     }
 
     @DeleteMapping("/course/{id}")
-    public Response deleteCourse(HttpServletResponse response) {
+    public void deleteCourse(@PathVariable("id") int id, HttpServletResponse response) {
         response.setStatus(204);
-        Response responseBody = new Response("成功");
-        return responseBody;
     }
 
     @PutMapping("/course/{id}")

@@ -1,11 +1,14 @@
 package xmu.crms.coursemanagesystem.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import xmu.crms.coursemanagesystem.entity.*;
+import xmu.crms.coursemanagesystem.vo.Response;
 import xmu.crms.coursemanagesystem.vo.TopicGrade;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +63,13 @@ public class GroupController {
         group.setTopics(topics);
         group.setReport("");
         return group;
+    }
+
+    @DeleteMapping("/group/{groupId}/topic/{topicId}")
+    public Response cancelTopicSelection(@PathVariable("groupId") int groupId,
+                                          @PathVariable("topicId") int topicId,
+                                          HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
     }
 }

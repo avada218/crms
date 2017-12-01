@@ -72,8 +72,7 @@ public class ClassController {
     @DeleteMapping("/class/{classId}")
     public Response delete(@PathVariable("classId") int classId, HttpServletResponse response) {
         response.setStatus(204);
-        Response responseBody = new Response("成功");
-        return responseBody;
+        return null;
     }
 
     @GetMapping("/class/{classId}/student")
@@ -146,5 +145,13 @@ public class ClassController {
         members.add(member2);
         classGroup.setMembers(members);
         return classGroup;
+    }
+
+    @DeleteMapping("/class/{classId}/student/{studentId}")
+    public Response cancelCourseSelection(@PathVariable("classId") int classId,
+                                          @PathVariable("studentId") int studentId,
+                                          HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
     }
 }
