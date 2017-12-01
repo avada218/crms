@@ -9,7 +9,7 @@ public class Topic {
     private Long id;
     private String name;
     private String description;
-    private Integer groupList;
+    private Integer groupLimit;
     private Integer groupLeft;
 
     public Long getId() {
@@ -36,12 +36,12 @@ public class Topic {
         this.description = description;
     }
 
-    public Integer getGroupList() {
-        return groupList;
+    public Integer getGroupLimit() {
+        return groupLimit;
     }
 
-    public void setGroupList(Integer groupList) {
-        this.groupList = groupList;
+    public void setGroupLimit(Integer groupLimit) {
+        this.groupLimit = groupLimit;
     }
 
     public Integer getGroupLeft() {
@@ -58,7 +58,7 @@ public class Topic {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", groupList=" + groupList +
+                ", groupLimit=" + groupLimit +
                 ", groupLeft=" + groupLeft +
                 '}';
     }

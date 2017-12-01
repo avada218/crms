@@ -9,8 +9,8 @@ import java.util.List;
 public class ClassGroup {
 
     private Long id;
-    private Student leader;
-    private List<Student> members;
+    private User leader;
+    private List<User> members;
 
     public Long getId() {
         return id;
@@ -20,19 +20,19 @@ public class ClassGroup {
         this.id = id;
     }
 
-    public Student getLeader() {
+    public User getLeader() {
         return leader;
     }
 
-    public void setLeader(Student leader) {
+    public void setLeader(User leader) {
         this.leader = leader;
     }
 
-    public List<Student> getMembers() {
+    public List<User> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Student> members) {
+    public void setMembers(List<User> members) {
         this.members = members;
     }
 

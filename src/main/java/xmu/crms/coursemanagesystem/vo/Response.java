@@ -8,25 +8,13 @@ import java.util.List;
  */
 public class Response {
 
-    private Integer code;
     private String message;
     private List<String> error;
 
-    public Response(Integer code, String message) {
-        this.code = code;
+    public Response(){}
+
+    public Response(String message) {
         this.message = message;
-    }
-
-    public Response(Integer code) {
-        this.code = code;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
     }
 
     public String getMessage() {
@@ -43,5 +31,13 @@ public class Response {
 
     public void setError(List<String> error) {
         this.error = error;
+    }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "message='" + message + '\'' +
+                ", error=" + error +
+                '}';
     }
 }

@@ -1,13 +1,11 @@
 package xmu.crms.coursemanagesystem.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xmu.crms.coursemanagesystem.entity.School;
 import xmu.crms.coursemanagesystem.entity.User;
 import xmu.crms.coursemanagesystem.vo.Response;
-import xmu.crms.coursemanagesystem.vo.TeacherVO;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author badcode
@@ -17,27 +15,31 @@ import xmu.crms.coursemanagesystem.vo.TeacherVO;
 public class UserController {
 
     @GetMapping("/me")
-    public TeacherVO getInfo() {
+    public User getInfo() {
         User user = new User();
         School school = new School();
-        school.setId(1L);
-        school.setName("xmu");
-        user.setId(1L);
-        user.setAvatar("/avatar/teacher1.png");
-        user.setEmail("123456@qq.com");
+        school.setId(32L);
+        school.setName("厦门大学");
+        user.setId(3486L);
+        user.setAvatar("/avatar/3486.png");
+        user.setEmail("xxxxx@xx.com");
         user.setGender("male");
-        user.setName("xxx");
-        user.setNumber("123456");
+        user.setName("XXX");
+        user.setNumber("234546");
         user.setSchool(school);
         user.setTitle("教授");
-        user.setPhone("123456789");
-        TeacherVO teacherVO = new TeacherVO(user);
-        return teacherVO;
+        user.setPhone("12345678978");
+        user.setType("teacher");
+        return user;
     }
 
     @PutMapping("/me")
-    public Response modifyInfo(@ModelAttribute User user) {
+    public Response modifyInfo(@RequestBody User user, HttpServletResponse response) {
+        response.setStatus(204);
         System.out.println(user.toString());
-        return new Response(204);
+        Response responseBody = new Response();
+        responseBody.setMessage("成功");
+        System.out.println(responseBody);
+        return responseBody;
     }
 }
