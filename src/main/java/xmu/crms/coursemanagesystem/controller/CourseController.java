@@ -55,16 +55,16 @@ public class CourseController {
     @PutMapping("/course/{id}")
     public Response modify(@RequestBody Course course, HttpServletResponse response) {
         response.setStatus(204);
-        Response responseBody = new Response("成功");
-        return responseBody;
+        return null;
     }
 
     @PostMapping("/course")
-    public AddCourseVO add(@RequestBody Course course) {
+    public Course add(@RequestBody Course course, HttpServletResponse response) {
         System.out.println(course.toString());
-        AddCourseVO acvo = new AddCourseVO();
-        acvo.setId(1L);
-        return acvo;
+        Course  newCourse = new Course();
+        newCourse.setId(23L);
+        response.setStatus(201);
+        return newCourse;
     }
 
     @GetMapping("/course/{id}")
@@ -91,10 +91,12 @@ public class CourseController {
         return classes;
     }
 
-    //TODO
     @PostMapping("/course/{courseId}/class")
-    public Response addClass(@RequestBody Class newClass, @PathVariable("courseId") int courseId) {
-        return null;
+    public Class addClass(@RequestBody Class newClass, @PathVariable("courseId") int courseId, HttpServletResponse response) {
+        Class ret = new Class();
+        ret.setId(45L);
+        response.setStatus(201);
+        return ret;
     }
 
     @GetMapping("/course/{courseId}/seminar")
@@ -125,9 +127,11 @@ public class CourseController {
         return seminars;
     }
 
-    //TODO
     @PostMapping("/course/{courseId}/seminar")
-    public Response addSeminar(@RequestBody Seminar seminar) {
-        return null;
+    public Seminar addSeminar(@RequestBody Seminar seminar, HttpServletResponse response) {
+        Seminar newSeminar = new Seminar();
+        newSeminar.setId(32L);
+        response.setStatus(201);
+        return newSeminar;
     }
 }

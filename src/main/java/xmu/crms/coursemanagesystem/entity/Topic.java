@@ -7,10 +7,19 @@ package xmu.crms.coursemanagesystem.entity;
 public class Topic {
 
     private Long id;
+    private String serial;
     private String name;
     private String description;
     private Integer groupLimit;
     private Integer groupLeft;
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
 
     public Long getId() {
         return id;
@@ -56,6 +65,7 @@ public class Topic {
     public String toString() {
         return "Topic{" +
                 "id=" + id +
+                ", serial='" + serial + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", groupLimit=" + groupLimit +

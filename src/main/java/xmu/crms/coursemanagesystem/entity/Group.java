@@ -9,6 +9,7 @@ import java.util.List;
 public class Group {
 
     private Long id;
+    private String name;
     private User leader;
     private List<User> members;
     private List<Topic> topics;
@@ -63,10 +64,19 @@ public class Group {
         this.grade = grade;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Group{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", leader=" + leader +
                 ", members=" + members +
                 ", topics=" + topics +

@@ -1,11 +1,9 @@
 package xmu.crms.coursemanagesystem.controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xmu.crms.coursemanagesystem.entity.*;
 import xmu.crms.coursemanagesystem.vo.Response;
+import xmu.crms.coursemanagesystem.vo.SelectTopicVO;
 import xmu.crms.coursemanagesystem.vo.TopicGrade;
 
 import javax.servlet.http.HttpServletResponse;
@@ -69,6 +67,35 @@ public class GroupController {
     public Response cancelTopicSelection(@PathVariable("groupId") int groupId,
                                           @PathVariable("topicId") int topicId,
                                           HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
+    }
+
+    @PutMapping("/group/{id}")
+    public Response modifyGroup(@PathVariable("id") int id, HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
+    }
+
+    @PostMapping("/group/{id}/topic")
+    public SelectTopicVO selectTopic(@PathVariable("id") int groupId, @RequestBody Topic topic,
+                                     HttpServletResponse response) {
+        SelectTopicVO ret = new SelectTopicVO();
+        ret.setUrl("/group/27/topic/23");
+        response.setStatus(201);
+        return ret;
+    }
+
+    @PutMapping("/group/{groupId}/grade")
+    public Response setGrade(@PathVariable("groupId") int groupId, @RequestBody SeminarGrade grade,
+                             HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
+    }
+
+    @PutMapping("/group/{groupId}/grade/{studentId}")
+    public Response studentSetGrade(@PathVariable("groupId") int groupId, @PathVariable("studentId") int studentId,
+                                    @RequestBody SeminarGrade grade, HttpServletResponse response) {
         response.setStatus(204);
         return null;
     }

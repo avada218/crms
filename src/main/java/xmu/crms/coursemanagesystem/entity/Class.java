@@ -11,8 +11,9 @@ public class Class {
     private Long id;
     private String name;
     private Integer numStudent;
-    private List<ClassTime> timeSite;
-    private Boolean calling;
+    private String time;
+    private String site;
+    private Integer calling;
     private String roster;
     private Proportions proportions;
 
@@ -40,19 +41,27 @@ public class Class {
         this.numStudent = numStudent;
     }
 
-    public List<ClassTime> getTimeSite() {
-        return timeSite;
+    public String getTime() {
+        return time;
     }
 
-    public void setTimeSite(List<ClassTime> timeSite) {
-        this.timeSite = timeSite;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public Boolean getCalling() {
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public Integer getCalling() {
         return calling;
     }
 
-    public void setCalling(Boolean calling) {
+    public void setCalling(Integer calling) {
         this.calling = calling;
     }
 
@@ -78,7 +87,8 @@ public class Class {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", numStudent=" + numStudent +
-                ", timeSite=" + timeSite +
+                ", time='" + time + '\'' +
+                ", site='" + site + '\'' +
                 ", calling=" + calling +
                 ", roster='" + roster + '\'' +
                 ", proportions=" + proportions +

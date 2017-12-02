@@ -5,6 +5,8 @@ import xmu.crms.coursemanagesystem.entity.*;
 import xmu.crms.coursemanagesystem.entity.Class;
 import xmu.crms.coursemanagesystem.vo.ClassAttendanceVO;
 import xmu.crms.coursemanagesystem.vo.Response;
+import xmu.crms.coursemanagesystem.vo.SelectClassVO;
+import xmu.crms.coursemanagesystem.vo.SiteVO;
 
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,27 +32,9 @@ public class ClassController {
         class1.setId(23L);
         class1.setName("周三1-2节");
         class1.setNumStudent(120);
-        ClassTime timesite1 = new ClassTime();
-        timesite1.setWeek(1);
-        timesite1.setDay(1);
-        List<Integer> lesssons = new ArrayList<Integer>();
-        lesssons.add(1);
-        lesssons.add(2);
-        timesite1.setLesson(lesssons);
-        timesite1.setSite("海韵201");
-        ClassTime timesite2 = new ClassTime();
-        timesite2.setWeek(0);
-        timesite2.setDay(3);
-        List<Integer> lesssons1 = new ArrayList<Integer>();
-        lesssons1.add(3);
-        lesssons1.add(4);
-        timesite2.setLesson(lesssons1);
-        timesite2.setSite("公寓405");
-        List<ClassTime> sitetimes = new ArrayList<ClassTime>();
-        sitetimes.add(timesite1);
-        sitetimes.add(timesite2);
-        class1.setTimeSite(sitetimes);
-        class1.setCalling(Boolean.TRUE);
+        class1.setTime("周三一二节");
+        class1.setSite("海韵201");
+        class1.setCalling(-1);
         class1.setRoster("/roster/周三12班.xlsx");
         Proportions proportions = new Proportions();
         proportions.setA(20);
@@ -63,10 +47,10 @@ public class ClassController {
     }
 
     @PutMapping("/class/{classId}")
-    public Response modify(@PathVariable("classId") int classId, @RequestBody Class oldClass, HttpServletResponse response) {
+    public Response modify(@PathVariable("classId") int classId, @RequestBody Class newClass,
+                           HttpServletResponse response) {
         response.setStatus(204);
-        Response responseBody = new Response("成功");
-        return responseBody;
+        return null;
     }
 
     @DeleteMapping("/class/{classId}")
@@ -77,7 +61,7 @@ public class ClassController {
 
     @GetMapping("/class/{classId}/student")
     public List<User> getClassStudent(@PathVariable int classId) {
-        List<User> students = new ArrayList<User>();
+        List<User> students = new ArrayList();
         User student1 = new User();
         student1.setId(233L);
         student1.setName("张三");
@@ -151,6 +135,28 @@ public class ClassController {
     public Response cancelCourseSelection(@PathVariable("classId") int classId,
                                           @PathVariable("studentId") int studentId,
                                           HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
+    }
+
+    @PostMapping("/class/{id}/student")
+    public SelectClassVO selectClass(@RequestBody User student, @PathVariable("id") int id, HttpServletResponse response) {
+        SelectClassVO ret = new SelectClassVO();
+        ret.setUrl("/class/34/student/2757");
+        response.setStatus(201);
+        return ret;
+    }
+
+    @PutMapping("/class/{classId}/attendance/{studentId}")
+    public Response signIn(@PathVariable("classId") int classId, @PathVariable("studentId") int studentId,
+                           @RequestBody SiteVO site, HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
+    }
+
+    @PutMapping("/class/{classId}/classgroup")
+    public Response modifyClassgroup(@PathVariable("classId") int classId, @RequestBody ClassGroup classGroup,
+                                     HttpServletResponse response) {
         response.setStatus(204);
         return null;
     }

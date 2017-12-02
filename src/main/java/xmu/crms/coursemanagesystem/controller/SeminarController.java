@@ -1,9 +1,6 @@
 package xmu.crms.coursemanagesystem.controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xmu.crms.coursemanagesystem.entity.Group;
 import xmu.crms.coursemanagesystem.entity.Seminar;
 import xmu.crms.coursemanagesystem.entity.Topic;
@@ -62,5 +59,21 @@ public class SeminarController {
     public Response deleteSeminar(@PathVariable("id") int id, HttpServletResponse response) {
         response.setStatus(204);
         return null;
+    }
+
+    @PutMapping("/seminar/{seminarId}")
+    public Response modifySeminar(@PathVariable("seminarId") int seminarId, @RequestBody Seminar seminar,
+                                  HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
+    }
+
+    @PostMapping("/seminar/{seminarId}/topic")
+    public Topic addTopic(@PathVariable("seminarId") int seminarId, @RequestBody Topic topic,
+                          HttpServletResponse response) {
+        Topic newTopic = new Topic();
+        newTopic.setId(257L);
+        response.setStatus(201);
+        return newTopic;
     }
 }

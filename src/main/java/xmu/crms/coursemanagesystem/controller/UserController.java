@@ -36,10 +36,6 @@ public class UserController {
     @PutMapping("/me")
     public Response modifyInfo(@RequestBody User user, HttpServletResponse response) {
         response.setStatus(204);
-        System.out.println(user.toString());
-        Response responseBody = new Response();
-        responseBody.setMessage("成功");
-        System.out.println(responseBody);
-        return responseBody;
+        return null;
     }
 }
