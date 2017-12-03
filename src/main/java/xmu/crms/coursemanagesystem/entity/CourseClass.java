@@ -7,8 +7,7 @@ public class CourseClass {
     private Integer numStudent;
     private String time;
     private String site;
-    private String courseName;
-    private User courseTeacher;
+    private Course course;
 
     public Long getId() {
         return id;
@@ -50,20 +49,12 @@ public class CourseClass {
         this.site = site;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public User getCourseTeacher() {
-        return courseTeacher;
-    }
-
-    public void setCourseTeacher(User courseTeacher) {
-        this.courseTeacher = courseTeacher;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     @Override
@@ -74,8 +65,7 @@ public class CourseClass {
                 ", numStudent=" + numStudent +
                 ", time='" + time + '\'' +
                 ", site='" + site + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", courseTeacher=" + courseTeacher +
+                ", course=" + course +
                 '}';
     }
 }

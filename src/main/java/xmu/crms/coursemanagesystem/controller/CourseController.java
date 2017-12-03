@@ -102,7 +102,7 @@ public class CourseController {
 
     @GetMapping("/course/{courseId}/seminar")
     public List<Object> getSeminars(@PathVariable("courseId") int CourseId, @PathVariable("embedGrade") boolean embedGrade) {
-        List<Seminar> seminars = new ArrayList<Seminar>();
+        List<Object> seminars = new ArrayList<>();
         Seminar seminar1 = new Seminar();
         seminar1.setId(29L);
         seminar1.setName("界面原型设计");
@@ -113,7 +113,6 @@ public class CourseController {
         seminar1.setStartTime(calendar.getTime());
         calendar.set(2017,9,9);
         seminar1.setEndTime(calendar.getTime());
-        seminars.add(seminar1);
 
         Seminar seminar2 = new Seminar();
         seminar2.setId(32L);
@@ -124,7 +123,14 @@ public class CourseController {
         seminar2.setStartTime(calendar.getTime());
         calendar.set(2017,9,24);
         seminar2.setEndTime(calendar.getTime());
-        seminars.add(seminar2);
+
+        if(embedGrade) {
+            seminars.add(new SeminarWithGrade(seminar1, 4));
+            seminars.add(new SeminarWithGrade(seminar2, 5));
+        } else {
+            seminars.add(seminar1);
+            seminars.add(seminar2);
+        }
         return seminars;
     }
 
@@ -134,5 +140,56 @@ public class CourseController {
         newSeminar.setId(32L);
         response.setStatus(201);
         return newSeminar;
+    }
+
+    @GetMapping("/course/{courseId}/seminar/current")
+    public SeminarClasses getCurrentSeminar(@PathVariable("courseId") int courseId) {
+        SeminarClasses seminarClasses = new SeminarClasses();
+        seminarClasses.setId(29L);
+        seminarClasses.setName("界面原型设计");
+        seminarClasses.setCourseName("OOAD");
+        seminarClasses.setGoupingMethond("fixed");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2017,8,25);
+        seminarClasses.setStartTime(calendar.getTime());
+        calendar.set(2017,9,9);
+        seminarClasses.setEndTime(calendar.getTime());
+        List<Class> classes = new ArrayList<>();
+        Class class1 = new Class();
+        class1.setId(53L);
+        class1.setName("周三12");
+        classes.add(class1);
+        Class class2 = new Class();
+        class2.setId(57L);
+        class2.setName("周三34");
+        classes.add(class2);
+        seminarClasses.setClasses(classes);
+        return seminarClasses;
+    }
+
+    @GetMapping("/course/{cousrId}/grade")
+    public List<SeminarGradeDetail> getAllSeminarGrade(@PathVariable("courseId") int courseId) {
+        List<SeminarGradeDetail> seminarGradeDetails = new ArrayList<>();
+        SeminarGradeDetail seminarGradeDetail = new SeminarGradeDetail();
+        seminarGradeDetail.setGrade(4);
+        seminarGradeDetail.setGroupName("3A2");
+        seminarGradeDetail.setSeminarName("需求分析");
+        seminarGradeDetail.setLeaderName("张三");
+        seminarGradeDetail.setPresentationGrade(3);
+        seminarGradeDetail.setReportGrade(4);
+        seminarGradeDetail.setGrade(4);
+        seminarGradeDetails.add(seminarGradeDetail);
+
+        SeminarGradeDetail seminarGradeDetail1 = new SeminarGradeDetail();
+        seminarGradeDetail1.setGrade(4);
+        seminarGradeDetail1.setGroupName("3A3");
+        seminarGradeDetail1.setSeminarName("界面原型设计");
+        seminarGradeDetail1.setLeaderName("张三");
+        seminarGradeDetail1.setPresentationGrade(4);
+        seminarGradeDetail1.setReportGrade(4);
+        seminarGradeDetail1.setGrade(4);
+        seminarGradeDetails.add(seminarGradeDetail1);
+
+        return seminarGradeDetails;
     }
 }

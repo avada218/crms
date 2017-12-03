@@ -3,10 +3,7 @@ package xmu.crms.coursemanagesystem.controller;
 import org.springframework.web.bind.annotation.*;
 import xmu.crms.coursemanagesystem.entity.*;
 import xmu.crms.coursemanagesystem.entity.Class;
-import xmu.crms.coursemanagesystem.vo.ClassAttendanceVO;
-import xmu.crms.coursemanagesystem.vo.Response;
-import xmu.crms.coursemanagesystem.vo.SelectClassVO;
-import xmu.crms.coursemanagesystem.vo.SiteVO;
+import xmu.crms.coursemanagesystem.vo.*;
 
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +17,31 @@ import java.util.List;
 @RestController
 public class ClassController {
 
-    //TODO
     @GetMapping("/class")
-    public List<Class> getClasses() {
-        return null;
+    public List<CourseClassVO> getClasses() {
+        List<CourseClassVO> courseClasses = new ArrayList<>();
+        CourseClassVO courseClass1 = new CourseClassVO();
+        courseClass1.setId(23L);
+        courseClass1.setName("周三1-2节");
+        courseClass1.setNumStudent(60);
+        courseClass1.setTime("周三1-2、周五1-2");
+        courseClass1.setSite("公寓405");
+        courseClass1.setCourseName("OOAD");
+        courseClass1.setCourseTeacher("邱明");
+
+        CourseClassVO courseClass2 = new CourseClassVO();
+        courseClass2.setId(42L);
+        courseClass2.setName("一班");
+        courseClass2.setNumStudent(60);
+        courseClass2.setTime("周三34节 周五12节");
+        courseClass2.setSite("海韵202");
+        courseClass2.setCourseName(".Net 平台开发");
+        courseClass2.setCourseTeacher("杨律青");
+
+        courseClasses.add(courseClass1);
+        courseClasses.add(courseClass2);
+
+        return courseClasses;
     }
 
     @GetMapping("/class/{classId}")

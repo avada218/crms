@@ -5,6 +5,7 @@ import xmu.crms.coursemanagesystem.entity.Group;
 import xmu.crms.coursemanagesystem.entity.Seminar;
 import xmu.crms.coursemanagesystem.entity.Topic;
 import xmu.crms.coursemanagesystem.vo.Response;
+import xmu.crms.coursemanagesystem.vo.StudentSeminar;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -30,6 +31,30 @@ public class SeminarController {
         seminar.setStartTime(calendar.getTime());
         calendar.set(2017,9,24);
         seminar.setEndTime(calendar.getTime());
+        List<Topic> topics = new ArrayList<>();
+        Topic topic = new Topic();
+        topic.setId(257L);
+        topic.setName("领域模型与模块");
+        topics.add(topic);
+        seminar.setTopics(topics);
+        return seminar;
+    }
+
+    @GetMapping("/seminar/{seminarId}/my")
+    public StudentSeminar getRelatedSeminar() {
+        StudentSeminar seminar = new StudentSeminar();
+        seminar.setId(32L);
+        seminar.setName("概要设计");
+        seminar.setGroupingMethond("random");
+        seminar.setCourseName("OOAD");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2017,9,11);
+        seminar.setStartTime(calendar.getTime());
+        calendar.set(2017,9,24);
+        seminar.setEndTime(calendar.getTime());
+        seminar.setClassCalling(-1);
+        seminar.setLeader(true);
+        seminar.setAreTopicsSelected(true);
         return seminar;
     }
 

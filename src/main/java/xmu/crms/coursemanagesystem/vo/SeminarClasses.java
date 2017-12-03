@@ -1,18 +1,31 @@
 package xmu.crms.coursemanagesystem.vo;
 
-import java.util.Date;
+import xmu.crms.coursemanagesystem.entity.Class;
+import xmu.crms.coursemanagesystem.entity.Seminar;
 
-public class StudentSeminar {
+import java.util.Date;
+import java.util.List;
+
+public class SeminarClasses {
 
     private Long id;
     private String name;
-    private String groupingMethond;
     private String courseName;
+    private String goupingMethond;
     private Date startTime;
     private Date endTime;
-    private Integer classCalling;
-    private Boolean isLeader;
-    private Boolean areTopicsSelected;
+    private List<Class> classes;
+
+    public SeminarClasses() {}
+
+    public SeminarClasses(Seminar seminar, List<Class> classes) {
+        this.id = seminar.getId();
+        this.name = seminar.getName();
+        this.courseName = seminar.getCourse().getName();
+        this.startTime = seminar.getStartTime();
+        this.endTime = seminar.getEndTime();
+        this.classes = classes;
+    }
 
     public Long getId() {
         return id;
@@ -28,14 +41,6 @@ public class StudentSeminar {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getGroupingMethond() {
-        return groupingMethond;
-    }
-
-    public void setGroupingMethond(String groupingMethond) {
-        this.groupingMethond = groupingMethond;
     }
 
     public String getCourseName() {
@@ -62,42 +67,32 @@ public class StudentSeminar {
         this.endTime = endTime;
     }
 
-    public Integer getClassCalling() {
-        return classCalling;
+    public List<Class> getClasses() {
+        return classes;
     }
 
-    public void setClassCalling(Integer classCalling) {
-        this.classCalling = classCalling;
+    public void setClasses(List<Class> classes) {
+        this.classes = classes;
     }
 
-    public Boolean getLeader() {
-        return isLeader;
+    public String getGoupingMethond() {
+        return goupingMethond;
     }
 
-    public void setLeader(Boolean leader) {
-        isLeader = leader;
-    }
-
-    public Boolean getAreTopicsSelected() {
-        return areTopicsSelected;
-    }
-
-    public void setAreTopicsSelected(Boolean areTopicsSelected) {
-        this.areTopicsSelected = areTopicsSelected;
+    public void setGoupingMethond(String goupingMethond) {
+        this.goupingMethond = goupingMethond;
     }
 
     @Override
     public String toString() {
-        return "StudentSeminar{" +
+        return "SeminarClasses{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", groupingMethond='" + groupingMethond + '\'' +
                 ", courseName='" + courseName + '\'' +
+                ", goupingMethond='" + goupingMethond + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", classCalling=" + classCalling +
-                ", isLeader=" + isLeader +
-                ", areTopicsSelected=" + areTopicsSelected +
+                ", classes=" + classes +
                 '}';
     }
 }

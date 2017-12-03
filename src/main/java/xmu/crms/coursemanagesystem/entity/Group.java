@@ -15,6 +15,29 @@ public class Group {
     private List<Topic> topics;
     private String report;
     private SeminarGrade grade;
+    private Seminar seminar;
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", leader=" + leader +
+                ", members=" + members +
+                ", topics=" + topics +
+                ", report='" + report + '\'' +
+                ", grade=" + grade +
+                ", seminar=" + seminar +
+                '}';
+    }
+
+    public Seminar getSeminar() {
+        return seminar;
+    }
+
+    public void setSeminar(Seminar seminar) {
+        this.seminar = seminar;
+    }
 
     public Long getId() {
         return id;
@@ -72,16 +95,4 @@ public class Group {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Group{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", leader=" + leader +
-                ", members=" + members +
-                ", topics=" + topics +
-                ", report='" + report + '\'' +
-                ", grade=" + grade +
-                '}';
-    }
 }

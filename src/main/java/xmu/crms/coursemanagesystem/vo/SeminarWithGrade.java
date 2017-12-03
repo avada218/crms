@@ -1,13 +1,10 @@
-package xmu.crms.coursemanagesystem.entity;
+package xmu.crms.coursemanagesystem.vo;
+
+import xmu.crms.coursemanagesystem.entity.Seminar;
 
 import java.util.Date;
-import java.util.List;
 
-/**
- * @author badcode
- * @date 2017/11/30
- */
-public class Seminar {
+public class SeminarWithGrade {
 
     private Long id;
     private String name;
@@ -15,16 +12,17 @@ public class Seminar {
     private String groupingMethod;
     private Date startTime;
     private Date endTime;
-    private List<Topic> topics;
-    private Proportions proportions;
-    private Course course;
+    private Integer grade;
 
-    public Course getCourse() {
-        return course;
-    }
+    public SeminarWithGrade(){}
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public SeminarWithGrade(Seminar seminar, Integer grade) {
+        this.id = seminar.getId();
+        this.name = seminar.getName();
+        this.description = seminar.getDescription();
+        this.startTime = seminar.getStartTime();
+        this.endTime = seminar.getEndTime();
+        this.grade = grade;
     }
 
     public Long getId() {
@@ -75,34 +73,24 @@ public class Seminar {
         this.endTime = endTime;
     }
 
-    public List<Topic> getTopics() {
-        return topics;
+    public Integer getGrade() {
+        return grade;
     }
 
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
-    }
-
-    public Proportions getProportions() {
-        return proportions;
-    }
-
-    public void setProportions(Proportions proportions) {
-        this.proportions = proportions;
+    public void setGrade(Integer grade) {
+        this.grade = grade;
     }
 
     @Override
     public String toString() {
-        return "Seminar{" +
+        return "SeminarWithGrade{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", groupingMethod='" + groupingMethod + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", topics=" + topics +
-                ", proportions=" + proportions +
-                ", course=" + course +
+                ", grade=" + grade +
                 '}';
     }
 }
