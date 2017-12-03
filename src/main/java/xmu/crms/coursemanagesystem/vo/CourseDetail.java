@@ -1,4 +1,6 @@
-package xmu.crms.coursemanagesystem.entity;
+package xmu.crms.coursemanagesystem.vo;
+
+import xmu.crms.coursemanagesystem.entity.Course;
 
 public class CourseDetail {
 
@@ -7,6 +9,16 @@ public class CourseDetail {
     private String description;
     private String teacherName;
     private String teacherEmail;
+
+    public CourseDetail(){}
+
+    public CourseDetail(Course course) {
+        this.id = course.getId();
+        this.name = course.getName();
+        this.description = course.getDescription();
+        this.teacherName = course.getTeacher().getName();
+        this.teacherEmail = course.getTeacher().getEmail();
+    }
 
     public Long getId() {
         return id;

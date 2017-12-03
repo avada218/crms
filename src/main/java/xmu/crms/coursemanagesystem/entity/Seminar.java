@@ -1,6 +1,7 @@
 package xmu.crms.coursemanagesystem.entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author badcode
@@ -14,6 +15,7 @@ public class Seminar {
     private String groupingMethod;
     private Date startTime;
     private Date endTime;
+    private List<Topic> topics;
     private Proportions proportions;
 
     public Long getId() {
@@ -64,6 +66,14 @@ public class Seminar {
         this.endTime = endTime;
     }
 
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
+    }
+
     public Proportions getProportions() {
         return proportions;
     }
@@ -81,6 +91,7 @@ public class Seminar {
                 ", groupingMethod='" + groupingMethod + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
+                ", topics=" + topics +
                 ", proportions=" + proportions +
                 '}';
     }

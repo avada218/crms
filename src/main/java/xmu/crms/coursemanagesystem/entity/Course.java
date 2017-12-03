@@ -9,7 +9,7 @@ import java.util.Date;
 public class Course {
 
     private Long id;
-    private User user;
+    private User teacher;
     private String name;
     private Integer numClass;
     private Integer numStudent;
@@ -26,12 +26,12 @@ public class Course {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getTeacher() {
+        return teacher;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 
     public String getName() {
@@ -94,7 +94,7 @@ public class Course {
     public String toString() {
         return "Course{" +
                 "id=" + id +
-                ", user=" + user +
+                ", teacher=" + teacher +
                 ", name='" + name + '\'' +
                 ", numClass=" + numClass +
                 ", numStudent=" + numStudent +

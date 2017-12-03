@@ -11,6 +11,7 @@ public class Topic {
     private String name;
     private String description;
     private Integer groupLimit;
+    private Integer groupMemberLimit;
     private Integer groupLeft;
 
     public String getSerial() {
@@ -53,6 +54,14 @@ public class Topic {
         this.groupLimit = groupLimit;
     }
 
+    public Integer getGroupMemberLimit() {
+        return groupMemberLimit;
+    }
+
+    public void setGroupMemberLimit(Integer groupMemberLimit) {
+        this.groupMemberLimit = groupMemberLimit;
+    }
+
     public Integer getGroupLeft() {
         return groupLeft;
     }
@@ -69,6 +78,7 @@ public class Topic {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", groupLimit=" + groupLimit +
+                ", groupMemberLimit=" + groupMemberLimit +
                 ", groupLeft=" + groupLeft +
                 '}';
     }

@@ -68,13 +68,14 @@ public class CourseController {
     }
 
     @GetMapping("/course/{id}")
-    public Course getCourseInfo(@PathVariable("id") int id, HttpServletResponse response) {
-        Course courseInfo = new Course();
-        courseInfo.setId(23L);
-        courseInfo.setName("OOAD");
-        courseInfo.setDescription("面向对象分析与设计");
-        response.setStatus(200);
-        return courseInfo;
+    public CourseDetail getCourseInfo(@PathVariable("id") int id) {
+        CourseDetail courseDetail = new CourseDetail();
+        courseDetail.setId(23L);
+        courseDetail.setName("OOAD");
+        courseDetail.setDescription("面向对象分析与设计");
+        courseDetail.setTeacherName("邱明");
+        courseDetail.setTeacherEmail("mingqiu@xmu.edu.cn");
+        return courseDetail;
     }
 
     @GetMapping("/course/{courseId}/class")
@@ -100,7 +101,7 @@ public class CourseController {
     }
 
     @GetMapping("/course/{courseId}/seminar")
-    public List<Seminar> getSeminars(@PathVariable("courseId") int CourseId) {
+    public List<Object> getSeminars(@PathVariable("courseId") int CourseId, @PathVariable("embedGrade") boolean embedGrade) {
         List<Seminar> seminars = new ArrayList<Seminar>();
         Seminar seminar1 = new Seminar();
         seminar1.setId(29L);
