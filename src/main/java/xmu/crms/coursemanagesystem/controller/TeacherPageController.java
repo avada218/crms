@@ -74,6 +74,7 @@ public class TeacherPageController {
 
     @RequestMapping("/seminarInfo")
     public String seminarInfo() {
+        System.out.println("lal");
         return "teacher/TeacherSeminarInfo";
     }
 
@@ -100,5 +101,15 @@ public class TeacherPageController {
     @RequestMapping("/updateTopic")
     public String updateTopic() {
         return "teacher/TeacherUpdateTopic";
+    }
+
+    @RequestMapping("/updateCourse")
+    public String updateCourse() {
+        return "teacher/TeacherUpdateCourse";
+    }
+
+    @RequestMapping("/topicCheck")
+    public String topicCheck() {
+        return "teacher/TeacherTopicCheck";
     }
 }

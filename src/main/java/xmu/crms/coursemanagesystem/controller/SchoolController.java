@@ -15,7 +15,7 @@ import java.util.List;
 public class SchoolController {
 
     @GetMapping("/school")
-    public List<School> getSchools(@PathVariable("city") String city) {
+    public List<School> getSchools() {
         List<School> schools = new ArrayList<>();
         School school1 = new School();
         school1.setId(32L);
@@ -49,7 +49,7 @@ public class SchoolController {
     }
 
     @GetMapping("/school/city")
-    public List<String> getCityList(@PathVariable("province") String province) {
+    public List<String> getCityList() {
         List<String> cityList = new ArrayList<>();
         cityList.add("北京");
         cityList.add("天津");

@@ -194,7 +194,7 @@ public class SeminarController {
         return late;
     }
 
-    @GetMapping("/seminar/{seminarId}/class/{classId}/attendance/late")
+    @GetMapping("/seminar/{seminarId}/class/{classId}/attendance/absent")
     public List<User> getAbsent(@PathVariable("seminarId") int seminarId,
                               @PathVariable("classId") int classId) {
         List<User> absent = new ArrayList<>();
