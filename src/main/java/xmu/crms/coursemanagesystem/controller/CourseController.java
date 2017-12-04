@@ -47,19 +47,8 @@ public class CourseController {
         return courses;
     }
 
-    @DeleteMapping("/course/{id}")
-    public void deleteCourse(@PathVariable("id") int id, HttpServletResponse response) {
-        response.setStatus(204);
-    }
-
-    @PutMapping("/course/{id}")
-    public Response modify(@RequestBody Course course, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
-    }
-
     @PostMapping("/course")
-    public Course add(@RequestBody Course course, HttpServletResponse response) {
+    public Course createCourse(@RequestBody Course course, HttpServletResponse response) {
         System.out.println(course.toString());
         Course  newCourse = new Course();
         newCourse.setId(23L);
@@ -67,8 +56,8 @@ public class CourseController {
         return newCourse;
     }
 
-    @GetMapping("/course/{id}")
-    public CourseDetail getCourseInfo(@PathVariable("id") int id) {
+    @GetMapping("/course/{courseId}")
+    public CourseDetail getCourseInfo(@PathVariable("courseId") int courseId) {
         CourseDetail courseDetail = new CourseDetail();
         courseDetail.setId(23L);
         courseDetail.setName("OOAD");
@@ -78,8 +67,21 @@ public class CourseController {
         return courseDetail;
     }
 
+    @PutMapping("/course/{courseId}")
+    public Response updateCourse(@RequestBody Course course, @PathVariable("courseId") int courseId,
+                                 HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
+    }
+
+    @DeleteMapping("/course/{courseId}")
+    public Response deleteCourse(@PathVariable("courseId") int courseId, HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
+    }
+
     @GetMapping("/course/{courseId}/class")
-    public List<Class> getClasses(@PathVariable("courseId") int courseId) {
+    public List<Class> getClassesByCourse(@PathVariable("courseId") int courseId) {
         List<Class> classes = new ArrayList<Class>();
         Class class1 = new Class();
         class1.setId(45L);
@@ -93,7 +95,7 @@ public class CourseController {
     }
 
     @PostMapping("/course/{courseId}/class")
-    public Class addClass(@RequestBody Class newClass, @PathVariable("courseId") int courseId, HttpServletResponse response) {
+    public Class createClassForCourse(@RequestBody Class newClass, @PathVariable("courseId") int courseId, HttpServletResponse response) {
         Class ret = new Class();
         ret.setId(45L);
         response.setStatus(201);
@@ -101,8 +103,9 @@ public class CourseController {
     }
 
     @GetMapping("/course/{courseId}/seminar")
-    public List<Object> getSeminars(@PathVariable("courseId") int CourseId, @PathVariable("embedGrade") boolean embedGrade) {
-        List<Object> seminars = new ArrayList<>();
+    public List getSeminarsByCourse(@PathVariable("courseId") int CourseId,
+                                    @PathVariable(value = "embedGrade", required = false) Boolean embedGrade) {
+        List seminars = new ArrayList<>();
         Seminar seminar1 = new Seminar();
         seminar1.setId(29L);
         seminar1.setName("界面原型设计");
@@ -118,13 +121,13 @@ public class CourseController {
         seminar2.setId(32L);
         seminar2.setName("概要设计");
         seminar2.setDescription("模型层与数据库设计");
-        seminar2.setGroupingMethod("fixed");
+        seminar2.setGroupingMethod("random");
         calendar.set(2017,9,10);
         seminar2.setStartTime(calendar.getTime());
         calendar.set(2017,9,24);
         seminar2.setEndTime(calendar.getTime());
 
-        if(embedGrade) {
+        if(null != embedGrade && embedGrade == Boolean.TRUE) {
             seminars.add(new SeminarWithGrade(seminar1, 4));
             seminars.add(new SeminarWithGrade(seminar2, 5));
         } else {
@@ -135,7 +138,7 @@ public class CourseController {
     }
 
     @PostMapping("/course/{courseId}/seminar")
-    public Seminar addSeminar(@RequestBody Seminar seminar, HttpServletResponse response) {
+    public Seminar createSeminarForCourse(@RequestBody Seminar seminar, HttpServletResponse response) {
         Seminar newSeminar = new Seminar();
         newSeminar.setId(32L);
         response.setStatus(201);

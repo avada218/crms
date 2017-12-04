@@ -1,4 +1,4 @@
-package xmu.crms.coursemanagesystem.entity;
+package xmu.crms.coursemanagesystem.vo;
 
 
 import java.util.Date;

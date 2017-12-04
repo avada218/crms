@@ -1,9 +1,6 @@
 package xmu.crms.coursemanagesystem.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xmu.crms.coursemanagesystem.entity.School;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +15,7 @@ import java.util.List;
 public class SchoolController {
 
     @GetMapping("/school")
-    public List<School> getSchools() {
+    public List<School> getSchools(@PathVariable("city") String city) {
         List<School> schools = new ArrayList<>();
         School school1 = new School();
         school1.setId(32L);
@@ -41,5 +38,21 @@ public class SchoolController {
         ret.setId(38L);
         response.setStatus(201);
         return ret;
+    }
+
+    @GetMapping("/school/province")
+    public List<String> getProvinceList() {
+        List<String> provinceList = new ArrayList<>();
+        provinceList.add("北京");
+        provinceList.add("天津");
+        return provinceList;
+    }
+
+    @GetMapping("/school/city")
+    public List<String> getCityList(@PathVariable("province") String province) {
+        List<String> cityList = new ArrayList<>();
+        cityList.add("北京");
+        cityList.add("天津");
+        return cityList;
     }
 }

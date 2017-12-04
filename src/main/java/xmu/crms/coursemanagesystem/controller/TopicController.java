@@ -16,33 +16,16 @@ import java.util.List;
 @RestController
 public class TopicController {
 
-    @GetMapping("/topic/{id}")
-    public Topic getTopic(@PathVariable("id") int id) {
+    @GetMapping("/topic/{topicId}")
+    public Topic getTopic(@PathVariable("topicId") int topicId) {
         Topic topic = new Topic();
         topic.setId(257L);
         topic.setName("领域模型与模块");
         topic.setDescription("Domain model与模块划分");
         topic.setGroupLeft(2);
         topic.setGroupLimit(5);
+        topic.setGroupMemberLimit(6);
         return topic;
-    }
-
-    @GetMapping("/topic/{id}/group")
-    public List<Group> getGroups(@PathVariable("id") int id) {
-        List<Group> groups = new ArrayList<>();
-        Group group1 = new Group();
-        group1.setId(23L);
-        groups.add(group1);
-        Group group2 = new Group();
-        group2.setId(26L);
-        groups.add(group2);
-        return groups;
-    }
-
-    @DeleteMapping("/topic/{id}")
-    public Response deleteTopic(@PathVariable("id") int id, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
     }
 
     @PutMapping("/topic/{topicId}")
@@ -50,5 +33,25 @@ public class TopicController {
                                 HttpServletResponse response) {
         response.setStatus(204);
         return null;
+    }
+
+    @DeleteMapping("/topic/{topicId}")
+    public Response deleteTopic(@PathVariable("topicId") int topicId, HttpServletResponse response) {
+        response.setStatus(204);
+        return null;
+    }
+
+    @GetMapping("/topic/{topicId}/group")
+    public List<Group> getGroups(@PathVariable("topicId") int topicId) {
+        List<Group> groups = new ArrayList<>();
+        Group group1 = new Group();
+        group1.setId(23L);
+        group1.setName("1A1");
+        groups.add(group1);
+        Group group2 = new Group();
+        group2.setId(26L);
+        group2.setName("2A2");
+        groups.add(group2);
+        return groups;
     }
 }
