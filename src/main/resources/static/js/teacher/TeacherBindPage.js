@@ -73,7 +73,8 @@
             contentType: "application/json",
             data: JSON.stringify(teacherInfo),
             success: function () {
-
+                alert("绑定信息成功!");
+                window.location.href = "/teacher/home";
             }
         });
     });
