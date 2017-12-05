@@ -1,26 +1,35 @@
-﻿(function(){
-    window.onload = function() {
+﻿(function () {
+
+    if(localStorage.hasOwnProperty("userJson")) {
+        var userStr = localStorage.getItem("userJson");
+        var userJson = JSON.parse(userStr);
+        $("#username").text(userJson.phone);
+        $("#number").val(userJson.number);
+        $("#name").val(userJson.name);
+        $("#gender").val(userJson.gender == "male" ? "男" : "女");
+        $("#school").val(userJson.school.name);
+        $("#title").val(userJson.title);
+        $("#email").val(userJson.email);
+        $("#phone").val(userJson.phone);
+    } else {
         $.ajax({
-            type: "get",
-            // url: "http://rap2api.taobao.org/app/mock/933/GET/me",
             url: "/me",
-            success: function(data) {
-                //alert(data.id);
-                //document.getElementById("photo").innerHTML = data.avatar;
-                document.getElementById("username").innerHTML = data.phone;
-                document.getElementById("number").value = data.number;
-                document.getElementById("name").value = data.name;
-                document.getElementById("gender").value = data.gender == "male"? "nan" : "nv";
-                document.getElementById("school").value = data.school.name;
-                document.getElementById("title").value = data.title;
-                document.getElementById("email").value = data.email;
-                document.getElementById("phone").value = data.phone;
+            type: "GET",
+            success: function (data) {
+                $("#username").text(data.phone);
+                $("#number").val(data.number);
+                $("#name").val(data.name);
+                $("#gender").val(data.gender == "male" ? "男" : "女");
+                $("#school").val(data.school.name);
+                $("#title").val(data.title);
+                $("#email").val(data.email);
+                $("#phone").val(data.phone);
             }
         });
     }
 
-    $('#submit').on('click',function(){
-        data = {
+    $('.button button').on('click', function () {
+        var data = {
             phone: $("#phone").val(),
             email: $("#email").val(),
             number: $("#number").val(),
@@ -28,21 +37,18 @@
                 name: $("#school").val()
             },
             name: $("#name").val(),
-            gender: $("#gender").val(),
+            gender: $("#gender").val() == "男" ? "male" : "female",
             title: $("#title").val()
         };
 
         $.ajax({
             url: "/me",
-            type: "POST",
-            // url: "http://rap2api.taobao.org/app/mock/933/POST/me",
-            headers: {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "PUT"
-            },
+            type: "PUT",
+            contentType: "application/json",
             data: JSON.stringify(data),
             success: function () {
-                console.log("success!");
+                alert("修改成功!");
+                window.location.href = "/student/home";
             }
         });
     });

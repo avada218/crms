@@ -22,15 +22,24 @@ public class SeminarController {
     @GetMapping("/seminar/{seminarId}")
     public Seminar getSeminarInfo(@PathVariable("seminarId") int seminarId) {
         Seminar seminar = new Seminar();
-        seminar.setId(32L);
+        Calendar calendar = Calendar.getInstance();
+        if(seminarId == 29) {
+            seminar.setId(29L);
+            calendar.set(2017,9,10);
+            seminar.setStartTime(calendar.getTime());
+            calendar.set(2017,9,24);
+            seminar.setEndTime(calendar.getTime());
+            seminar.setGroupingMethod("fixed");
+        } else {
+            seminar.setId(32L);
+            calendar.set(2017,11,10);
+            seminar.setStartTime(calendar.getTime());
+            calendar.set(2017,11,24);
+            seminar.setEndTime(calendar.getTime());
+            seminar.setGroupingMethod("random");
+        }
         seminar.setName("概要设计");
         seminar.setDescription("模型层与数据库设计");
-        seminar.setGroupingMethod("fixed");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2017,9,10);
-        seminar.setStartTime(calendar.getTime());
-        calendar.set(2017,9,24);
-        seminar.setEndTime(calendar.getTime());
         List<Topic> topics = new ArrayList<>();
         Topic topic = new Topic();
         topic.setId(257L);

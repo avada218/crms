@@ -18,11 +18,12 @@ $(function () {
             $("#title").text(data.title);
             $("#email").text(data.email);
             $("#phone").text(data.phone);
+            localStorage.setItem("userJson", JSON.stringify(data));
         }
     });
 
     //修改按钮
     $(".button").click(function () {
         window.location.href = "/student/infoModify";
-    })
-})
+    });
+});

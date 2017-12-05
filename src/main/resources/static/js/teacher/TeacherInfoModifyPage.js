@@ -8,7 +8,7 @@ $(function () {
     $("input[name=idnum]").val(userJson.number);
     $("input[name=name]").val(userJson.name);
     $("input[name=sex]").val(userJson.gender=="male"?"男":"女");
-    $("input[name=school]").val(userJson.school);
+    $("input[name=school]").val(userJson.school.name);
     $("input[name=title]").val(userJson.title);
     $("input[name=e-mail]").val(userJson.email);
     $("input[name=phone]").val(userJson.phone);
@@ -30,6 +30,7 @@ $(function () {
             data: JSON.stringify(info),
             success: function () {
                 alert("修改个人信息成功");
+                window.location.href = "/teacher/home";
             },
             error:function () {
                 alert("修改个人信息失败");

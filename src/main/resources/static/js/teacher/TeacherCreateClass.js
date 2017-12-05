@@ -5,15 +5,15 @@
     if(localStorage.hasOwnProperty("courseJson")) {
         var courseJson = localStorage.getItem("courseJson");
         var course = JSON.parse(courseJson);
-        $("#courseName").val(course.name);
-        $("#courseIntroduction").val(course.description);
+        $(".courseName").text(course.name);
+        $(".courseIntroduction").text(course.description);
     } else {
         $.ajax({
             url: "/course/" + 3/*localStorage.getItem("courseId")*/,
             type: "GET",
             success: function (data) {
-                $("#courseName").text(data.name);
-                $("#courseIntroduction").text(data.description);
+                $(".courseName").text(data.name);
+                $(".courseIntroduction").text(data.description);
                 localStorage.setItem("courseJson", JSON.stringify(data));
             }
         });
@@ -47,7 +47,8 @@
             contentType: "application/json",
             data: JSON.stringify(classInfo),
             success: function (data) {
-                console.log("success!");
+                alert("课程创建成功!");
+                window.location.href = "/teacher/courseInformation";
             }
         });
     });

@@ -59,7 +59,8 @@ $(function () {
             contentType: "application/json",
             data: JSON.stringify(seminarInfo),
             success: function (data) {
-                console.log(data);
+                alert("更新讨论课信息成功！");
+                window.location.href = "/teacher/seminarInfo";
             },
             error:function () {
                 console.log("出现了错误");

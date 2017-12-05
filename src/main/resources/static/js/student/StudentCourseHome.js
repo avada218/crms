@@ -9,7 +9,7 @@ $(function () {
                 $(".content").append(
                     "<div class=\"main_box_right_content\" id=" + data[i].id + ">" +
                     "  <h3 class=\"classtitle\">" + data[i].courseName + "" +
-                    "    <button class='dropClass'>课程</button>" +
+                    "    <button class='dropClass'>退选课程</button>" +
                     "  </h3>" +
                     "  <div class=\"divideline\"></div>" +
                     "  <div class=\"classinfo\">" +

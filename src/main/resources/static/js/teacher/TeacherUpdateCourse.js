@@ -37,6 +37,7 @@ $(function () {
             data: JSON.stringify(course),
             success: function (data) {
                 alert("success!");
+                window.location.href = "/teacher/courseHome"
             }
         });
     });

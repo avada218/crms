@@ -122,9 +122,9 @@ public class CourseController {
         seminar2.setName("概要设计");
         seminar2.setDescription("模型层与数据库设计");
         seminar2.setGroupingMethod("random");
-        calendar.set(2017,9,10);
+        calendar.set(2017,11,10);
         seminar2.setStartTime(calendar.getTime());
-        calendar.set(2017,9,24);
+        calendar.set(2017,11,24);
         seminar2.setEndTime(calendar.getTime());
 
         if(null != embedGrade && embedGrade == Boolean.TRUE) {

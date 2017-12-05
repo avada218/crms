@@ -17,7 +17,8 @@ $(function () {
                 }
             }
         }
-    })
+    });
+
     $.ajax({
         url:"/group/"+groupId,
         // url: "http://rap2api.taobao.org/app/mock/933/GET/group/28",
@@ -26,7 +27,7 @@ $(function () {
             console.log(data);
             $("#leader").text(data.leader.name);
         }
-    })
+    });
     //查询seminar
     $.ajax({
         // url:"/seminar/"+seminarId,
@@ -35,7 +36,7 @@ $(function () {
         success: function (data) {
             $("#title").text(data.name);
         }
-    })
+    });
 
     //设置小组的报告分
     $("#giveScore").click(function () {
@@ -43,12 +44,12 @@ $(function () {
         console.log(score);
         $.ajax({
             url:"/group/"+groupId+"/grade/report",
-            type:"GET",
+            type:"PUT",
             contentType: "application/json",
-            data: JSON.stringify(seminarInfo),
+            data: JSON.stringify(score),
             success:function () {
-
+                window.location.href = "/teacher/scoreHome";
             }
-        })
-    })
-})
+        });
+    });
+});

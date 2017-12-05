@@ -14,8 +14,8 @@ $(function () {
     if (seminarJson != null) {
         seminarJson = JSON.parse(seminarJson);
         console.log(seminarJson);
-        //var startTime = string2date(seminarJson.startTime);
-        var startTime = string2date("2018-8-8");
+        var startTime = string2date(seminarJson.startTime);
+        // var startTime = string2date("2018-8-8");
         var nowData = new Date();
         if(startTime<nowData){
             //讨论课已经开始

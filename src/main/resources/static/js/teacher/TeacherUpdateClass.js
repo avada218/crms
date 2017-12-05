@@ -44,12 +44,13 @@ $(function () {
         };
 
         $.ajax({
-            url: "/course/" + 2 + "/class",
-            type: "POST",
+            url: "/class/" + 2,
+            type: "PUT",
             contentType: "application/json",
             data: JSON.stringify(classInfo),
             success: function (data) {
-                console.log("success!");
+                alert("修改成功!");
+                window.location.href = "/teacher/classInfo";
             }
         });
     });
@@ -87,6 +88,6 @@ $(function () {
     });
 
     $(".returnButton").on("click", function () {
-        window.history.back();
+        win
     })
 })

@@ -8,16 +8,19 @@ $(function () {
         reg = null;
         r = null;
         return context == null || context == "" || context == "undefined" ? "" : context;
-    };
+    }
+
     //var courseId = getQueryString("courseId")!=""?getQueryString("courseId"):23;
     courseId = 23;//测试数据有误
     var classId = getQueryString("classId") != "" ? getQueryString("classId") : 34;
     console.log(courseId);
 
     //通过localStorage缓存
-    if(localStorage.hasOwnProperty("courseName") && localStorage.hasOwnProperty("courseDescription")) {
-        $(".courseName").text(localStorage.getItem("courseName"));
-        $(".courseIntroduction").text(localStorage.getItem("courseDescription"));
+    if(localStorage.hasOwnProperty("courseJson")) {
+        var courseStr = localStorage.getItem("courseJson");
+        var courseJson = JSON.parse(courseStr);
+        $(".courseName").text(courseJson.name);
+        $(".courseIntroduction").text(courseJson.description);
     } else {
         $.ajax({
             url: "/course/" + courseId,
@@ -28,8 +31,7 @@ $(function () {
                 console.log(data);
                 $(".courseName").text(data.name);
                 $(".courseIntroduction").text(data.description);
-                localStorage.setItem("courseName", data.name);
-                localStorage.setItem("courseDescription", data.description);
+                localStorage.setItem("courseJson", JSON.stringify(data));
             }
         });
     }
@@ -56,6 +58,7 @@ $(function () {
     $(".body").on("click", "[name='seminer']", function () {
         var seminarId = $(this).attr("id");
         console.log(seminarId);
+        localStorage.setItem("seminarId", seminarId.toString());
         window.location.href = "/student/discussionClass";
     });
 

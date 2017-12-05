@@ -57,7 +57,7 @@ $(function () {
                 type: "DELETE",
                 success: function () {
                     alert("成功删除课程");
-                    window.history.back();
+                    window.location.href = "/teacher/courseInformation";
                 },
                 error: function () {
                     alert("删除课程失败");

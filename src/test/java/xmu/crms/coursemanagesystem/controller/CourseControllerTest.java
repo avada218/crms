@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import xmu.crms.coursemanagesystem.controller.CourseController;
 /**
  * 课程相关 API 测试
  * url-pattern: prefix="/course"
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @date 2017-12-3
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@WebMvcTest(CourseController.class)
 public class CourseControllerTest {
     @Autowired
     private MockMvc mvc;

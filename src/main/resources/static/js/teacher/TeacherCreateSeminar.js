@@ -8,7 +8,7 @@ $(function () {
 
     //返回上一页
     $(".returnButton").click(function () {
-        window.history.back();
+        window.location.href = "/teacher/courseInformation";
     })
 
     //点击了提交按钮
@@ -42,7 +42,8 @@ $(function () {
             contentType: "application/json",
             data: JSON.stringify(seminarInfo),
             success: function (data) {
-                console.log(data);
+                alert("创建讨论课成功!");
+                window.location.href = "/teacher/courseInformation";
             },
             error:function () {
                 console.log("出现了错误");

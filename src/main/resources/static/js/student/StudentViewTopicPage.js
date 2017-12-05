@@ -78,6 +78,7 @@ $(function () {
                     data: JSON.stringify(topic),
                     success: function (data) {
                         console.log(data);
+                        window.location.href = "/student/discussionClass";
                     }
                 });
             }
