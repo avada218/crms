@@ -20,6 +20,7 @@ public class TopicController {
     public Topic getTopic(@PathVariable("topicId") int topicId) {
         Topic topic = new Topic();
         topic.setId(257L);
+        topic.setSerial("A");
         topic.setName("领域模型与模块");
         topic.setDescription("Domain model与模块划分");
         topic.setGroupLeft(2);

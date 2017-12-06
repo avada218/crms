@@ -11,7 +11,7 @@ public class SeminarClasses {
     private Long id;
     private String name;
     private String courseName;
-    private String goupingMethond;
+    private String groupingMethond;
     private Date startTime;
     private Date endTime;
     private List<Class> classes;
@@ -51,6 +51,14 @@ public class SeminarClasses {
         this.courseName = courseName;
     }
 
+    public String getGroupingMethond() {
+        return groupingMethond;
+    }
+
+    public void setGroupingMethond(String groupingMethond) {
+        this.groupingMethond = groupingMethond;
+    }
+
     public Date getStartTime() {
         return startTime;
     }
@@ -75,21 +83,13 @@ public class SeminarClasses {
         this.classes = classes;
     }
 
-    public String getGoupingMethond() {
-        return goupingMethond;
-    }
-
-    public void setGoupingMethond(String goupingMethond) {
-        this.goupingMethond = goupingMethond;
-    }
-
     @Override
     public String toString() {
         return "SeminarClasses{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", courseName='" + courseName + '\'' +
-                ", goupingMethond='" + goupingMethond + '\'' +
+                ", groupingMethond='" + groupingMethond + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", classes=" + classes +

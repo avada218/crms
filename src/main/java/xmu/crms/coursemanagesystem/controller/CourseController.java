@@ -81,8 +81,8 @@ public class CourseController {
     }
 
     @GetMapping("/course/{courseId}/class")
-    public List<Class> getClassesByCourse(@PathVariable("courseId") int courseId) {
-        List<Class> classes = new ArrayList<Class>();
+    public List<Class> getClassesByCourse() {
+        List<Class> classes = new ArrayList();
         Class class1 = new Class();
         class1.setId(45L);
         class1.setName("周三1-2节");
@@ -151,7 +151,7 @@ public class CourseController {
         seminarClasses.setId(29L);
         seminarClasses.setName("界面原型设计");
         seminarClasses.setCourseName("OOAD");
-        seminarClasses.setGoupingMethond("fixed");
+        seminarClasses.setGroupingMethond("fixed");
         Calendar calendar = Calendar.getInstance();
         calendar.set(2017,8,25);
         seminarClasses.setStartTime(calendar.getTime());

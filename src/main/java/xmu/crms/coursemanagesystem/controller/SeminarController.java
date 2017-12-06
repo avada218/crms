@@ -96,8 +96,8 @@ public class SeminarController {
         return seminarDetail;
     }
 
-    @GetMapping("/seminar/{semianrId}/topic")
-    public List<Topic> getTopics(@PathVariable("semianrId") int semianrId) {
+    @GetMapping("/seminar/{seminarId}/topic")
+    public List<Topic> getTopics(@PathVariable("seminarId") int seminarId) {
         List<Topic> topics = new ArrayList();
         Topic topic = new Topic();
         topic.setId(257L);
@@ -139,6 +139,7 @@ public class SeminarController {
     public Group getMyGroup(@PathVariable("seminarId") int seminarId) {
         Group group = new Group();
         group.setId(28L);
+        group.setName("28");
         User leader = new User();
         leader.setId(8888L);
         leader.setName("张三");
