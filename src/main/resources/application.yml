@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://120.77.173.98:3306/xmu8204?characterEncoding=utf8&useSSL=false
+    username: xmu8204
+    password: a1ec6719
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: xmu.crms.entity

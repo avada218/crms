@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xmu.crms.mapper.TopicMapper">
+
+    <resultMap id="topicResultMap" type="Topic">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="groupNumberLimit" column="group_number_limit"/>
+        <result property="groupStudentLimit" column="group_student_limit"/>
+        <association property="seminar" column="seminar_id"
+                     select="xmu.crms.mapper.SeminarMapper.getSeminarBySeminarId"/>
+    </resultMap>
+
+    <select id="getTopicByTopicId" resultMap="topicResultMap">
+        select
+        id, name, description, group_number_limit, group_student_limit, seminar_id
+        from topic
+        where id = #{id}
+    </select>
+</mapper>
