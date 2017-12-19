@@ -1,11 +1,15 @@
 package xmu.crms.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xmu.crms.entity.SeminarGroup;
 import xmu.crms.entity.Topic;
+import xmu.crms.exception.TopicNotFoundException;
+import xmu.crms.service.TopicService;
 import xmu.crms.vo.Response;
 
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +20,18 @@ import java.util.List;
 @RestController
 public class TopicController {
 
+    @Autowired
+    TopicService topicService;
+
     @GetMapping("/topic/{topicId}")
     public Topic getTopic(@PathVariable("topicId") int topicId) {
+        BigInteger id = new BigInteger(String.valueOf(topicId));
         Topic topic = new Topic();
-//        topic.setId(257L);
-//        topic.setSerial("A");
-//        topic.setName("领域模型与模块");
-//        topic.setDescription("Domain model与模块划分");
-//        topic.setGroupLeft(2);
-//        topic.setGroupLimit(5);
-//        topic.setGroupMemberLimit(6);
+        try {
+            topic = topicService.getTopicByTopicId(id);
+        } catch (TopicNotFoundException e) {
+
+        }
         return topic;
     }
 

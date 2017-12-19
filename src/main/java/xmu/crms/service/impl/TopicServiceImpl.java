@@ -1,8 +1,8 @@
 package xmu.crms.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import xmu.crms.entity.Topic;
-import xmu.crms.exception.InfoIllegalException;
 import xmu.crms.exception.TopicNotFoundException;
 import xmu.crms.mapper.TopicMapper;
 import xmu.crms.service.TopicService;
@@ -10,49 +10,55 @@ import xmu.crms.service.TopicService;
 import java.math.BigInteger;
 import java.util.List;
 
-public class TopicServiceImpl implements TopicService{
+/**
+ *
+ * @author badcode
+ * @date 2017/12/19
+ *
+ */
+@Service
+public class TopicServiceImpl implements TopicService {
 
     @Autowired
-    TopicMapper topicMapper;
+    private TopicMapper topicMapper;
 
     @Override
-    public Topic getTopicByTopicId(BigInteger topicId) throws TopicNotFoundException, InfoIllegalException {
-        Topic topic = topicMapper.getTopicByTopicId(topicId);
-        return topic;
+    public Topic getTopicByTopicId(BigInteger topicId) throws TopicNotFoundException, IllegalArgumentException {
+        return topicMapper.getTopicByTopicId(topicId);
     }
 
     @Override
-    public Boolean updateTopicByTopicId(BigInteger topicId, Topic topic) throws TopicNotFoundException, InfoIllegalException {
+    public Boolean updateTopicByTopicId(BigInteger topicId, Topic topic) throws TopicNotFoundException, IllegalArgumentException {
         return null;
     }
 
     @Override
-    public Boolean deleteTopicByTopicId(BigInteger topicId, BigInteger seminarId) throws InfoIllegalException {
+    public Boolean deleteTopicByTopicId(BigInteger topicId, BigInteger seminarId) throws IllegalArgumentException {
         return null;
     }
 
     @Override
-    public List<Topic> listTopicBySeminarId(BigInteger seminarId) throws InfoIllegalException {
+    public List<Topic> listTopicBySeminarId(BigInteger seminarId) throws IllegalArgumentException {
         return null;
     }
 
     @Override
-    public BigInteger insertTopicBySeminarId(BigInteger seminarId, Topic topic) throws InfoIllegalException {
+    public BigInteger insertTopicBySeminarId(BigInteger seminarId, Topic topic) throws IllegalArgumentException {
         return null;
     }
 
     @Override
-    public Boolean deleteTopicById(BigInteger groupId, BigInteger topicId) throws InfoIllegalException {
+    public Boolean deleteTopicById(BigInteger groupId, BigInteger topicId) throws IllegalArgumentException {
         return null;
     }
 
     @Override
-    public Boolean deleteSeminarGroupTopicByTopicId(BigInteger topicId) throws InfoIllegalException {
+    public Boolean deleteSeminarGroupTopicByTopicId(BigInteger topicId) throws IllegalArgumentException {
         return null;
     }
 
     @Override
-    public Boolean deleteTopicBySeminarId(BigInteger seminarId) throws InfoIllegalException {
+    public Boolean deleteTopicBySeminarId(BigInteger seminarId) throws IllegalArgumentException {
         return null;
     }
 }

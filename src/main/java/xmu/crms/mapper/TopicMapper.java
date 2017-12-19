@@ -17,10 +17,21 @@ import java.math.BigInteger;
 public interface TopicMapper {
 
     /**
+     *
      * get topic by topic id
      *
      * @param id topicId
      * @return Topic
+     *
      */
     Topic getTopicByTopicId(BigInteger id);
+
+    /**
+     *
+     * update topic by topicId
+     *
+     * @param topic 话题信息
+     *
+     */
+    void updateTopicByTopicId(Topic topic);
 }

@@ -12,14 +12,14 @@ import java.util.List;
 /**
  *
  * @author badcode
- * @date 2017/12/18
+ * @date 2017/12/19
  *
  */
 @Service
 public class SchoolServiceImpl implements SchoolService {
 
     @Autowired
-    SchoolMapper schoolMapper;
+    private SchoolMapper schoolMapper;
 
     @Override
     public List<School> listSchoolByCity(String city) {
@@ -27,11 +27,9 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public School insertSchool(School school) {
-        String id = String.valueOf(schoolMapper.insertSchool(school));
-        School newSchool = new School();
-        newSchool.setId(new BigInteger(id));
-        return newSchool;
+    public Boolean insertSchool(School school) {
+        schoolMapper.insertSchool(school);
+        return true;
     }
 
     @Override
@@ -45,7 +43,9 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public School getSchoolBySchoolId(BigInteger SchoolId) {
-        return schoolMapper.getSchoolBySchoolId(SchoolId);
+    public School getSchoolBySchoolId(BigInteger schoolId) {
+        School school = new School();
+        school.setId(schoolId);
+        return schoolMapper.getSchoolBySchoolId(school);
     }
 }

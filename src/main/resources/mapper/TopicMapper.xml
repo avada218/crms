@@ -20,4 +20,26 @@
         from topic
         where id = #{id}
     </select>
+
+    <update id="updateTopicByTopicId">
+        UPDATE topic
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="groupNumberLimit != null">
+                group_number_limit = #{groupNumberLimit},
+            </if>
+            <if test="groupStudentLimit != null">
+                groupStudentLimit = #{groupStudentLimit},
+            </if>
+            <if test="seminar != null">
+                seminar_id = #{seminar.id}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>
