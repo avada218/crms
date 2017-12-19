@@ -2,8 +2,8 @@ package xmu.crms.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xmu.crms.dao.SchoolDAO;
 import xmu.crms.entity.School;
-import xmu.crms.mapper.SchoolMapper;
 import xmu.crms.service.SchoolService;
 
 import java.math.BigInteger;
@@ -19,16 +19,15 @@ import java.util.List;
 public class SchoolServiceImpl implements SchoolService {
 
     @Autowired
-    private SchoolMapper schoolMapper;
+    private SchoolDAO schoolDAO;
 
     @Override
     public List<School> listSchoolByCity(String city) {
-        return schoolMapper.listSchoolByCity(city);
+        return schoolDAO.listSchoolByCity(city);
     }
 
     @Override
     public Boolean insertSchool(School school) {
-        schoolMapper.insertSchool(school);
         return true;
     }
 
@@ -44,8 +43,6 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public School getSchoolBySchoolId(BigInteger schoolId) {
-        School school = new School();
-        school.setId(schoolId);
-        return schoolMapper.getSchoolBySchoolId(school);
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package xmu.crms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import xmu.crms.dao.SchoolDAO;
 import xmu.crms.entity.School;
 import xmu.crms.service.SchoolService;
 
@@ -14,39 +15,19 @@ import java.util.List;
  * @date 2017/12/01
  */
 @RestController
+@RequestMapping("/school")
 public class SchoolController {
 
     @Autowired
-    SchoolService schoolService;
+    private SchoolService schoolService;
 
-    @GetMapping("/school")
+    @GetMapping
     public List<School> getSchools(String city) {
-        List<School> schoolList = schoolService.listSchoolByCity(city);
-        System.out.println(city);
-        return schoolList;
+        return schoolService.listSchoolByCity(city);
     }
 
-    @PostMapping("/school")
+    @PostMapping
     public School addSchool(@RequestBody School school, HttpServletResponse response) {
-        System.out.println(school);
-        School ret = schoolService.insertSchool(school);
-        response.setStatus(201);
-        return ret;
-    }
-
-    @GetMapping("/school/province")
-    public List<String> getProvinceList() {
-        List<String> provinceList = new ArrayList<>();
-        provinceList.add("北京");
-        provinceList.add("天津");
-        return provinceList;
-    }
-
-    @GetMapping("/school/city")
-    public List<String> getCityList() {
-        List<String> cityList = new ArrayList<>();
-        cityList.add("北京");
-        cityList.add("天津");
-        return cityList;
+        return null;
     }
 }

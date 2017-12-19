@@ -2,6 +2,7 @@ package xmu.crms.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xmu.crms.dao.TopicDAO;
 import xmu.crms.entity.Topic;
 import xmu.crms.exception.TopicNotFoundException;
 import xmu.crms.mapper.TopicMapper;
@@ -20,11 +21,15 @@ import java.util.List;
 public class TopicServiceImpl implements TopicService {
 
     @Autowired
-    private TopicMapper topicMapper;
+    private TopicDAO topicDAO;
 
     @Override
     public Topic getTopicByTopicId(BigInteger topicId) throws TopicNotFoundException, IllegalArgumentException {
-        return topicMapper.getTopicByTopicId(topicId);
+        if (topicId.intValue() <= 0) {
+            IllegalArgumentException exception = new IllegalArgumentException("topicId");
+            throw exception;
+        }
+        return topicDAO.getTopicByTopicId(topicId);
     }
 
     @Override

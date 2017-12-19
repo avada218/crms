@@ -14,41 +14,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * @author badcode
  * @date 2017/12/01
+ *
  */
 @RestController
+@RequestMapping("/topic")
 public class TopicController {
 
     @Autowired
     TopicService topicService;
 
-    @GetMapping("/topic/{topicId}")
-    public Topic getTopic(@PathVariable("topicId") int topicId) {
-        BigInteger id = new BigInteger(String.valueOf(topicId));
-        Topic topic = new Topic();
-        try {
-            topic = topicService.getTopicByTopicId(id);
-        } catch (TopicNotFoundException e) {
-
-        }
-        return topic;
+    @GetMapping("/{topicId}")
+    public Topic getTopic(@PathVariable("topicId") String topicId) throws TopicNotFoundException, IllegalArgumentException {
+        BigInteger id = new BigInteger(topicId);
+        return topicService.getTopicByTopicId(id);
     }
 
-    @PutMapping("/topic/{topicId}")
+    @PutMapping("/{topicId}")
     public Response modifyTopic(@PathVariable("topicId") int topicId, @RequestBody Topic topic,
                                 HttpServletResponse response) {
         response.setStatus(204);
         return null;
     }
 
-    @DeleteMapping("/topic/{topicId}")
+    @DeleteMapping("/{topicId}")
     public Response deleteTopic(@PathVariable("topicId") int topicId, HttpServletResponse response) {
         response.setStatus(204);
         return null;
     }
 
-    @GetMapping("/topic/{topicId}/group")
+    @GetMapping("/{topicId}/group")
     public List<SeminarGroup> getGroups(@PathVariable("topicId") int topicId) {
         List<SeminarGroup> groups = new ArrayList<>();
 //        Group group1 = new Group();
