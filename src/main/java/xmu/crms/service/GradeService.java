@@ -64,6 +64,4 @@ public interface GradeService {
 	 * @return Boolean true 操作成功 false 操作失败
 	 */
 	Boolean updateGroupByGroupId(BigInteger seminar_group_id, BigInteger grade) ;
-
-
 }

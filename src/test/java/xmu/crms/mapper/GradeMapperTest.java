@@ -21,10 +21,8 @@ public class GradeMapperTest {
     private GradeMapper gm;
 
     @Test
-    public void mytest() {
-        //Boolean t1=gm.deleteStudentScoreGroupByTopicId(new BigInteger("100"));
-        //System.out.println(t1);
-       // Boolean t2= gm.insertGroupGradeByUserId(new BigInteger("1000"),new BigInteger("2"),new BigInteger("25"),new BigInteger("5"));
-       // System.out.println(t2);
+    public void deleteStudentScoreGroupByTopicIdTest() {
+        Boolean t1=gm.deleteStudentScoreGroupByTopicId(new BigInteger("100"));
+        System.out.println(t1);
     }
 }

@@ -14,21 +14,33 @@
         VALUES (#{userId}, #{groupId},#{grade})
     </insert>
 
-    <select id="getSeminarGroupBySeminarGroupId" resultType="xmu.crms.entity.SeminarGroup">
-        SELECT id,seminar_id,report_grade,presentation_grade,final_grade,report,class_id,leader_id
+    <select id="getSeminarGroupBySeminarGroupId" parameterType="xmu.crms.entity.SeminarGroup" resultMap="seminarGroupResult">
+        SELECT id,seminar_id,report_grade,presentation_grade,final_grade,class_id,leader_id
         FROM seminar_group
-        WHERE id=#{seminarGroup.id}
+        WHERE id=#{id}
     </select>
+    <resultMap id="seminarGroupResult" type="xmu.crms.entity.SeminarGroup">
+        <id property="id" column="id"/>
+        <result property="seminar.id" column="seminar_id"/>
+        <result property="reportGrade" column="report_grade"/>
+        <result property="presentationGrade" column="presentation_grade"/>
+        <result property="finalGrade" column="final_grade"/>
+        <result property="classInfo.id" column="class_id"/>
+        <result property="leader.id" column="leader_id"/>
+    </resultMap>
 
-    <select id="listSeminarGroupIdByUserId" parameterType="BigInteger">
+    <select id="listSeminarGroupIdByUserId" parameterType="BigInteger" resultMap="seminarGroupIdResult">
         SELECT seminar_group_id,user_id
-        FROM seminar_group_menmber
+        FROM seminar_group_member
         WHERE student_id=#{userId}
     </select>
+    <resultMap id="seminarGroupIdResult" type="xmu.crms.entity.SeminarGroup">
+        <result property="id" column="seminar_group_id"/>
+    </resultMap>
 
     <update id="updateGroupByGroupId" parameterType="xmu.crms.entity.SeminarGroup">
         UPDATE seminar_group
-        SET report_grade = #{seminarGroup.reportGrade}
-        WHERE id = #{seminarGroup.id}
+        SET report_grade = #{reportGrade}
+        WHERE id = #{id}
     </update>
 </mapper>
