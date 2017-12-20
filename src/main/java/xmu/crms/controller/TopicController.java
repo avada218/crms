@@ -26,6 +26,7 @@ public class TopicController {
     TopicService topicService;
 
     @GetMapping("/{topicId}")
+    @ResponseStatus(HttpStatus.OK)
     public Topic getTopic(@PathVariable("topicId") String topicId) throws TopicNotFoundException, IllegalArgumentException {
         BigInteger id = new BigInteger(topicId);
         return topicService.getTopicByTopicId(id);
