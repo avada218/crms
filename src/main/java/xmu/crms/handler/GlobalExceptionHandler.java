@@ -1,0 +1,40 @@
+package xmu.crms.handler;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import xmu.crms.exception.TopicNotFoundException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author badcode
+ * @date 2017/12/19
+ *
+ */
+@ControllerAdvice
+@RestController
+public class GlobalExceptionHandler {
+
+
+    @ExceptionHandler(value = TopicNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response topicNotFoundHandler() {
+        Response response = new Response("未找到主题");
+        return response;
+    }
+
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response illegalArgumentHandler(IllegalArgumentException e) {
+        Response response = new Response("错误的ID格式");
+        List<String> error = new ArrayList<>();
+        error.add(e.getMessage());
+        response.setError(error);
+        return response;
+    }
+}

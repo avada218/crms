@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xmu.crms.mapper.SeminarGroupTopicMapper">
+
+    <resultMap id="groupSeminarTopicResultMap" type="SeminarGroupTopic">
+        <id property="id" column="id"/>
+        <result property="presentationGrade" column="presentation_grade"/>
+        <association property="seminarGroup" column="seminar_group_id" select="xmu.crms.mapper.SeminarGroup.getSeminarGroupByGroupId"/>
+        <association property="topic" column="topic_id" select="xmu.crms.mapper.TopicMapper.getTopicByTopicId"/>
+    </resultMap>
+
+    <select id="getBySeminarAndTopic" parameterType="SeminarGroupTopic" resultMap="groupSeminarTopicResultMap">
+        SELECT id, topic_id, seminar_id, presentation_grade
+        FROM seminar_group_topic
+        WHERE topic_id=#{topic.id} AND seminar_id=#{seminar.id}
+    </select>
+
+    <delete id="deleteById" parameterType="SeminarGroupTopic">
+        DELETE FROM seminar_group_topic WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteByGroupAndTopic" parameterType="SeminarGroupTopic">
+        DELETE FROM seminar_group_topic
+        WHERE topic_id=#{topic.id} AND seminar_group_id=#{seminarGroup.id}
+    </delete>
+
+    <delete id="deleteByTopic" parameterType="Topic">
+        DELETE FROM seminar_group_topic
+        WHERE topic_id=#{id}
+    </delete>
+
+</mapper>

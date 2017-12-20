@@ -1,58 +1,53 @@
 package xmu.crms.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import xmu.crms.entity.SeminarGroup;
 import xmu.crms.entity.Topic;
-import xmu.crms.vo.Response;
+import xmu.crms.exception.TopicNotFoundException;
+import xmu.crms.service.TopicService;
 
-import javax.servlet.http.HttpServletResponse;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * @author badcode
  * @date 2017/12/01
+ *
  */
 @RestController
+@RequestMapping("/topic")
 public class TopicController {
 
-    @GetMapping("/topic/{topicId}")
-    public Topic getTopic(@PathVariable("topicId") int topicId) {
-        Topic topic = new Topic();
-//        topic.setId(257L);
-//        topic.setSerial("A");
-//        topic.setName("领域模型与模块");
-//        topic.setDescription("Domain model与模块划分");
-//        topic.setGroupLeft(2);
-//        topic.setGroupLimit(5);
-//        topic.setGroupMemberLimit(6);
-        return topic;
+    @Autowired
+    TopicService topicService;
+
+    @GetMapping("/{topicId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Topic getTopic(@PathVariable("topicId") String topicId) throws TopicNotFoundException, IllegalArgumentException {
+        BigInteger id = new BigInteger(topicId);
+        return topicService.getTopicByTopicId(id);
     }
 
-    @PutMapping("/topic/{topicId}")
-    public Response modifyTopic(@PathVariable("topicId") int topicId, @RequestBody Topic topic,
-                                HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @PutMapping("/{topicId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void modifyTopic(@PathVariable("topicId") String topicId, @RequestBody Topic topic) throws TopicNotFoundException, IllegalArgumentException {
+        BigInteger id = new BigInteger(topicId);
+        topicService.updateTopicByTopicId(id, topic);
     }
 
-    @DeleteMapping("/topic/{topicId}")
-    public Response deleteTopic(@PathVariable("topicId") int topicId, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @DeleteMapping("/{topicId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTopic(@PathVariable("topicId") String topicId) {
+        topicService.deleteTopicByTopicId(new BigInteger(topicId));
     }
 
-    @GetMapping("/topic/{topicId}/group")
+    @GetMapping("/{topicId}/group")
     public List<SeminarGroup> getGroups(@PathVariable("topicId") int topicId) {
         List<SeminarGroup> groups = new ArrayList<>();
-//        Group group1 = new Group();
-//        group1.setId(23L);
-//        group1.setName("1A1");
-//        groups.add(group1);
-//        Group group2 = new Group();
-//        group2.setId(26L);
-//        group2.setName("2A2");
-//        groups.add(group2);
         return groups;
     }
 }
