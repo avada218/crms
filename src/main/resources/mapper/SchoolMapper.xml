@@ -16,11 +16,16 @@
     </select>
 
     <insert id="insertSchool" parameterType="School" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO school (name, province, city) VALUES (#{name}, #{province}, #{city})
+        INSERT INTO school
+        (name, province, city)
+        VALUES (#{name}, #{province}, #{city})
     </insert>
 
-    <select id="getSchoolBySchoolId" resultMap="schoolResultMap">
-        SELECT id, name, province, city FROM school WHERE id=#{id}
+    <select id="getSchoolBySchoolId" resultMap="schoolResultMap" parameterType="School">
+        SELECT
+        id, name, province, city
+        FROM school
+        WHERE id=#{id}
     </select>
 
 </mapper>

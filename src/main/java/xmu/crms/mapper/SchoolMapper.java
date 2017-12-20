@@ -25,15 +25,17 @@ public interface SchoolMapper {
     List<School> listSchoolByCity(String city);
 
     /**
+     *
      * 新建学校
      * @param school 学校信息
-     * @return Boolean 是否新建成功
+     * @return Integer 影响行数
+     *
      */
-    int insertSchool(School school);
+    Integer insertSchool(School school);
 
     /**
      * 根据学校ID获取学校信息
-     * @param id 学校ID
+     * @param school 存储了学校id
      * @return School
      */
     School getSchoolBySchoolId(School school);

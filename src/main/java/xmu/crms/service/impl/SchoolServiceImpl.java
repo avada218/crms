@@ -27,8 +27,8 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public Boolean insertSchool(School school) {
-        return true;
+    public BigInteger insertSchool(School school) {
+        return schoolDAO.insertSchool(school);
     }
 
     @Override
@@ -43,6 +43,11 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public School getSchoolBySchoolId(BigInteger schoolId) {
-        return null;
+        if (schoolId.intValue() <= 0) {
+            throw new IllegalArgumentException("schoolId");
+        }
+        School school = new School();
+        school.setId(schoolId);
+        return schoolDAO.getSchoolBySchoolId(school);
     }
 }
