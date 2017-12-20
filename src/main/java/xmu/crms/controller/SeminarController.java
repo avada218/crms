@@ -1,13 +1,17 @@
 package xmu.crms.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import xmu.crms.entity.Seminar;
 import xmu.crms.entity.SeminarGroup;
 import xmu.crms.entity.Topic;
 import xmu.crms.entity.User;
+import xmu.crms.service.TopicService;
 import xmu.crms.vo.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -17,28 +21,32 @@ import java.util.List;
  * @date 2017/11/29
  */
 @RestController
+@RequestMapping("/seminar")
 public class SeminarController {
 
-    @GetMapping("/seminar/{seminarId}")
+    @Autowired
+    private TopicService topicService;
+
+    @GetMapping("/{seminarId}")
     public Seminar getSeminarInfo(@PathVariable("seminarId") int seminarId) {
         Seminar seminar = new Seminar();
         return seminar;
     }
 
-    @PutMapping("/seminar/{seminarId}")
+    @PutMapping("/{seminarId}")
     public Response modifySeminar(@PathVariable("seminarId") int seminarId, @RequestBody Seminar seminar,
                                   HttpServletResponse response) {
         response.setStatus(204);
         return null;
     }
 
-    @DeleteMapping("/seminar/{seminarId}")
+    @DeleteMapping("/{seminarId}")
     public Response deleteSeminar(@PathVariable("seminarId") int seminarId, HttpServletResponse response) {
         response.setStatus(204);
         return null;
     }
 
-    @GetMapping("/seminar/{seminarId}/my")
+    @GetMapping("/{seminarId}/my")
     public StudentSeminar getRelatedSeminar(@PathVariable("seminarId") int seminarId) {
         StudentSeminar seminar = new StudentSeminar();
         seminar.setId(32L);
@@ -56,7 +64,7 @@ public class SeminarController {
         return seminar;
     }
 
-    @GetMapping("/seminar/{seminarId}/detail")
+    @GetMapping("/{seminarId}/detail")
     public SeminarDetail getSeminarDetail(@PathVariable("seminarId") int seminarId) {
         SeminarDetail seminarDetail = new SeminarDetail();
         seminarDetail.setId(32L);
@@ -72,30 +80,21 @@ public class SeminarController {
         return seminarDetail;
     }
 
-    @GetMapping("/seminar/{seminarId}/topic")
-    public List<Topic> getTopics(@PathVariable("seminarId") int seminarId) {
-        List<Topic> topics = new ArrayList();
-//        Topic topic = new Topic();
-//        topic.setId(257L);
-//        topic.setName("领域模型与模块");
-//        topic.setDescription("Domain model与模块划分");
-//        topic.setGroupLeft(2);
-//        topic.setGroupLimit(5);
-//        topic.setGroupMemberLimit(6);
-//        topics.add(topic);
-        return topics;
+    @GetMapping("/{seminarId}/topic")
+    public List<Topic> getTopics(@PathVariable("seminarId") String seminarId) throws IllegalArgumentException {
+        return topicService.listTopicBySeminarId(new BigInteger(seminarId));
     }
 
-    @PostMapping("/seminar/{seminarId}/topic")
-    public Topic addTopic(@PathVariable("seminarId") int seminarId, @RequestBody Topic topic,
-                          HttpServletResponse response) {
+    @PostMapping("/{seminarId}/topic")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Topic addTopic(@PathVariable("seminarId") String seminarId, @RequestBody Topic topic) {
+        BigInteger id = topicService.insertTopicBySeminarId(new BigInteger(seminarId), topic);
         Topic newTopic = new Topic();
-//        newTopic.setId(257L);
-        response.setStatus(201);
+        newTopic.setId(id);
         return newTopic;
     }
 
-    @GetMapping("/seminar/{seminarId}/group")
+    @GetMapping("/{seminarId}/group")
     public List<SeminarGroup> getGroups(@PathVariable("seminarId") int id) {
         List<SeminarGroup> groups = new ArrayList<>();
 //        Group group = new Group();
@@ -111,7 +110,7 @@ public class SeminarController {
         return groups;
     }
 
-    @GetMapping("/seminar/{seminarId}/group/my")
+    @GetMapping("/{seminarId}/group/my")
     public SeminarGroup getMyGroup(@PathVariable("seminarId") int seminarId) {
         SeminarGroup group = new SeminarGroup();
 //        group.setId(28L);
@@ -139,7 +138,7 @@ public class SeminarController {
         return group;
     }
 
-    @GetMapping("/seminar/{seminarId}/class/{classId}/attendance")
+    @GetMapping("/{seminarId}/class/{classId}/attendance")
     public AttendanceStatus getAttendanceStatus(@PathVariable("seminarId") int seminarId,
                                                 @PathVariable("classId") int classId) {
         AttendanceStatus attendanceStatus = new AttendanceStatus();
@@ -165,7 +164,7 @@ public class SeminarController {
         return present;
     }
 
-    @GetMapping("/seminar/{seminarId}/class/{classId}/attendance/late")
+    @GetMapping("/{seminarId}/class/{classId}/attendance/late")
     public List<User> getLate(@PathVariable("seminarId") int seminarId,
                                  @PathVariable("classId") int classId) {
         List<User> late = new ArrayList<>();
@@ -180,7 +179,7 @@ public class SeminarController {
         return late;
     }
 
-    @GetMapping("/seminar/{seminarId}/class/{classId}/attendance/absent")
+    @GetMapping("/{seminarId}/class/{classId}/attendance/absent")
     public List<User> getAbsent(@PathVariable("seminarId") int seminarId,
                               @PathVariable("classId") int classId) {
         List<User> absent = new ArrayList<>();
@@ -191,7 +190,7 @@ public class SeminarController {
         return absent;
     }
 
-    @PutMapping("/seminar/{seminarId}/class/{classId}/attendance/{studentId}")
+    @PutMapping("/{seminarId}/class/{classId}/attendance/{studentId}")
     public Status signIn(@PathVariable("seminarId") int seminarId,
                          @PathVariable("studentId") int studentId,
                          @RequestBody SiteVO site, HttpServletResponse response) {

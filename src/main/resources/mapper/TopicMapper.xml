@@ -19,7 +19,7 @@
         where id = #{id}
     </select>
 
-    <update id="updateTopicByTopicId">
+    <update id="updateTopicByTopicId" parameterType="Topic">
         UPDATE topic
         <set>
             <if test="name != null">
@@ -40,4 +40,22 @@
         </set>
         WHERE id=#{id}
     </update>
+
+    <delete id="deleteTopicByTopicId" parameterType="Topic">
+        DELETE FROM topic WHERE id=#{id}
+    </delete>
+
+    <select id="listTopicBySeminarId" parameterType="Seminar" resultMap="topicResultMap">
+        SELECT
+        id, name, description, group_number_limit, group_student_limit
+        FROM topic
+        WHERE seminar_id=#{id}
+    </select>
+
+    <insert id="insertTopicBySeminarId" parameterType="Topic" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO topic
+        (id, name, description, group_number_limit, group_student_limit, seminar_id)
+        VALUES
+        (#{id}, #{name}, #{description}, #{groupNumberLimit}, #{groupStudentLimit}, #{seminar.id})
+    </insert>
 </mapper>
