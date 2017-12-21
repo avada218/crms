@@ -30,7 +30,7 @@ public interface SeminarMapper {
      * @param seminarId
      * @return true删除成功 false删除失败
      */
-    Boolean deleteSeminarBySeminarId(BigInteger seminarId);
+    Integer deleteSeminarBySeminarId(BigInteger seminarId);
 
     /**
      * 获得学生当前讨论课信息.
@@ -64,7 +64,7 @@ public interface SeminarMapper {
      * @param seminar
      * @return seminarId 若创建成功返回创建的讨论课id，失败则返回-1
      */
-    Boolean insertSeminarByCourseId(Seminar seminar);
+    Integer insertSeminarByCourseId(Seminar seminar);
 
     /**
      * 按课程id获取讨论课.
@@ -80,5 +80,5 @@ public interface SeminarMapper {
      * @param seminar
      * @return true修改成功 false修改失败
      */
-    Boolean updateSeminarBySeminarId(Seminar seminar);
+    Integer updateSeminarBySeminarId(Seminar seminar);
 }
