@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xmu.crms.mapper.GradeMapper">
+
+    <delete id="deleteStudentScoreGroupByTopicId" parameterType="BigInteger">
+        DELETE FROM student_score_group
+        WHERE seminar_group_topic_id=#{topicId}
+    </delete>
+
+    <insert id="insertGroupGradeByUserId">
+        INSERT INTO student_score_group(student_id,seminar_group_topic_id,grade)
+        VALUES (#{userId}, #{groupId},#{grade})
+    </insert>
+
+    <select id="getSeminarGroupBySeminarGroupId" parameterType="xmu.crms.entity.SeminarGroup" resultMap="seminarGroupResult">
+        SELECT id,seminar_id,report_grade,presentation_grade,final_grade,class_id,leader_id
+        FROM seminar_group
+        WHERE id=#{id}
+    </select>
+    <resultMap id="seminarGroupResult" type="xmu.crms.entity.SeminarGroup">
+        <id property="id" column="id"/>
+        <result property="seminar.id" column="seminar_id"/>
+        <result property="reportGrade" column="report_grade"/>
+        <result property="presentationGrade" column="presentation_grade"/>
+        <result property="finalGrade" column="final_grade"/>
+        <result property="classInfo.id" column="class_id"/>
+        <result property="leader.id" column="leader_id"/>
+    </resultMap>
+
+    <select id="listSeminarGroupIdByUserId" parameterType="BigInteger" resultMap="seminarGroupIdResult">
+        SELECT seminar_group_id,user_id
+        FROM seminar_group_member
+        WHERE student_id=#{userId}
+    </select>
+    <resultMap id="seminarGroupIdResult" type="xmu.crms.entity.SeminarGroup">
+        <result property="id" column="seminar_group_id"/>
+    </resultMap>
+
+    <update id="updateGroupByGroupId" parameterType="xmu.crms.entity.SeminarGroup">
+        UPDATE seminar_group
+        SET report_grade = #{reportGrade}
+        WHERE id = #{id}
+    </update>
+</mapper>
