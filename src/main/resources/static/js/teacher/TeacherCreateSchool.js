@@ -1,24 +1,45 @@
 (function () {
     $.ajax({
-        url: "/school/province",
+        url: "http://apis.map.qq.com/ws/district/v1/list?key=7DFBZ-K4PWQ-TYK5Y-GL7XN-RBDSQ-XSB6M&output=jsonp",
         type: "GET",
+        dataType: "JSONP",
         success: function (data) {
-            for(var i = 0;i<data.length;i++)
+            console.log(data);
+            var result = data.result[0];
+            for(var i = 0;i<result.length;i++)
                 $("#province").append(
-                    "<option value=\"" + data[i] + "\">" + data[i] + "</option>"
+                    "<option value=\"" + result[i].name + "\" id=\"" + result[i].id + "\">" + result[i].name + "</option>"
                 );
             $.ajax({
-                url: "/school/city?province=" + $("#province option:selected").attr("value"),
+                url: "http://apis.map.qq.com/ws/district/v1/getchildren?key=7DFBZ-K4PWQ-TYK5Y-GL7XN-RBDSQ-XSB6M&output=jsonp&id=" + $("#province option:selected").attr("id"),
                 type: "GET",
+                dataType: "JSONP",
                 success: function (data) {
-                    for(var i = 0;i<data.length;i++)
+                    var result = data.result[0];
+                    for(var i = 0;i<result.length;i++)
                         $("#city").append(
-                            "<option value=\"" + data[i] + "\">" + data[i] + "</option>"
+                            "<option value=\"" + result[i].name + "\" id=\"" + result[i].id + "\">" + result[i].name + "</option>"
                         );
                 }
             });
         }
     });
+
+    $("#province").change(function () {
+        $("#city").empty();
+        $.ajax({
+            url: "http://apis.map.qq.com/ws/district/v1/getchildren?key=7DFBZ-K4PWQ-TYK5Y-GL7XN-RBDSQ-XSB6M&output=jsonp&id=" + $("#province option:selected").attr("id"),
+            type: "GET",
+            dataType: "JSONP",
+            success: function (data) {
+                var result = data.result[0];
+                for(var i = 0;i<result.length;i++)
+                    $("#city").append(
+                        "<option value=\"" + result[i].name + "\" id=\"" + result[i].id + "\">" + result[i].name + "</option>"
+                    );
+            }
+        });
+    })
     
     $("#submit").on("click", function () {
         school = {

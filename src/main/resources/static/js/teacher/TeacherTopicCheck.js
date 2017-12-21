@@ -38,8 +38,8 @@ $(function () {
 
             $("#name").text(data.name);
             $("#desc").text(data.description);
-            $("#groupLimit").text(data.groupLimit);
-            $("#groupMemberLimit").text(data.groupMemberLimit);
+            $("#groupLimit").text(data.groupNumberLimit);
+            $("#groupMemberLimit").text(data.groupStudentLimit);
 
             //查询多少小组选择了该topic
             $.ajax({
