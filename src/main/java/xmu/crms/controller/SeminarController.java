@@ -28,25 +28,26 @@ public class SeminarController {
     private TopicService topicService;
 
     @GetMapping("/{seminarId}")
+    @ResponseStatus(HttpStatus.OK)
     public Seminar getSeminarInfo(@PathVariable("seminarId") int seminarId) {
         Seminar seminar = new Seminar();
         return seminar;
     }
 
     @PutMapping("/{seminarId}")
-    public Response modifySeminar(@PathVariable("seminarId") int seminarId, @RequestBody Seminar seminar,
-                                  HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void modifySeminar(@PathVariable("seminarId") int seminarId, @RequestBody Seminar seminar) {
+
     }
 
     @DeleteMapping("/{seminarId}")
-    public Response deleteSeminar(@PathVariable("seminarId") int seminarId, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSeminar(@PathVariable("seminarId") int seminarId) {
+
     }
 
     @GetMapping("/{seminarId}/my")
+    @ResponseStatus(HttpStatus.OK)
     public StudentSeminar getRelatedSeminar(@PathVariable("seminarId") int seminarId) {
         StudentSeminar seminar = new StudentSeminar();
         seminar.setId(32L);
@@ -65,6 +66,7 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/detail")
+    @ResponseStatus(HttpStatus.OK)
     public SeminarDetail getSeminarDetail(@PathVariable("seminarId") int seminarId) {
         SeminarDetail seminarDetail = new SeminarDetail();
         seminarDetail.setId(32L);
@@ -81,6 +83,7 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/topic")
+    @ResponseStatus(HttpStatus.OK)
     public List<Topic> getTopics(@PathVariable("seminarId") String seminarId) throws IllegalArgumentException {
         return topicService.listTopicBySeminarId(new BigInteger(seminarId));
     }
@@ -95,6 +98,7 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/group")
+    @ResponseStatus(HttpStatus.OK)
     public List<SeminarGroup> getGroups(@PathVariable("seminarId") int id) {
         List<SeminarGroup> groups = new ArrayList<>();
 //        Group group = new Group();
@@ -111,6 +115,7 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/group/my")
+    @ResponseStatus(HttpStatus.OK)
     public SeminarGroup getMyGroup(@PathVariable("seminarId") int seminarId) {
         SeminarGroup group = new SeminarGroup();
 //        group.setId(28L);
@@ -139,6 +144,7 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/class/{classId}/attendance")
+    @ResponseStatus(HttpStatus.OK)
     public AttendanceStatus getAttendanceStatus(@PathVariable("seminarId") int seminarId,
                                                 @PathVariable("classId") int classId) {
         AttendanceStatus attendanceStatus = new AttendanceStatus();
@@ -150,6 +156,7 @@ public class SeminarController {
     }
 
     @GetMapping("seminar/{seminarId}/class/{classId}/attendance/present")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> getPresent(@PathVariable("seminarId") int seminarId,
                                  @PathVariable("classId") int classId) {
         List<User> present = new ArrayList<>();
@@ -165,6 +172,7 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/class/{classId}/attendance/late")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> getLate(@PathVariable("seminarId") int seminarId,
                                  @PathVariable("classId") int classId) {
         List<User> late = new ArrayList<>();
@@ -180,6 +188,7 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/class/{classId}/attendance/absent")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> getAbsent(@PathVariable("seminarId") int seminarId,
                               @PathVariable("classId") int classId) {
         List<User> absent = new ArrayList<>();
@@ -191,6 +200,7 @@ public class SeminarController {
     }
 
     @PutMapping("/{seminarId}/class/{classId}/attendance/{studentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public Status signIn(@PathVariable("seminarId") int seminarId,
                          @PathVariable("studentId") int studentId,
                          @RequestBody SiteVO site, HttpServletResponse response) {

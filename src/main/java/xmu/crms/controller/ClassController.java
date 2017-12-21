@@ -1,5 +1,6 @@
 package xmu.crms.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import xmu.crms.entity.SeminarGroup;
 import xmu.crms.entity.User;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ClassController {
 
     @GetMapping("/class")
+    @ResponseStatus(HttpStatus.OK)
     public List<CourseClassVO> getClassList() {
         List<CourseClassVO> courseClasses = new ArrayList<>();
         CourseClassVO courseClass1 = new CourseClassVO();
@@ -48,6 +50,7 @@ public class ClassController {
     }
 
     @GetMapping("/class/{classId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public Class getClass(@PathVariable("classId") int id) {
 //        Class class1 = new Class();
 //        class1.setId(23L);
@@ -68,21 +71,19 @@ public class ClassController {
     }
 
     @PutMapping("/class/{classId}")
-    public Response updateClass(@PathVariable("classId") int classId,
-                                @RequestBody Class newClass,
-                                HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateClass(@PathVariable("classId") int classId,
+                            @RequestBody Class newClass) {
     }
 
     @DeleteMapping("/class/{classId}")
-    public Response deleteClass(@PathVariable("classId") int classId,
-                                HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteClass(@PathVariable("classId") int classId) {
+
     }
 
     @GetMapping("/class/{classId}/student")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> getStudentList(@PathVariable int classId) {
 //        List<User> students = new ArrayList();
 //        User student1 = new User();
@@ -99,22 +100,21 @@ public class ClassController {
     }
 
     @PostMapping("/class/{classId}/student")
-    public SelectClassVO chooseClass(@RequestBody User student, @PathVariable("classId") int classId, HttpServletResponse response) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public SelectClassVO chooseClass(@RequestBody User student, @PathVariable("classId") int classId) {
         SelectClassVO ret = new SelectClassVO();
         ret.setUrl("/class/34/student/2757");
-        response.setStatus(201);
         return ret;
     }
 
     @DeleteMapping("/class/{classId}/student/{studentId}")
-    public Response cancelClass(@PathVariable("classId") int classId,
-                                @PathVariable("studentId") int studentId,
-                                HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelClass(@PathVariable("classId") int classId,
+                            @PathVariable("studentId") int studentId) {
     }
 
     @GetMapping("/class/{classId}/classgroup")
+    @ResponseStatus(HttpStatus.OK)
     public SeminarGroup getClassGroup(@PathVariable("classId") int classId) {
 //        ClassGroup classGroup = new ClassGroup();
 //        User leader = new User();
@@ -138,34 +138,30 @@ public class ClassController {
     }
 
     @PutMapping("/class/{classId}/classgroup/resign")
-    public Response resignLeader(@PathVariable("classId") int classId,
-                                 @RequestBody User student,
-                                 HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void resignLeader(@PathVariable("classId") int classId,
+                                 @RequestBody User student) {
+
     }
 
     @PutMapping("/class/{classId}/classgroup/assign")
-    public Response assignLeader(@PathVariable("classId") int classId,
-                                 @RequestBody User student,
-                                 HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void assignLeader(@PathVariable("classId") int classId,
+                                 @RequestBody User student) {
+
     }
 
     @PutMapping("/class/{classId}/classgroup/add")
-    public Response addMember(@PathVariable("classId") int classId,
-                              @RequestBody User student,
-                              HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addMember(@PathVariable("classId") int classId,
+                              @RequestBody User student) {
+
     }
 
     @PutMapping("/class/{classId}/classgroup/remove")
-    public Response removeMember(@PathVariable("classId") int classId,
-                                 @RequestBody User student,
-                                 HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeMember(@PathVariable("classId") int classId,
+                                 @RequestBody User student) {
+
     }
 }

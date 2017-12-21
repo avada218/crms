@@ -26,6 +26,7 @@ public class GroupController {
     private TopicService topicService;
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public FixGroup getGroupInfo(@PathVariable("id") int id) {
 //        Group group = new Group();
 //        group.setId(28L);
@@ -54,39 +55,38 @@ public class GroupController {
     }
 
     @PutMapping("/{groupId}/resign")
-    public Response leaderResign(@PathVariable("groupId") int groupId,
-                                 @RequestBody User leader, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void leaderResign(@PathVariable("groupId") int groupId,
+                                 @RequestBody User leader) {
+
     }
 
     @PutMapping("/{groupId}/assign")
-    public Response leaderAssign(@PathVariable("groupId") int groupId,
-                                 @RequestBody User leader, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void leaderAssign(@PathVariable("groupId") int groupId,
+                                 @RequestBody User leader) {
+
     }
 
     @PutMapping("/{groupId}/remove")
-    public Response removeMember(@PathVariable("groupId") int groupId,
-                                 @RequestBody User leader, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeMember(@PathVariable("groupId") int groupId,
+                                 @RequestBody User leader) {
+
     }
 
     @PutMapping("/{groupId}/add")
-    public Response addMember(@PathVariable("groupId") int groupId,
-                              @RequestBody User leader, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addMember(@PathVariable("groupId") int groupId,
+                              @RequestBody User leader) {
+
     }
 
     @PostMapping("/{groupId}/topic")
-    public SelectTopicVO selectTopic(@PathVariable("groupId") int groupId, @RequestBody Topic topic,
-                                     HttpServletResponse response) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public SelectTopicVO selectTopic(@PathVariable("groupId") int groupId, @RequestBody Topic topic) {
         SelectTopicVO ret = new SelectTopicVO();
         ret.setUrl("/27/topic/23");
-        response.setStatus(201);
         return ret;
     }
 
@@ -98,6 +98,7 @@ public class GroupController {
     }
 
     @GetMapping("/{groupId}/grade")
+    @ResponseStatus(HttpStatus.OK)
     public Object getGrade(@PathVariable("groupId") int groupId){
 //        SeminarGrade grade = new SeminarGrade();
 //        List<TopicGrade> presentationGrade = new ArrayList<>();
@@ -116,16 +117,14 @@ public class GroupController {
     }
 
     @PutMapping("/{groupId}/grade/report")
-    public Response setGrade(@PathVariable("groupId") int groupId,
-                             HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void setGrade(@PathVariable("groupId") int groupId) {
+
     }
 
     @PutMapping("/{groupId}/grade/presentation/{studentId}")
-    public Response studentSetGrade(@PathVariable("groupId") int groupId, @PathVariable("studentId") int studentId,
-                                    HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void studentSetGrade(@PathVariable("groupId") int groupId, @PathVariable("studentId") int studentId) {
+
     }
 }
