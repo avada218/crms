@@ -131,4 +131,11 @@ public class TopicServiceImpl implements TopicService {
         }
         return true;
     }
+
+    @Override
+    public SeminarGroupTopic getSeminarGroupTopicById(BigInteger topicId, BigInteger groupId) throws IllegalArgumentException
+    {
+        SeminarGroupTopic seminarGroupTopic=new SeminarGroupTopic();
+        return seminarGroupTopic;
+    }
 }

@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import xmu.crms.entity.*;
 import xmu.crms.exception.*;
 
@@ -14,6 +16,7 @@ import xmu.crms.exception.*;
  * @version 2.10
  *
  */
+
 public interface SeminarService {
 
 	/**

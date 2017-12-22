@@ -35,8 +35,8 @@ public class SeminarMapperTest {
 
     @Test
     public void deleteSeminarBySeminarIdTest() {
-        Boolean isDeleted = seminarMapper.deleteSeminarBySeminarId(new BigInteger("22"));
-        System.out.println(isDeleted);
+        Integer res = seminarMapper.deleteSeminarBySeminarId(new BigInteger("22"));
+        System.out.println(res > 0);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class SeminarMapperTest {
         seminar.setStartTime(new Date(2017 - 12 - 15));
         seminar.setEndTime(new Date(2017 - 12 - 25));
 
-        Boolean isInserted = seminarMapper.insertSeminarByCourseId(seminar);
+        Integer isInserted = seminarMapper.insertSeminarByCourseId(seminar);
         System.out.println(seminar.getId());
         System.out.println(isInserted);
     }
@@ -67,7 +67,7 @@ public class SeminarMapperTest {
         Seminar seminar = seminarMapper.getSeminarBySeminarId(new BigInteger("9"));
         seminar.setName("small apple");
 
-        Boolean isUpdated = seminarMapper.updateSeminarBySeminarId(seminar);
+        Integer isUpdated = seminarMapper.updateSeminarBySeminarId(seminar);
         System.out.println(seminar);
         System.out.println(isUpdated);
     }
