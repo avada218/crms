@@ -1,11 +1,7 @@
 package xmu.crms.entity;
 
 import java.math.BigInteger;
-/**
- *
- * @author DatabaseStandardGroup
- * @date 2017/12/22
- */
+
 public class Location {
 	private BigInteger id;
 	private ClassInfo classInfo;

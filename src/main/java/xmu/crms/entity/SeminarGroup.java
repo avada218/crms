@@ -1,11 +1,7 @@
 package xmu.crms.entity;
 
 import java.math.BigInteger;
-/**
- *
- * @author DatabaseStandardGroup
- * @date 2017/12/22
- */
+
 public class SeminarGroup {
 	private BigInteger id;
 	private Seminar seminar;
@@ -15,6 +11,7 @@ public class SeminarGroup {
 	private Integer presentationGrade;
 	private Integer finalGrade;
 	private User leader;
+	private FixGroup fixGroup;
 
 	public BigInteger getId() {
 		return id;
@@ -80,17 +77,11 @@ public class SeminarGroup {
 		this.leader = leader;
 	}
 
-	@Override
-	public String toString() {
-		return "SeminarGroup{" +
-				"id=" + id +
-				", seminar=" + seminar +
-				", classInfo=" + classInfo +
-				", report='" + report + '\'' +
-				", reportGrade=" + reportGrade +
-				", presentationGrade=" + presentationGrade +
-				", finalGrade=" + finalGrade +
-				", leader=" + leader +
-				'}';
+	public FixGroup getFixGroup() {
+		return fixGroup;
+	}
+
+	public void setFixGroup(FixGroup fixGroup) {
+		this.fixGroup = fixGroup;
 	}
 }

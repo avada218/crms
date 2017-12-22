@@ -1,11 +1,7 @@
 package xmu.crms.entity;
 
 import java.math.BigInteger;
-/**
- *
- * @author DatabaseStandardGroup
- * @date 2017/12/22
- */
+
 public class User {
 	private BigInteger id;
 	private String phone;
@@ -106,24 +102,5 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", phone='" + phone + '\'' +
-				", wechatId='" + wechatId + '\'' +
-				", openid='" + openid + '\'' +
-				", avatar='" + avatar + '\'' +
-				", password='" + password + '\'' +
-				", name='" + name + '\'' +
-				", school=" + school +
-				", gender=" + gender +
-				", type=" + type +
-				", number='" + number + '\'' +
-				", education=" + education +
-				", title=" + title +
-				", email='" + email + '\'' +
-				'}';
-	}
+	
 }
