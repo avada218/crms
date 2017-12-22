@@ -3,10 +3,12 @@ package xmu.crms.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xmu.crms.dao.FixGroupDao;
+import xmu.crms.dao.FixGroupMemberDAO;
 import xmu.crms.entity.*;
 import xmu.crms.exception.*;
 import xmu.crms.service.FixGroupService;
 import xmu.crms.service.SeminarGroupService;
+import xmu.crms.service.UserService;
 
 import java.math.BigInteger;
 import java.util.Iterator;
@@ -25,6 +27,12 @@ public class FixGroupServiceImpl implements FixGroupService {
     @Autowired
     private SeminarGroupService seminarGroupService;
 
+    @Autowired
+    private FixGroupMemberDAO fixGroupMemberDAO;
+
+    @Autowired
+    private UserService userService;
+
     @Override
     public BigInteger insertFixGroupByClassId(BigInteger classId, BigInteger userId) throws
             IllegalArgumentException,ClassesNotFoundException,UserNotFoundException {
@@ -34,7 +42,6 @@ public class FixGroupServiceImpl implements FixGroupService {
             BigInteger addRow = fixGroupDao.insertFixGroupByClassId(classId,userId);
             return addRow;
         }
-
     }
 
     @Override
@@ -140,12 +147,40 @@ public class FixGroupServiceImpl implements FixGroupService {
         if (userId.intValue() <= 0) {
             throw new IllegalArgumentException("userId");
         }
-        fixGroupDao.getFixGroupByGroupId(fixGroupId);
+        FixGroup fixGroup = fixGroupDao.getFixGroupByGroupId(fixGroupId);
+        if (null == fixGroup) {
+            throw new FixGroupNotFoundException();
+        }
+        List<User> members = listFixGroupMemberByGroupId(fixGroupId);
+        User student = userService.getUserByUserId(userId);
+        boolean contains = false;
+        Iterator<User> iterator = members.iterator();
+        while (iterator.hasNext()) {
+            User member = iterator.next();
+            if (member.getId().equals(userId)) {
+                contains = true;
+                break;
+            }
+        }
+        if (!contains) {
+            throw new UserNotFoundException();
+        }
+        FixGroupMember fixGroupMember = new FixGroupMember();
+        fixGroupMember.setFixGroup(fixGroup);
+        fixGroupMember.setStudent(student);
+        fixGroupMemberDAO.deleteStudentFromFixGroup(fixGroupMember);
     }
 
     @Override
     public List<FixGroupMember> listFixGroupByGroupId(BigInteger groupId) throws IllegalArgumentException, FixGroupNotFoundException {
-        return null;
+        if (groupId.intValue() <= 0) {
+            throw new IllegalArgumentException("groupId");
+        }
+        FixGroup fixGroup = fixGroupDao.getFixGroupByGroupId(groupId);
+        if (null == fixGroup) {
+            throw new FixGroupNotFoundException();
+        }
+        return fixGroupMemberDAO.listFixGroupMemberByFixGroup(fixGroup);
     }
 
     @Override
