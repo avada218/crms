@@ -11,9 +11,9 @@
         <result property="city" column="city"/>
     </resultMap>
 
-    <select id="listSchoolByCity" resultMap="schoolResultMap">
-        SELECT id, name, province, city FROM school WHERE city=#{city}
-    </select>
+    <!--<select id="listSchoolByCity" resultMap="schoolResultMap">-->
+        <!--SELECT id, name, province, city FROM school WHERE city=#{city}-->
+    <!--</select>-->
 
     <insert id="insertSchool" parameterType="School" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO school

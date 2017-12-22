@@ -53,4 +53,14 @@ public interface SeminarGroupTopicMapper {
      *
      */
     Integer deleteByTopic(Topic topic);
+
+    /**
+     *
+     * 根据Id查找记录
+     *
+     * @param seminarGroupTopic 存储了Id
+     * @return 查询结果
+     *
+     */
+    SeminarGroupTopic getById(SeminarGroupTopic seminarGroupTopic);
 }

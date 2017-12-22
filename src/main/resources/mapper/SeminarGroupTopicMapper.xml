@@ -5,17 +5,17 @@
 
 <mapper namespace="xmu.crms.mapper.SeminarGroupTopicMapper">
 
-    <resultMap id="groupSeminarTopicResultMap" type="SeminarGroupTopic">
+    <resultMap id="seminarGroupTopicResultMap" type="SeminarGroupTopic">
         <id property="id" column="id"/>
         <result property="presentationGrade" column="presentation_grade"/>
-        <association property="seminarGroup" column="seminar_group_id" select="xmu.crms.mapper.SeminarGroup.getSeminarGroupByGroupId"/>
+        <result property="seminarGroup.id" column="seminar_group_id"/>
         <association property="topic" column="topic_id" select="xmu.crms.mapper.TopicMapper.getTopicByTopicId"/>
     </resultMap>
 
-    <select id="getBySeminarAndTopic" parameterType="SeminarGroupTopic" resultMap="groupSeminarTopicResultMap">
-        SELECT id, topic_id, seminar_id, presentation_grade
+    <select id="getBySeminarAndTopic" parameterType="SeminarGroupTopic" resultMap="seminarGroupTopicResultMap">
+        SELECT id, topic_id, seminar_group_id, presentation_grade
         FROM seminar_group_topic
-        WHERE topic_id=#{topic.id} AND seminar_id=#{seminar.id}
+        WHERE topic_id=#{topic.id} AND seminar_group_id=#{seminarGroup.id}
     </select>
 
     <delete id="deleteById" parameterType="SeminarGroupTopic">
@@ -31,5 +31,11 @@
         DELETE FROM seminar_group_topic
         WHERE topic_id=#{id}
     </delete>
+
+    <select id="getById" parameterType="SeminarGroupTopic" resultMap="seminarGroupTopicResultMap">
+        SELECT id, topic_id, seminar_group_id, presentation_grade
+        FROM seminar_group_topic
+        WHERE id=#{id}
+    </select>
 
 </mapper>

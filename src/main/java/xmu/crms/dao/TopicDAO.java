@@ -22,12 +22,12 @@ public class TopicDAO {
     @Autowired
     TopicMapper topicMapper;
 
-    public Topic getTopicByTopicId(BigInteger id) throws TopicNotFoundException {
-        Topic topic = topicMapper.getTopicByTopicId(id);
-        if (null == topic) {
+    public Topic getTopicByTopicId(Topic topic) throws TopicNotFoundException {
+        Topic result = topicMapper.getTopicByTopicId(topic);
+        if (null == result) {
             throw new TopicNotFoundException();
         }
-        return topic;
+        return result;
     }
 
     public Boolean updateTopicByTopicId(Topic topic) throws TopicNotFoundException {

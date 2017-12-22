@@ -1,7 +1,11 @@
 package xmu.crms.entity;
 
 import java.math.BigInteger;
-
+/**
+ *
+ * @author DatabaseStandardGroup
+ * @date 2017/12/22
+ */
 public class StudentScoreGroup {
 	private BigInteger id;
 	private User student;
@@ -32,14 +36,5 @@ public class StudentScoreGroup {
 	public void setGrade(Integer grade) {
 		this.grade = grade;
 	}
-
-	@Override
-	public String toString() {
-		return "StudentScoreGroup{" +
-				"id=" + id +
-				", student=" + student +
-				", seminarGroupTopic=" + seminarGroupTopic +
-				", grade=" + grade +
-				'}';
-	}
+	
 }

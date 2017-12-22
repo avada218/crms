@@ -12,7 +12,7 @@
         <result property="groupStudentLimit" column="group_student_limit"/>
     </resultMap>
 
-    <select id="getTopicByTopicId" resultMap="topicResultMap">
+    <select id="getTopicByTopicId" resultMap="topicResultMap" parameterType="Topic">
         select
         id, name, description, group_number_limit, group_student_limit
         from topic

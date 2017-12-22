@@ -1,12 +1,10 @@
 package xmu.crms.entity;
 
 import java.math.BigInteger;
-
 /**
  *
- * @author badcode
- * @date 2017/12/18
- *
+ * @author DatabaseStandardGroup
+ * @date 2017/12/22
  */
 public class School {
 	private BigInteger id;

@@ -1,23 +1,20 @@
-package xmu.crms.mapper;
+package xmu.crms.dao;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import xmu.crms.entity.Topic;
 
-import java.math.BigInteger;
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class TopicMapperTest {
+@RunWith(SpringRunner.class)
+public class SchoolDAOTest {
 
     @Autowired
-    private TopicMapper topicMapper;
+    SchoolDAO schoolDAO;
 
     @Test
-    public void testGetTopicByTopicId() {
-
+    public void testListSchoolByCity() {
+        System.out.println(schoolDAO.listSchoolByCity("太原"));
     }
 }

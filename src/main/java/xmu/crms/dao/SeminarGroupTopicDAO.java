@@ -27,4 +27,8 @@ public class SeminarGroupTopicDAO {
         int result = seminarGroupTopicMapper.deleteByTopic(topic);
         return result > 0;
     }
+
+    public SeminarGroupTopic getSeminarGroupTopicById(SeminarGroupTopic seminarGroupTopic) {
+        return seminarGroupTopicMapper.getBySeminarAndTopic(seminarGroupTopic);
+    }
 }

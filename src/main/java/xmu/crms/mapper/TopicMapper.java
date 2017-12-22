@@ -22,11 +22,11 @@ public interface TopicMapper {
      *
      * get topic by topic id
      *
-     * @param id topicId
+     * @param topic 存储了topicId
      * @return Topic
      *
      */
-    Topic getTopicByTopicId(BigInteger id);
+    Topic getTopicByTopicId(Topic topic);
 
     /**
      *

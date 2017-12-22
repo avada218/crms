@@ -1,6 +1,7 @@
 package xmu.crms.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 import xmu.crms.entity.School;
 
@@ -22,6 +23,7 @@ public interface SchoolMapper {
      * @param city 城市名称
      * @return List<School> 满足条件的学校列表
      */
+    @Select("SELECT id, name, province, city FROM school WHERE city=#{city}")
     List<School> listSchoolByCity(String city);
 
     /**

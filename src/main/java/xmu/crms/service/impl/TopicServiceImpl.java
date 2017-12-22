@@ -36,7 +36,9 @@ public class TopicServiceImpl implements TopicService {
             IllegalArgumentException exception = new IllegalArgumentException("topicId");
             throw exception;
         }
-        return topicDAO.getTopicByTopicId(topicId);
+        Topic topic = new Topic();
+        topic.setId(topicId);
+        return topicDAO.getTopicByTopicId(topic);
     }
 
     @Override
@@ -130,5 +132,23 @@ public class TopicServiceImpl implements TopicService {
             }
         }
         return true;
+    }
+
+    @Override
+    public SeminarGroupTopic getSeminarGroupTopicById(BigInteger topicId, BigInteger groupId) throws IllegalArgumentException {
+        if (topicId.intValue() <= 0) {
+            throw new IllegalArgumentException("topicId");
+        }
+        if (groupId.intValue() <= 0) {
+            throw new IllegalArgumentException("groupId");
+        }
+        SeminarGroupTopic seminarGroupTopic = new SeminarGroupTopic();
+        Topic topic = new Topic();
+        topic.setId(topicId);
+        SeminarGroup seminarGroup = new SeminarGroup();
+        seminarGroup.setId(groupId);
+        seminarGroupTopic.setTopic(topic);
+        seminarGroupTopic.setSeminarGroup(seminarGroup);
+        return seminarGroupTopicDAO.getSeminarGroupTopicById(seminarGroupTopic);
     }
 }

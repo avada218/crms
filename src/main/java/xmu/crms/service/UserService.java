@@ -2,12 +2,18 @@ package xmu.crms.service;
 
 import java.math.BigInteger;
 import java.util.List;
-import xmu.crms.entity.*;
-import xmu.crms.exception.*;
+
+import xmu.crms.entity.Attendance;
+import xmu.crms.entity.Course;
+import xmu.crms.entity.User;
+import xmu.crms.exception.ClassesNotFoundException;
+import xmu.crms.exception.CourseNotFoundException;
+import xmu.crms.exception.SeminarNotFoundException;
+import xmu.crms.exception.UserNotFoundException;
 
 /**
  * @author YeHongjie
- * @version 2.00
+ * @version 2.10
  */
 public interface UserService {
 
@@ -23,10 +29,11 @@ public interface UserService {
 	 * @exception IllegalArgumentException 信息不合法，id格式错误 
 	 * @exception ClassesNotFoundException 未找到班级
 	 * @exception SeminarNotFoundException 未找到讨论课
+	 * @exception UserNotFoundException 未找到对应用户
 	 */
 	void insertAttendanceById(BigInteger classId, BigInteger seminarId,
                               BigInteger userId, double longitude, double latitude) throws
-			IllegalArgumentException,ClassesNotFoundException,SeminarNotFoundException;
+			IllegalArgumentException,ClassesNotFoundException,SeminarNotFoundException,UserNotFoundException;
 
 	/**
 	 * 获取学生签到信息.
@@ -42,43 +49,6 @@ public interface UserService {
 	List<Attendance> listAttendanceById(BigInteger classId, BigInteger seminarId)
 			throws IllegalArgumentException,ClassesNotFoundException,
 			SeminarNotFoundException;
-
-	/**
-	 * 手机号注册.
-	 * <p>手机号注册 (.Net使用),User中只有phone和password，userId是注册后才有并且在数据库自增<br> 
-	 * @author qinlingyun
-	 * @param user 用户信息(手机号Phone和密码Password)
-	 * @return user 该用户信息
-	 */
-	User signUpPhone(User user);
-
-
-	/**
-	 * 用户解绑.
-	 * <p>教师解绑账号(j2ee使用)<br>
-	 * @author qinlingyun
-	 * @param userId 用户id
-	 * @see CourseService#listCourseByUserId(BigInteger userId)
-	 * @see CourseService#deleteCourseByCourseId(BigInteger courseId)
-	 * @exception IllegalArgumentException 信息不合法，id格式错误
-	 * @exception UserNotFoundException 未找到对应用户
-	 */
-	void deleteTeacherAccount(BigInteger userId) throws IllegalArgumentException,
-			UserNotFoundException;
-
-
-	/**
-	 * 用户解绑.
-	 * <p>学生解绑账号(j2ee使用)<br>
-	 * @author qinlingyun
-	 * @param userId 用户id
-	 * @see ClassService#deleteCourseSelectionById(BigInteger userId,BigInteger classId)
-	 * @exception IllegalArgumentException 信息不合法，id格式错误
-	 * @exception UserNotFoundException 未找到对应用户
-	 */
-	void deleteStudentAccount(BigInteger userId) throws IllegalArgumentException,
-			UserNotFoundException;
-
 
 	/**
 	 * 根据用户Id获取用户的信息.
@@ -127,10 +97,11 @@ public interface UserService {
 	 * @return list 用户列表
 	 * @exception IllegalArgumentException throws when 信息不合法
 	 * @exception ClassesNotFoundException throws when 未找到对应班级
+	 * @exception UserNotFoundException throws when 无符合条件的学生
 	 */
 	List<User> listUserByClassId(BigInteger classId, String numBeginWith,
                                  String nameBeginWith) throws IllegalArgumentException,
-			ClassesNotFoundException;
+			ClassesNotFoundException, UserNotFoundException;
 
 
 	/**
@@ -154,9 +125,28 @@ public interface UserService {
 	 * @see UserService #listAttendanceById(BigInteger, BigInteger)
 	 * @see UserService #getUserByUserId(BigInteger)
 	 * @exception IllegalArgumentException throws when 信息不合法，id格式错误 
+	 * @exception ClassesNotFoundException 未找到班级
+	 * @exception SeminarNotFoundException 未找到讨论课 
 	 */
-	List<User> listPresentStudent(BigInteger seminarId, BigInteger classId)
-			throws IllegalArgumentException;
+	List<User> listPresentStudent(BigInteger seminarId, BigInteger classId) throws
+			IllegalArgumentException,ClassesNotFoundException,SeminarNotFoundException;
+
+
+	/**
+	 * 获取讨论课所在班级迟到学生名单.
+	 * <p>获取讨论课所在班级迟到学生名单<br>
+	 * @author qinlingyun
+	 * @param seminarId 讨论课ID
+	 * @param classId 班级ID
+	 * @return list 处于迟到状态的学生列表
+	 * @see UserService #listAttendanceById(BigInteger, BigInteger)
+	 * @see UserService #getUserByUserId(BigInteger)
+	 * @exception IllegalArgumentException throws when 信息不合法，id格式错误
+	 * @exception ClassesNotFoundException 未找到班级
+	 * @exception SeminarNotFoundException 未找到讨论课 
+	 */
+	List<User> listLateStudent(BigInteger seminarId, BigInteger classId) throws
+			IllegalArgumentException, ClassesNotFoundException, SeminarNotFoundException;
 
 
 	/**
@@ -165,12 +155,14 @@ public interface UserService {
 	 * @param seminarId 讨论课ID
 	 * @param classId 班级ID
 	 * @return list 处于缺勤状态的学生列表
-	 * @see UserService #listUserByClassId(BigInteger, String, String)
-	 * @see UserService #listPresentStudent(BigInteger, BigInteger)
+	 * @see UserService #listAttendanceById(BigInteger, BigInteger)
+	 * @see UserService #getUserByUserId(BigInteger)
 	 * @exception IllegalArgumentException throws when 信息不合法，id格式错误 
+	 * @exception ClassesNotFoundException 未找到班级
+	 * @exception SeminarNotFoundException 未找到讨论课
 	 */
 	List<User> listAbsenceStudent(BigInteger seminarId, BigInteger classId) throws
-			IllegalArgumentException;
+			IllegalArgumentException, ClassesNotFoundException, SeminarNotFoundException;
 
 	/**
 	 * 根据教师名称列出课程名称.
@@ -180,6 +172,10 @@ public interface UserService {
 	 * @return list 课程列表
 	 * @see UserService #listUserByUserName(String userName)
 	 * @see CourseService #listCourseByUserId(BigInteger userId)
+	 * @exception IllegalArgumentException throws when 信息不合法，id格式错误 
+	 * @exception UserNotFoundException throws when 无对应姓名的教师 
+	 * @exception CourseNotFoundException throws when 对应姓名的用户未创设任何课程 
 	 */
-	List<Course> listCourseByTeacherName(String teacherName);
+	List<Course> listCourseByTeacherName(String teacherName) throws
+			UserNotFoundException,IllegalArgumentException,CourseNotFoundException;
 }
