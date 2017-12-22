@@ -8,8 +8,8 @@
     <resultMap id="seminarGroupTopicResultMap" type="SeminarGroupTopic">
         <id property="id" column="id"/>
         <result property="presentationGrade" column="presentation_grade"/>
-        <result property="seminarGroup.id" column="seminar_group_id"/>
-        <association property="topic" column="topic_id" select="xmu.crms.mapper.TopicMapper.getTopicByTopicId"/>
+        <association property="seminarGroup" column="seminar_group_id" select="CommonMapper.selectSeminarGroup"/>
+        <association property="topic" column="topic_id" select="CommonMapper.selectTopic"/>
     </resultMap>
 
     <select id="getBySeminarAndTopic" parameterType="SeminarGroupTopic" resultMap="seminarGroupTopicResultMap">

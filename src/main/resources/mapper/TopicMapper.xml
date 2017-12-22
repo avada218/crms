@@ -10,11 +10,12 @@
         <result property="description" column="description"/>
         <result property="groupNumberLimit" column="group_number_limit"/>
         <result property="groupStudentLimit" column="group_student_limit"/>
+        <association property="seminar" column="seminar_id" select="CommonMapper.selectSeminar"/>
     </resultMap>
 
-    <select id="getTopicByTopicId" resultMap="topicResultMap" parameterType="Topic">
+    <select id="getTopicByTopicId" resultMap="topicResultMap">
         select
-        id, name, description, group_number_limit, group_student_limit
+        id, name, description, group_number_limit, group_student_limit, seminar_id
         from topic
         where id = #{id}
     </select>
@@ -47,7 +48,7 @@
 
     <select id="listTopicBySeminarId" parameterType="Seminar" resultMap="topicResultMap">
         SELECT
-        id, name, description, group_number_limit, group_student_limit
+        id, name, description, group_number_limit, group_student_limit, seminar_id
         FROM topic
         WHERE seminar_id=#{id}
     </select>

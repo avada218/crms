@@ -18,6 +18,8 @@ public class TopicMapperTest {
 
     @Test
     public void testGetTopicByTopicId() {
-
+        Topic topic = new Topic();
+        topic.setId(BigInteger.valueOf(1L));
+        System.out.println(topicMapper.getTopicByTopicId(topic));
     }
 }
