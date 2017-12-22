@@ -3,10 +3,10 @@ package xmu.crms.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import xmu.crms.entity.Seminar;
-import xmu.crms.entity.SeminarGroup;
-import xmu.crms.entity.Topic;
-import xmu.crms.entity.User;
+import xmu.crms.entity.*;
+import xmu.crms.exception.SeminarNotFoundException;
+import xmu.crms.service.CourseService;
+import xmu.crms.service.SeminarService;
 import xmu.crms.service.TopicService;
 import xmu.crms.vo.*;
 
@@ -25,43 +25,68 @@ import java.util.List;
 public class SeminarController {
 
     @Autowired
-    private TopicService topicService;
+    private SeminarService seminarService;
+
+    @Autowired
+    private CourseService courseService;
+
+    @Autowired
+    private Attendance
 
     @GetMapping("/{seminarId}")
     @ResponseStatus(HttpStatus.OK)
-    public Seminar getSeminarInfo(@PathVariable("seminarId") int seminarId) {
-        Seminar seminar = new Seminar();
+    public Seminar getSeminarInfo(@PathVariable("seminarId") String seminarId) throws SeminarNotFoundException {
+        Seminar seminar = seminarService.getSeminarBySeminarId(new BigInteger(seminarId));
         return seminar;
     }
 
     @PutMapping("/{seminarId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void modifySeminar(@PathVariable("seminarId") int seminarId, @RequestBody Seminar seminar) {
-
+    public void modifySeminar(@PathVariable("seminarId") String seminarId, @RequestBody Seminar seminar)
+            throws SeminarNotFoundException {
+        seminarService.updateSeminarBySeminarId(new BigInteger(seminarId), seminar);
     }
 
     @DeleteMapping("/{seminarId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteSeminar(@PathVariable("seminarId") int seminarId) {
-
+    public void deleteSeminar(@PathVariable("seminarId") String seminarId) throws SeminarNotFoundException {
+        seminarService.deleteSeminarBySeminarId(new BigInteger(seminarId));
     }
 
     @GetMapping("/{seminarId}/my")
     @ResponseStatus(HttpStatus.OK)
-    public StudentSeminar getRelatedSeminar(@PathVariable("seminarId") int seminarId) {
-        StudentSeminar seminar = new StudentSeminar();
-        seminar.setId(32L);
-        seminar.setName("概要设计");
-        seminar.setGroupingMethond("random");
-        seminar.setCourseName("OOAD");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2017,9,11);
-        seminar.setStartTime(calendar.getTime());
-        calendar.set(2017,9,24);
-        seminar.setEndTime(calendar.getTime());
-        seminar.setClassCalling(-1);
-        seminar.setLeader(true);
-        seminar.setAreTopicsSelected(true);
+    public StudentSeminar getRelatedSeminar(@PathVariable("seminarId") String seminarId)
+            throws SeminarNotFoundException {
+//        StudentSeminar seminar = new StudentSeminar();
+//        seminar.setId(32L);
+//        seminar.setName("概要设计");
+//        seminar.setGroupingMethond("random");
+//        seminar.setCourseName("OOAD");
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(2017, 9, 11);
+//        seminar.setStartTime(calendar.getTime());
+//        calendar.set(2017, 9, 24);
+//        seminar.setEndTime(calendar.getTime());
+//        seminar.setClassCalling(-1);
+//        seminar.setLeader(true);
+//        seminar.setAreTopicsSelected(true);
+
+        StudentSeminar studentSeminar = new StudentSeminar();
+        Seminar seminar = seminarService.getSeminarBySeminarId(new BigInteger(seminarId));
+        studentSeminar.setId(seminar.getId().longValue());
+        studentSeminar.setName(seminar.getName());
+        if (seminar.getFixed() == true) {
+            studentSeminar.setGroupingMethond("fixed");
+        } else {
+            studentSeminar.setGroupingMethond("random");
+        }
+
+        //Course course = courseService.getCourseByCourseId(seminar.getCourse().getId());
+        //studentSeminar.setCourseName(course.getName());
+
+        studentSeminar.setStartTime(seminar.getStartTime());
+        studentSeminar.setEndTime(seminar.getEndTime());
+
         return seminar;
     }
 
@@ -72,9 +97,9 @@ public class SeminarController {
         seminarDetail.setId(32L);
         seminarDetail.setName("概要设计");
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2017,9,10);
+        calendar.set(2017, 9, 10);
         seminarDetail.setStartTime(calendar.getTime());
-        calendar.set(2017,9,24);
+        calendar.set(2017, 9, 24);
         seminarDetail.setEndTime(calendar.getTime());
         seminarDetail.setSite("海韵201");
         seminarDetail.setTeacherName("邱明");
@@ -174,7 +199,7 @@ public class SeminarController {
     @GetMapping("/{seminarId}/class/{classId}/attendance/late")
     @ResponseStatus(HttpStatus.OK)
     public List<User> getLate(@PathVariable("seminarId") int seminarId,
-                                 @PathVariable("classId") int classId) {
+                              @PathVariable("classId") int classId) {
         List<User> late = new ArrayList<>();
 //        User student1 = new User();
 //        student1.setId(3412L);
@@ -190,7 +215,7 @@ public class SeminarController {
     @GetMapping("/{seminarId}/class/{classId}/attendance/absent")
     @ResponseStatus(HttpStatus.OK)
     public List<User> getAbsent(@PathVariable("seminarId") int seminarId,
-                              @PathVariable("classId") int classId) {
+                                @PathVariable("classId") int classId) {
         List<User> absent = new ArrayList<>();
         User student1 = new User();
 //        student1.setId(34L);

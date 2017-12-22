@@ -8,8 +8,8 @@ import xmu.crms.exception.*;
 
 /**
  * 
- * @author YeXiaona,ZhouZhongJun
- * @version 2.00
+ * @author aixing
+ * @version 2.10
  *
  */
 public interface ClassService {
@@ -70,10 +70,11 @@ public interface ClassService {
 	 * 
 	 * @author yexiaona
 	 * @param classId 班级ID
+	 * @param newClass 修改后的班级
 	 * @return boolean 班级修改是否成功情况
      * @exception ClassNotFoundException 无此班级Id
 	 */
-	 Boolean updateClassByClassId(BigInteger classId)
+	 Boolean updateClassByClassId(BigInteger classId,ClassInfo newClass)
 	         throws ClassNotFoundException;
 
 	/**
@@ -123,17 +124,17 @@ public interface ClassService {
              UserNotFoundException,ClassNotFoundException;
 
 	/**
-	 * 老师获取该班级签到、分组状态.
+	 * 老师获取该班级签到状态.
 	 * <p>
-	 * 根据讨论课id及班级id，获得该班级的签到、分组状态<br>
+	 * 根据讨论课id及班级id，获得该班级的签到状态<br>
 	 * 
 	 * @author yexiaona
 	 * @param seminarId  讨论课id
-	 * @return classBO 班级
+	 * @return location 班级签到状态
 	 * @see SeminarGroupService #listSeminarGroupBySeminarId(BigInteger seminarId)
 	 * @exception SeminarNotFoundException 无此Id的讨论课
 	 */
-	 ClassInfo getCallGroupStatusById(BigInteger seminarId) 
+	 Location getCallStatusById(BigInteger seminarId)
 	         throws SeminarNotFoundException;
 
 	/**
@@ -144,11 +145,12 @@ public interface ClassService {
 	 * @author yexiaona
 	 * @param userId  教师id
 	 * @param courseId 课程id
+	 * @param classInfo 班级信息
 	 * @return classId 班级Id
      * @exception UserNotFoundException 无此Id的教师
      * @exception CourseNotFoundException 无此Id的课程
 	 */
-	 BigInteger insertClassById(BigInteger userId, BigInteger courseId) throws
+	 BigInteger insertClassById(BigInteger userId, BigInteger courseId,ClassInfo classInfo) throws
 	             UserNotFoundException,CourseNotFoundException;
 
 	/**

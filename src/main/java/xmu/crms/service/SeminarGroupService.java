@@ -3,14 +3,20 @@ package xmu.crms.service;
 import java.math.BigInteger;
 import java.util.List;
 
-import xmu.crms.entity.*;
-import xmu.crms.exception.*;
+import xmu.crms.entity.SeminarGroup;
+import xmu.crms.entity.SeminarGroupMember;
+import xmu.crms.entity.User;
+import xmu.crms.exception.ClassesNotFoundException;
+import xmu.crms.exception.GroupNotFoundException;
+import xmu.crms.exception.InvalidOperationException;
+import xmu.crms.exception.SeminarNotFoundException;
+import xmu.crms.exception.UserNotFoundException;
 
 
 /**
  *
- * @author ModuleStandardGroup/zhouzhongjun
- * @version 2.00
+ * @author zhouzhongjun
+ * @version 2.10
  *
  */
 public interface SeminarGroupService {
@@ -21,7 +27,7 @@ public interface SeminarGroupService {
 	 * @author zhouzhongjun
 	 * @param seminarGroupId 讨论课小组Id
 	 */
-	void deleteSeminarGroupMemberBySeminarGroupId(BigInteger seminarGroupId);
+	 void deleteSeminarGroupMemberBySeminarGroupId(BigInteger seminarGroupId);
 
 	/**
 	 * 将学生加入讨论课小组.
@@ -35,7 +41,7 @@ public interface SeminarGroupService {
 	 *@exception UserNotFoundException (不存在该学生)
 	 *@exception InvalidOperationException （待添加学生已经在小组里了）
 	 */
-	BigInteger insertSeminarGroupMemberById(BigInteger userId, BigInteger groupId)
+	 BigInteger insertSeminarGroupMemberById(BigInteger userId,BigInteger groupId)
 			throws IllegalArgumentException,GroupNotFoundException,UserNotFoundException,
 			InvalidOperationException;
 
@@ -48,18 +54,18 @@ public interface SeminarGroupService {
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 * @exception GroupNotFoundException 未找到小组
 	 */
-	List<User> listSeminarGroupMemberByGroupId(BigInteger groupId) throws
+	 List<User> listSeminarGroupMemberByGroupId(BigInteger groupId) throws
 			IllegalArgumentException,GroupNotFoundException;
 
 	/**
 	 * 获取某学生所有的讨论课小组.
-	 * <p>根据学生id获取学生所在的所有讨论课小组的id<br>
+	 * <p>根据学生id获取学生所在的所有讨论课小组的信息<br>
 	 * @author qinlingyun
 	 * @param userId 学生id
 	 * @return list 讨论课小组列表
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 */
-	List<SeminarGroup> listSeminarGroupIdByStudentId(BigInteger userId) throws
+	 List<SeminarGroup> listSeminarGroupIdByStudentId(BigInteger userId) throws
 			IllegalArgumentException;
 
 
@@ -72,7 +78,7 @@ public interface SeminarGroupService {
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 * @exception GroupNotFoundException 未找到小组
 	 */
-	BigInteger getSeminarGroupLeaderByGroupId(BigInteger groupId) throws
+	 BigInteger getSeminarGroupLeaderByGroupId(BigInteger groupId) throws
 			IllegalArgumentException,GroupNotFoundException;
 
 
@@ -85,7 +91,7 @@ public interface SeminarGroupService {
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 * @exception SeminarNotFoundException 未找到讨论课
 	 */
-	List<SeminarGroup> listSeminarGroupBySeminarId(BigInteger seminarId) throws
+	 List<SeminarGroup> listSeminarGroupBySeminarId(BigInteger seminarId) throws
 			IllegalArgumentException,SeminarNotFoundException;
 
 	/**
@@ -97,7 +103,7 @@ public interface SeminarGroupService {
 	 * @see SeminarGroupService #deleteSeminarGroupMemberBySeminarGroupId(BigInteger seminarGroupId)
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 */
-	void deleteSeminarGroupBySeminarId(BigInteger seminarId) throws
+	 void deleteSeminarGroupBySeminarId(BigInteger seminarId) throws
 			IllegalArgumentException;
 
 	/**
@@ -110,8 +116,8 @@ public interface SeminarGroupService {
 	 * @return BigInteger 若创建成功返回该小组的id，失败则返回-1
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 */
-	BigInteger insertSeminarGroupBySeminarId(BigInteger seminarId,
-                                                    SeminarGroup seminarGroup) throws IllegalArgumentException;
+	 BigInteger insertSeminarGroupBySeminarId(BigInteger seminarId,
+													SeminarGroup seminarGroup) throws IllegalArgumentException;
 
 	/**
 	 * 创建小组成员信息.
@@ -120,8 +126,8 @@ public interface SeminarGroupService {
 	 * @param seminarGroupMember 小组成员信息
 	 * @return BigInteger 若创建成功返回该小组成员表的id，失败则返回-1
 	 */
-	BigInteger insertSeminarGroupMemberByGroupId(BigInteger groupId,
-                                                        SeminarGroupMember seminarGroupMember);
+	 BigInteger insertSeminarGroupMemberByGroupId(BigInteger groupId,
+														SeminarGroupMember seminarGroupMember);
 
 
 	/**
@@ -132,7 +138,7 @@ public interface SeminarGroupService {
 	 * @see SeminarGroupService #deleteSeminarGroupMemberBySeminarGroupId(BigInteger seminarGroupId)
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 */
-	void deleteSeminarGroupByGroupId(BigInteger seminarGroupId) throws
+	 void deleteSeminarGroupByGroupId(BigInteger seminarGroupId) throws
 			IllegalArgumentException;
 
 
@@ -146,7 +152,7 @@ public interface SeminarGroupService {
 	 * @exception IllegalArgumentException (信息不合法，id格式错误)
 	 * @exception GroupNotFoundException (未找到小组)
 	 */
-	SeminarGroup getSeminarGroupByGroupId(BigInteger groupId) throws
+	 SeminarGroup getSeminarGroupByGroupId(BigInteger groupId) throws
 			IllegalArgumentException,GroupNotFoundException;
 
 	/**
@@ -160,11 +166,12 @@ public interface SeminarGroupService {
 	 * @see SeminarGroupService #getSeminarGroupLeaderByGroupId(BigInteger groupId)
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 */
-	BigInteger getSeminarGroupLeaderById(BigInteger userId, BigInteger seminarId)
+	 BigInteger getSeminarGroupLeaderById(BigInteger userId, BigInteger seminarId)
 			throws IllegalArgumentException;
 
 
 	/**
+	 * 定时器方法.
 	 * 自动分组.
 	 * <p>根据讨论课id和班级id，对签到的学生进行自动分组<br>
 	 * @author YeHongjie
@@ -175,20 +182,20 @@ public interface SeminarGroupService {
 	 * @exception ClassesNotFoundException 未找到班级
 	 * @exception SeminarNotFoundException 未找到讨论课
 	 */
-	void automaticallyGrouping(BigInteger seminarId, BigInteger classId) throws
+	 void automaticallyGrouping(BigInteger seminarId,BigInteger classId) throws
 			IllegalArgumentException,ClassesNotFoundException,SeminarNotFoundException;
 
 
 	/**
 	 * 根据讨论课Id及用户id，获得该用户所在的讨论课的小组的信息.
 	 * <p>根据讨论课Id及用户id，获得该用户所在的讨论课的小组的信息<br>
-	 * @param seminarId (讨论课的id)
-	 * @param userId（用户的id）
+	 * @param seminarId 讨论课的id
+	 * @param userId 用户的id
 	 * @return SeminarGroup Group的相关信息
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 * @exception GroupNotFoundException 未找到小组
 	 */
-	SeminarGroup getSeminarGroupById(BigInteger seminarId, BigInteger userId) throws
+	 SeminarGroup getSeminarGroupById(BigInteger seminarId,BigInteger userId) throws
 			IllegalArgumentException,GroupNotFoundException;
 
 
@@ -200,7 +207,7 @@ public interface SeminarGroupService {
 	 * @exception IllegalArgumentException 信息不合法，id格式错误
 	 * @exception GroupNotFoundException 未找到小组
 	 */
-	List<SeminarGroup> listGroupByTopicId(BigInteger topicId) throws
+	 List<SeminarGroup> listGroupByTopicId(BigInteger topicId) throws
 			IllegalArgumentException,GroupNotFoundException;
 
 	/**
@@ -213,7 +220,7 @@ public interface SeminarGroupService {
 	 * @exception IllegalArgumentException GroupId、TopicId格式错误时抛出
 	 * @exception GroupNotFoundException 该小组不存在时抛出
 	 */
-	BigInteger insertTopicByGroupId(BigInteger groupId, BigInteger topicId) throws
+	 BigInteger insertTopicByGroupId(BigInteger groupId, BigInteger topicId) throws
 			IllegalArgumentException,GroupNotFoundException;
 
 
@@ -227,7 +234,7 @@ public interface SeminarGroupService {
 	 * @exception UserNotFoundException 不存在该学生
 	 * @exception InvalidOperationException 已经有组长了
 	 */
-	void assignLeaderById(BigInteger groupId, BigInteger userId) throws
+	 void assignLeaderById(BigInteger groupId,BigInteger userId) throws
 			IllegalArgumentException,UserNotFoundException,GroupNotFoundException,
 			InvalidOperationException;
 
@@ -239,6 +246,6 @@ public interface SeminarGroupService {
 	 * @exception IllegalArgumentException (信息不合法，id格式错误)
 	 * @exception GroupNotFoundException (未找到小组)
 	 */
-	void resignLeaderById(BigInteger groupId, BigInteger userId) throws
+	 void resignLeaderById(BigInteger groupId,BigInteger userId) throws
 			IllegalArgumentException,GroupNotFoundException;
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import xmu.crms.exception.SeminarNotFoundException;
 import xmu.crms.exception.TopicNotFoundException;
 
 import java.util.ArrayList;
@@ -25,6 +26,13 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Response topicNotFoundHandler() {
         Response response = new Response("未找到主题");
+        return response;
+    }
+
+    @ExceptionHandler(value = SeminarNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response seminarNotFoundHandler(){
+        Response response=new Response("未找到讨论课");
         return response;
     }
 

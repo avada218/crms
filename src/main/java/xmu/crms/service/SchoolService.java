@@ -8,8 +8,8 @@ import xmu.crms.entity.*;
 
 /**
  * 
- * @author LiuAiqi
- * @version 2.00
+ * @author Yexiaona
+ * @version 2.10
  *
  */
 public interface SchoolService {
@@ -27,7 +27,7 @@ public interface SchoolService {
 	 * <p>根据学校详细的信息，添加相应学校<br>
 	 * @author LiuAiqi
 	 * @param school 学校的信息
-	 * @return true（添加学校成功）/false（添加学校未成功）
+	 * @return schoolId 添加的学校id
 	 */
 	 BigInteger insertSchool(School school);
 	

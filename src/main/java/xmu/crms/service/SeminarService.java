@@ -10,8 +10,8 @@ import xmu.crms.exception.*;
 
 /**
  *
- * @author zhouzhongjun CaoXingmei YeHongjie
- * @version 2.00
+ * @author Heqi
+ * @version 2.10
  *
  */
 public interface SeminarService {
@@ -42,6 +42,7 @@ public interface SeminarService {
 	 */
 	Boolean deleteSeminarByCourseId(BigInteger courseId) throws IllegalArgumentException,
 			CourseNotFoundException;
+
 
 	/**
 	 * 用户通过讨论课id获得讨论课的信息.
