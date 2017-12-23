@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xmu.crms.dao.FixGroupDao;
 import xmu.crms.dao.FixGroupMemberDAO;
+import xmu.crms.dao.FixGroupTopicDAO;
 import xmu.crms.entity.*;
 import xmu.crms.exception.*;
 import xmu.crms.service.FixGroupService;
@@ -24,14 +25,17 @@ public class FixGroupServiceImpl implements FixGroupService {
     @Autowired
     private FixGroupDao fixGroupDao;
 
-//    @Autowired
-//    private SeminarGroupService seminarGroupService;
+    @Autowired
+    private SeminarGroupService seminarGroupService;
 
     @Autowired
     private FixGroupMemberDAO fixGroupMemberDAO;
 
 //    @Autowired
 //    private UserService userService;
+
+    @Autowired
+    private FixGroupTopicDAO fixGroupTopicDAO;
 
     @Override
     public BigInteger insertFixGroupByClassId(BigInteger classId, BigInteger userId) throws
@@ -185,8 +189,42 @@ public class FixGroupServiceImpl implements FixGroupService {
         return fixGroupMemberDAO.listFixGroupMemberByFixGroup(fixGroup);
     }
 
+    //TODO
     @Override
     public void fixedGroupToSeminarGroup(BigInteger semianrId, BigInteger fixedGroupId) throws IllegalArgumentException, FixGroupNotFoundException, SeminarNotFoundException {
+        if (semianrId.intValue() <= 0) {
+            throw new IllegalArgumentException("seminarId");
+        }
+        if (fixedGroupId.intValue() <= 0) {
+            throw new IllegalArgumentException("fixGroupId");
+        }
+        //判断当前时间与seminar时间是否相同
+        //1. 获取seminar信息
+        //2. 对比seminar时间与当前时间
+        Seminar seminar = new Seminar();
+
+        //将fixGroup的信息复制一份到seminarGroup
+        FixGroup fixGroup = fixGroupDao.getFixGroupByGroupId(fixedGroupId);
+        SeminarGroup seminarGroup = new SeminarGroup();
+        seminarGroup.setLeader(fixGroup.getLeader());
+        seminarGroup.setClassInfo(fixGroup.getClassInfo());
+        seminarGroup.setSeminar(seminar);
+        BigInteger seminarGroupId = BigInteger.valueOf(1);
+
+        //将fixGroupMember的信息复制一份到seminarGroupMember
+        List<User> members = listFixGroupMemberByGroupId(fixedGroupId);
+        Iterator<User> iterator = members.iterator();
+        while (iterator.hasNext()) {
+            User member = iterator.next();
+            try {
+                seminarGroupService.insertSeminarGroupMemberById(member.getId(), seminarGroupId);
+            } catch (Exception e) {
+
+            }
+        }
+
+        //将fixGroupTopic信息复制到seminarGroupTopic中
+        List<FixGroupTopic> topics = fixGroupTopicDAO.listFixGroupTopicByFixGroup(fixGroup);
 
     }
 }
