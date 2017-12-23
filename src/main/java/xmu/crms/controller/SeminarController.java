@@ -155,20 +155,20 @@ public class SeminarController {
         return seminarDetail;
     }
 
-//    @GetMapping("/{seminarId}/topic")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<Topic> getTopics(@PathVariable("seminarId") String seminarId) throws IllegalArgumentException {
-//        return topicService.listTopicBySeminarId(new BigInteger(seminarId));
-//    }
-//
-//    @PostMapping("/{seminarId}/topic")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Topic addTopic(@PathVariable("seminarId") String seminarId, @RequestBody Topic topic) {
-//        BigInteger id = topicService.insertTopicBySeminarId(new BigInteger(seminarId), topic);
-//        Topic newTopic = new Topic();
-//        newTopic.setId(id);
-//        return newTopic;
-//    }
+    @GetMapping("/{seminarId}/topic")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Topic> getTopics(@PathVariable("seminarId") String seminarId) throws IllegalArgumentException {
+        return topicService.listTopicBySeminarId(new BigInteger(seminarId));
+    }
+
+    @PostMapping("/{seminarId}/topic")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Topic addTopic(@PathVariable("seminarId") String seminarId, @RequestBody Topic topic) {
+        BigInteger id = topicService.insertTopicBySeminarId(new BigInteger(seminarId), topic);
+        Topic newTopic = new Topic();
+        newTopic.setId(id);
+        return newTopic;
+    }
 
     @GetMapping("/{seminarId}/group")
     @ResponseStatus(HttpStatus.OK)
