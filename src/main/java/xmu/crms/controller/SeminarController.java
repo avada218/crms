@@ -3,11 +3,9 @@ package xmu.crms.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import xmu.crms.entity.Seminar;
-import xmu.crms.entity.SeminarGroup;
-import xmu.crms.entity.Topic;
-import xmu.crms.entity.User;
-import xmu.crms.service.TopicService;
+import xmu.crms.entity.*;
+import xmu.crms.exception.*;
+import xmu.crms.service.*;
 import xmu.crms.vo.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,92 +23,176 @@ import java.util.List;
 public class SeminarController {
 
     @Autowired
+    private SeminarService seminarService;
+
+    @Autowired
+    private CourseService courseService;
+
+    @Autowired
+    private SeminarGroupService seminarGroupService;
+
+    @Autowired
     private TopicService topicService;
 
+    @Autowired
+    private UserService userService;
+
+//    @Autowired
+//    private Attendance
+
     @GetMapping("/{seminarId}")
-    public Seminar getSeminarInfo(@PathVariable("seminarId") int seminarId) {
-        Seminar seminar = new Seminar();
+    @ResponseStatus(HttpStatus.OK)
+    public Seminar getSeminarInfo(@PathVariable("seminarId") String seminarId) throws SeminarNotFoundException {
+        Seminar seminar = seminarService.getSeminarBySeminarId(new BigInteger(seminarId));
         return seminar;
     }
 
     @PutMapping("/{seminarId}")
-    public Response modifySeminar(@PathVariable("seminarId") int seminarId, @RequestBody Seminar seminar,
-                                  HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void modifySeminar(@PathVariable("seminarId") String seminarId, @RequestBody Seminar seminar)
+            throws SeminarNotFoundException {
+        seminarService.updateSeminarBySeminarId(new BigInteger(seminarId), seminar);
     }
 
     @DeleteMapping("/{seminarId}")
-    public Response deleteSeminar(@PathVariable("seminarId") int seminarId, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSeminar(@PathVariable("seminarId") String seminarId) throws SeminarNotFoundException {
+        seminarService.deleteSeminarBySeminarId(new BigInteger(seminarId));
     }
 
     @GetMapping("/{seminarId}/my")
-    public StudentSeminar getRelatedSeminar(@PathVariable("seminarId") int seminarId) {
-        StudentSeminar seminar = new StudentSeminar();
-        seminar.setId(32L);
-        seminar.setName("概要设计");
-        seminar.setGroupingMethond("random");
-        seminar.setCourseName("OOAD");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2017,9,11);
-        seminar.setStartTime(calendar.getTime());
-        calendar.set(2017,9,24);
-        seminar.setEndTime(calendar.getTime());
-        seminar.setClassCalling(-1);
-        seminar.setLeader(true);
-        seminar.setAreTopicsSelected(true);
-        return seminar;
+    @ResponseStatus(HttpStatus.OK)
+    public StudentSeminar getRelatedSeminar(@PathVariable("seminarId") String seminarId)
+            throws SeminarNotFoundException, CourseNotFoundException, ClassNotFoundException, GroupNotFoundException {
+
+        StudentSeminar studentSeminar = new StudentSeminar();
+        Seminar seminar = seminarService.getSeminarBySeminarId(new BigInteger(seminarId));
+        studentSeminar.setId(seminar.getId().longValue());
+        studentSeminar.setName(seminar.getName());
+        if (seminar.getFixed() == true) {
+            studentSeminar.setGroupingMethond("fixed");
+        } else {
+            studentSeminar.setGroupingMethond("random");
+        }
+
+        Course course = courseService.getCourseByCourseId(seminar.getCourse().getId());
+        studentSeminar.setCourseName(course.getName());
+
+        studentSeminar.setStartTime(seminar.getStartTime());
+        studentSeminar.setEndTime(seminar.getEndTime());
+
+        //todo
+        BigInteger userId = new BigInteger("1");
+
+        BigInteger classId = new BigInteger("-1");
+        List<ClassInfo> classInfos = courseService.listClassByUserId(userId);
+        for (ClassInfo classInfo : classInfos
+                ) {
+            if (classInfo.getCourse().getId().equals(course.getId())) {
+                classId = classInfo.getId();
+                studentSeminar.setClassCalling(classId.intValue());
+                break;
+            }
+        }
+
+        BigInteger leaderId = seminarGroupService.getSeminarGroupLeaderById(userId, new BigInteger(seminarId));
+        if (userId.equals(leaderId)) {
+            studentSeminar.setLeader(true);
+        } else {
+            studentSeminar.setLeader(false);
+        }
+        List<Topic> topics = topicService.listTopicBySeminarId(new BigInteger(seminarId));
+        SeminarGroup seminarGroup = seminarGroupService.getSeminarGroupById(new BigInteger(seminarId), userId);
+        BigInteger grouopId = seminarGroup.getId();
+        Boolean areTopicsSelected=false;
+        for (Topic topic : topics
+                ) {
+            SeminarGroupTopic seminarGroupTopic=topicService.getSeminarGroupTopicById(topic.getId(),grouopId);
+            if(seminarGroupTopic!=null){
+                areTopicsSelected=true;
+                break;
+            }
+        }
+        studentSeminar.setAreTopicsSelected(areTopicsSelected);
+
+        return studentSeminar;
     }
 
     @GetMapping("/{seminarId}/detail")
-    public SeminarDetail getSeminarDetail(@PathVariable("seminarId") int seminarId) {
+    @ResponseStatus(HttpStatus.OK)
+    public SeminarDetail getSeminarDetail(@PathVariable("seminarId") String seminarId)
+            throws SeminarNotFoundException,CourseNotFoundException,
+            ClassNotFoundException,ClassesNotFoundException,UserNotFoundException {
         SeminarDetail seminarDetail = new SeminarDetail();
-        seminarDetail.setId(32L);
-        seminarDetail.setName("概要设计");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2017,9,10);
-        seminarDetail.setStartTime(calendar.getTime());
-        calendar.set(2017,9,24);
-        seminarDetail.setEndTime(calendar.getTime());
-        seminarDetail.setSite("海韵201");
-        seminarDetail.setTeacherName("邱明");
-        seminarDetail.setTeacherEmail("mingqiu@xmu.edu.cn");
+
+        //todo
+        BigInteger userId=new BigInteger("8");
+
+        Seminar seminar=seminarService.getSeminarBySeminarId(new BigInteger(seminarId));
+        seminarDetail.setId(seminar.getId().longValue());
+        seminarDetail.setName(seminar.getName());
+        seminarDetail.setStartTime(seminar.getStartTime());
+        seminarDetail.setEndTime(seminar.getEndTime());
+
+        Course course=courseService.getCourseByCourseId(seminar.getCourse().getId());
+        List<ClassInfo> classInfos=courseService.listClassByUserId(userId);
+        ClassInfo classInfo=new ClassInfo();
+        for (ClassInfo classInfo1:classInfos
+             ) {
+            if(classInfo1.getCourse().getId().equals(course.getId())){
+                classInfo=classInfo1;
+                break;
+            }
+        }
+        if(classInfo==null){
+            throw new ClassesNotFoundException();
+        }
+        else{
+            seminarDetail.setSite(classInfo.getSite());
+        }
+
+        User teacher=userService.getUserByUserId(course.getTeacher().getId());
+        seminarDetail.setTeacherName(teacher.getName());
+        seminarDetail.setTeacherEmail(teacher.getEmail());
+
         return seminarDetail;
     }
 
-    @GetMapping("/{seminarId}/topic")
-    public List<Topic> getTopics(@PathVariable("seminarId") String seminarId) throws IllegalArgumentException {
-        return topicService.listTopicBySeminarId(new BigInteger(seminarId));
-    }
-
-    @PostMapping("/{seminarId}/topic")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Topic addTopic(@PathVariable("seminarId") String seminarId, @RequestBody Topic topic) {
-        BigInteger id = topicService.insertTopicBySeminarId(new BigInteger(seminarId), topic);
-        Topic newTopic = new Topic();
-        newTopic.setId(id);
-        return newTopic;
-    }
+//    @GetMapping("/{seminarId}/topic")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<Topic> getTopics(@PathVariable("seminarId") String seminarId) throws IllegalArgumentException {
+//        return topicService.listTopicBySeminarId(new BigInteger(seminarId));
+//    }
+//
+//    @PostMapping("/{seminarId}/topic")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Topic addTopic(@PathVariable("seminarId") String seminarId, @RequestBody Topic topic) {
+//        BigInteger id = topicService.insertTopicBySeminarId(new BigInteger(seminarId), topic);
+//        Topic newTopic = new Topic();
+//        newTopic.setId(id);
+//        return newTopic;
+//    }
 
     @GetMapping("/{seminarId}/group")
-    public List<SeminarGroup> getGroups(@PathVariable("seminarId") int id) {
-        List<SeminarGroup> groups = new ArrayList<>();
-//        Group group = new Group();
-//        group.setId(28L);
-//        group.setName("1A1");
-//        List<Topic> topics = new ArrayList<>();
-//        Topic topic = new Topic();
-//        topic.setId(257L);
-//        topic.setName("领域模型与模块");
-//        topics.add(topic);
-//        group.setTopics(topics);
-//        groups.add(group);
-        return groups;
+    @ResponseStatus(HttpStatus.OK)
+    public List<SeminarGroupVO> getGroups(@PathVariable("seminarId") String seminarId) throws SeminarNotFoundException {
+
+        List<SeminarGroupVO> seminarGroupVOS=new ArrayList<>();
+
+        List<SeminarGroup> seminarGroups=seminarGroupService.listSeminarGroupBySeminarId(new BigInteger(seminarId));
+        for (SeminarGroup seminarGroup:seminarGroups
+             ) {
+            SeminarGroupVO seminarGroupVO=new SeminarGroupVO();
+            seminarGroupVO.setId(seminarGroup.getId().longValue());
+
+        }
+
+
+        return seminarGroupVOS;
     }
 
     @GetMapping("/{seminarId}/group/my")
+    @ResponseStatus(HttpStatus.OK)
     public SeminarGroup getMyGroup(@PathVariable("seminarId") int seminarId) {
         SeminarGroup group = new SeminarGroup();
 //        group.setId(28L);
@@ -139,6 +221,7 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/class/{classId}/attendance")
+    @ResponseStatus(HttpStatus.OK)
     public AttendanceStatus getAttendanceStatus(@PathVariable("seminarId") int seminarId,
                                                 @PathVariable("classId") int classId) {
         AttendanceStatus attendanceStatus = new AttendanceStatus();
@@ -150,6 +233,7 @@ public class SeminarController {
     }
 
     @GetMapping("seminar/{seminarId}/class/{classId}/attendance/present")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> getPresent(@PathVariable("seminarId") int seminarId,
                                  @PathVariable("classId") int classId) {
         List<User> present = new ArrayList<>();
@@ -165,8 +249,9 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/class/{classId}/attendance/late")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> getLate(@PathVariable("seminarId") int seminarId,
-                                 @PathVariable("classId") int classId) {
+                              @PathVariable("classId") int classId) {
         List<User> late = new ArrayList<>();
 //        User student1 = new User();
 //        student1.setId(3412L);
@@ -180,8 +265,9 @@ public class SeminarController {
     }
 
     @GetMapping("/{seminarId}/class/{classId}/attendance/absent")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> getAbsent(@PathVariable("seminarId") int seminarId,
-                              @PathVariable("classId") int classId) {
+                                @PathVariable("classId") int classId) {
         List<User> absent = new ArrayList<>();
         User student1 = new User();
 //        student1.setId(34L);
@@ -191,6 +277,7 @@ public class SeminarController {
     }
 
     @PutMapping("/{seminarId}/class/{classId}/attendance/{studentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public Status signIn(@PathVariable("seminarId") int seminarId,
                          @PathVariable("studentId") int studentId,
                          @RequestBody SiteVO site, HttpServletResponse response) {

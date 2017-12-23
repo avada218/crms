@@ -9,7 +9,6 @@ import xmu.crms.entity.*;
 import xmu.crms.exception.*;
 import xmu.crms.service.FixGroupService;
 import xmu.crms.service.SeminarGroupService;
-import xmu.crms.service.UserService;
 
 import java.math.BigInteger;
 import java.util.Iterator;
@@ -54,16 +53,6 @@ public class FixGroupServiceImpl implements FixGroupService {
             throw new IllegalArgumentException();
         }else{
             fixGroupDao.deleteFixGroupMemberByFixGroupId(fixGroupId);
-        }
-    }
-
-    @Override
-    public BigInteger insertFixGroupMemberById(BigInteger userId, BigInteger groupId) throws IllegalArgumentException, FixGroupNotFoundException, UserNotFoundException, InvalidOperationException {
-        if (userId.intValue() <= 0 || groupId.intValue() <= 0) {
-            throw new IllegalArgumentException();
-        } else {
-            BigInteger addRow = fixGroupDao.insertFixGroupMemberById(userId, groupId);
-            return addRow;
         }
     }
 
@@ -225,6 +214,5 @@ public class FixGroupServiceImpl implements FixGroupService {
 
         //将fixGroupTopic信息复制到seminarGroupTopic中
         List<FixGroupTopic> topics = fixGroupTopicDAO.listFixGroupTopicByFixGroup(fixGroup);
-
     }
 }

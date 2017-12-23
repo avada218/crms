@@ -1,5 +1,6 @@
 package xmu.crms.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import xmu.crms.entity.School;
 import xmu.crms.entity.User;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserController {
 
     @GetMapping("/me")
+    @ResponseStatus(HttpStatus.OK)
     public User getInfo() {
         User user = new User();
 //        School school = new School();
@@ -34,8 +36,8 @@ public class UserController {
     }
 
     @PutMapping("/me")
-    public Response modifyInfo(@RequestBody User user, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void modifyInfo(@RequestBody User user) {
+
     }
 }

@@ -46,6 +46,7 @@ public class TopicController {
     }
 
     @GetMapping("/{topicId}/group")
+    @ResponseStatus(HttpStatus.OK)
     public List<SeminarGroup> getGroups(@PathVariable("topicId") int topicId) {
         List<SeminarGroup> groups = new ArrayList<>();
         return groups;

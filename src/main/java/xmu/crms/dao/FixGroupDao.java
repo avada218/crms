@@ -103,7 +103,11 @@ public class FixGroupDao {
     /**
      * @param classId
      * @return
+<<<<<<< HEAD
      * @throws ClassNotFoundException
+=======
+     * @throws xmu.crms.exception.ClassesNotFoundException
+>>>>>>> yexiaona-branch
      */
     public boolean deleteFixGroupByClassId(BigInteger classId) throws ClassesNotFoundException {
         ClassInfo classInfo = fixGroupMapper.getClassInfoById(classId);
@@ -180,7 +184,7 @@ public class FixGroupDao {
      * @param userId
      * @param classId
      * @return
-     * @throws ClassNotFoundException
+     * @throws ClassesNotFoundException
      * @throws UserNotFoundException
      */
     public FixGroup getFixedGroupById(BigInteger userId, BigInteger classId) throws ClassesNotFoundException, UserNotFoundException {
@@ -223,7 +227,7 @@ public class FixGroupDao {
      * @param classId
      * @param userId
      * @return
-     * @throws ClassNotFoundException
+     * @throws ClassesNotFoundException
      */
     public BigInteger insertFixGroupByClassId(BigInteger classId, BigInteger userId) throws ClassesNotFoundException {
         ClassInfo classInfo = fixGroupMapper.getClassInfoById(classId);

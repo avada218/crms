@@ -146,4 +146,11 @@ public class TopicServiceImpl implements TopicService {
         seminarGroupTopic.setSeminarGroup(seminarGroup);
         return seminarGroupTopicDAO.getSeminarGroupTopicById(seminarGroupTopic);
     }
+
+    @Override
+    public SeminarGroupTopic getSeminarGroupTopicById(BigInteger topicId, BigInteger groupId) throws IllegalArgumentException
+    {
+        SeminarGroupTopic seminarGroupTopic=new SeminarGroupTopic();
+        return seminarGroupTopic;
+    }
 }

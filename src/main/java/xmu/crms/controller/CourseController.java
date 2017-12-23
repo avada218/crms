@@ -1,5 +1,6 @@
 package xmu.crms.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import xmu.crms.entity.Course;
 import xmu.crms.entity.Seminar;
@@ -17,6 +18,7 @@ import java.util.List;
 public class CourseController {
 
     @GetMapping("/course")
+    @ResponseStatus(HttpStatus.OK)
     public List<Course> getCourses(HttpServletResponse response) {
 //        List<Course> courses = new ArrayList<Course>();
 //        Course course1 = new Course();
@@ -46,15 +48,16 @@ public class CourseController {
     }
 
     @PostMapping("/course")
-    public Course createCourse(@RequestBody Course course, HttpServletResponse response) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Course createCourse(@RequestBody Course course) {
 //        System.out.println(course.toString());
 //        Course  newCourse = new Course();
 //        newCourse.setId(23L);
-//        response.setStatus(201);
         return null;
     }
 
     @GetMapping("/course/{courseId}")
+    @ResponseStatus(HttpStatus.OK)
     public CourseDetail getCourseInfo(@PathVariable("courseId") int courseId) {
         CourseDetail courseDetail = new CourseDetail();
         courseDetail.setId(23L);
@@ -66,19 +69,19 @@ public class CourseController {
     }
 
     @PutMapping("/course/{courseId}")
-    public Response updateCourse(@RequestBody Course course, @PathVariable("courseId") int courseId,
-                                 HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateCourse(@RequestBody Course course, @PathVariable("courseId") int courseId) {
+
     }
 
     @DeleteMapping("/course/{courseId}")
-    public Response deleteCourse(@PathVariable("courseId") int courseId, HttpServletResponse response) {
-        response.setStatus(204);
-        return null;
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCourse(@PathVariable("courseId") int courseId) {
+
     }
 
     @GetMapping("/course/{courseId}/class")
+    @ResponseStatus(HttpStatus.OK)
     public List<Class> getClassesByCourse() {
 //        List<Class> classes = new ArrayList();
 //        Class class1 = new Class();
@@ -93,14 +96,15 @@ public class CourseController {
     }
 
     @PostMapping("/course/{courseId}/class")
-    public Class createClassForCourse(@RequestBody Class newClass, @PathVariable("courseId") int courseId, HttpServletResponse response) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Class createClassForCourse(@RequestBody Class newClass, @PathVariable("courseId") int courseId) {
 //        Class ret = new Class();
 //        ret.setId(45L);
-        response.setStatus(201);
         return null;
     }
 
     @GetMapping("/course/{courseId}/seminar")
+    @ResponseStatus(HttpStatus.OK)
     public List getSeminarsByCourse(@PathVariable("courseId") int CourseId,
                                     @PathVariable(value = "embedGrade", required = false) Boolean embedGrade) {
 //        List seminars = new ArrayList<>();
@@ -136,14 +140,15 @@ public class CourseController {
     }
 
     @PostMapping("/course/{courseId}/seminar")
-    public Seminar createSeminarForCourse(@RequestBody Seminar seminar, HttpServletResponse response) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Seminar createSeminarForCourse(@RequestBody Seminar seminar) {
 //        Seminar newSeminar = new Seminar();
 //        newSeminar.setId(32L);
-        response.setStatus(201);
         return null;
     }
 
     @GetMapping("/course/{courseId}/seminar/current")
+    @ResponseStatus(HttpStatus.OK)
     public SeminarClasses getCurrentSeminar(@PathVariable("courseId") int courseId) {
 //        SeminarClasses seminarClasses = new SeminarClasses();
 //        seminarClasses.setId(29L);
@@ -169,6 +174,7 @@ public class CourseController {
     }
 
     @GetMapping("/course/{cousrId}/grade")
+    @ResponseStatus(HttpStatus.OK)
     public List<SeminarGradeDetail> getAllSeminarGrade(@PathVariable("courseId") int courseId) {
         List<SeminarGradeDetail> seminarGradeDetails = new ArrayList<>();
         SeminarGradeDetail seminarGradeDetail = new SeminarGradeDetail();

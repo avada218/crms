@@ -78,7 +78,11 @@ public interface FixGroupMapper {
     /**
      * 在fixGroupMember表中插入一条新纪录,返回插入的记录条数
      *
+<<<<<<< HEAD
      * @param fixGroupMember userId
+=======
+     * @param groupId userId
+>>>>>>> yexiaona-branch
      * @return 插入位置的主键
      */
     int insertFixGroupMember(FixGroupMember fixGroupMember);
