@@ -24,4 +24,12 @@ public interface FixGroupTopicMapper {
      * @return 改固定分组的所有选题
      */
     List<FixGroupTopic> listFixGroupTopicByFixGroup(FixGroup fixGroup);
+
+    /**
+     * 根据id删除选题信息
+     *
+     * @param fixGroupTopic 存储了ID
+     * @return 影响行数
+     */
+    Integer deleteFixGroupTopicById(FixGroupTopic fixGroupTopic);
 }

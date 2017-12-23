@@ -14,4 +14,10 @@
         FROM fix_group_topic
         WHERE fix_group_id=#{id}
     </select>
+
+    <delete id="deleteFixGroupTopicById">
+        DELETE FROM
+        fix_group_topic
+        WHERE id=#{id}
+    </delete>
 </mapper>

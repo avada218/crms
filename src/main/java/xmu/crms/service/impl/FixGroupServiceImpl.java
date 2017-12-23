@@ -184,7 +184,6 @@ public class FixGroupServiceImpl implements FixGroupService {
         return fixGroupMemberDAO.listFixGroupMemberByFixGroup(fixGroup);
     }
 
-    //TODO
     @Override
     public void fixedGroupToSeminarGroup(BigInteger semianrId, BigInteger fixedGroupId) throws IllegalArgumentException, FixGroupNotFoundException, SeminarNotFoundException {
         if (semianrId.intValue() <= 0) {
@@ -221,12 +220,13 @@ public class FixGroupServiceImpl implements FixGroupService {
             }
         }
         //将fixGroupTopic信息复制到seminarGroupTopic中
-        List<FixGroupTopic> topics = fixGroupTopicDAO.listFixGroupTopicByFixGroup(fixGroup);
-        Iterator<FixGroupTopic> topicIterator = topics.iterator();
+        List<FixGroupTopic> fixGroupTopics = fixGroupTopicDAO.listFixGroupTopicByFixGroup(fixGroup);
+        Iterator<FixGroupTopic> topicIterator = fixGroupTopics.iterator();
         while (topicIterator.hasNext()) {
             FixGroupTopic fixGroupTopic = topicIterator.next();
             try {
                 seminarGroupService.insertTopicByGroupId(seminarGroupId, fixGroupTopic.getTopic().getId());
+                fixGroupTopicDAO.deleteFixGroupTopicById(fixGroupTopic);
             } catch (Exception e) {
 
             }

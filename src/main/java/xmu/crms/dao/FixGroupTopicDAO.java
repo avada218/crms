@@ -23,4 +23,8 @@ public class FixGroupTopicDAO {
     public List<FixGroupTopic> listFixGroupTopicByFixGroup(FixGroup fixGroup) {
         return fixGroupTopicMapper.listFixGroupTopicByFixGroup(fixGroup);
     }
+
+    public void deleteFixGroupTopicById(FixGroupTopic fixGroupTopic) {
+        fixGroupTopicMapper.deleteFixGroupTopicById(fixGroupTopic);
+    }
 }
