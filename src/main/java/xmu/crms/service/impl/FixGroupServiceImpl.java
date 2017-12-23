@@ -9,6 +9,7 @@ import xmu.crms.entity.*;
 import xmu.crms.exception.*;
 import xmu.crms.service.FixGroupService;
 import xmu.crms.service.SeminarGroupService;
+import xmu.crms.service.SeminarService;
 
 import java.math.BigInteger;
 import java.util.Iterator;
@@ -35,6 +36,9 @@ public class FixGroupServiceImpl implements FixGroupService {
 
     @Autowired
     private FixGroupTopicDAO fixGroupTopicDAO;
+
+    @Autowired
+    private SeminarService seminarService;
 
     @Override
     public BigInteger insertFixGroupByClassId(BigInteger classId, BigInteger userId) throws
@@ -190,8 +194,7 @@ public class FixGroupServiceImpl implements FixGroupService {
         //判断当前时间与seminar时间是否相同
         //1. 获取seminar信息
         //2. 对比seminar时间与当前时间
-        Seminar seminar = new Seminar();
-
+        Seminar seminar = seminarService.getSeminarBySeminarId(semianrId);
         //将fixGroup的信息复制一份到seminarGroup
         FixGroup fixGroup = fixGroupDao.getFixGroupByGroupId(fixedGroupId);
         SeminarGroup seminarGroup = new SeminarGroup();

@@ -86,25 +86,6 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void deleteTopicById(BigInteger groupId, BigInteger topicId) throws IllegalArgumentException {
-        if (groupId.intValue() <= 0) {
-            throw new IllegalArgumentException("groupId");
-        }
-        if (topicId.intValue() <= 0) {
-            throw new IllegalArgumentException("topicId");
-        }
-
-        SeminarGroup seminarGroup = new SeminarGroup();
-        seminarGroup.setId(groupId);
-        Topic topic = new Topic();
-        topic.setId(topicId);
-        SeminarGroupTopic seminarGroupTopic = new SeminarGroupTopic();
-        seminarGroupTopic.setSeminarGroup(seminarGroup);
-        seminarGroupTopic.setTopic(topic);
-        seminarGroupTopicDAO.deleteByGroupAndTopic(seminarGroupTopic);
-    }
-
-    @Override
     public void deleteSeminarGroupTopicByTopicId(BigInteger topicId) throws IllegalArgumentException {
         if (topicId.intValue() <= 0) {
             throw new IllegalArgumentException("topicId");
@@ -148,9 +129,20 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public SeminarGroupTopic getSeminarGroupTopicById(BigInteger topicId, BigInteger groupId) throws IllegalArgumentException
-    {
-        SeminarGroupTopic seminarGroupTopic=new SeminarGroupTopic();
-        return seminarGroupTopic;
+    public void deleteSeminarGroupTopicById(BigInteger groupId, BigInteger topicId) throws IllegalArgumentException {
+        if (groupId.intValue() <= 0) {
+            throw new IllegalArgumentException("groupId");
+        }
+        if (topicId.intValue() <= 0) {
+            throw new IllegalArgumentException("topicId");
+        }
+        SeminarGroupTopic seminarGroupTopic = new SeminarGroupTopic();
+        SeminarGroup seminarGroup = new SeminarGroup();
+        seminarGroup.setId(groupId);
+        Topic topic = new Topic();
+        topic.setId(topicId);
+        seminarGroupTopic.setSeminarGroup(seminarGroup);
+        seminarGroupTopic.setTopic(topic);
+        seminarGroupTopicDAO.deleteByGroupAndTopic(seminarGroupTopic);
     }
 }

@@ -20,8 +20,8 @@ import java.util.List;
 @Service
 public class ClassServiceImpl implements ClassService {
     @Override
-    public Boolean deleteClassSelectionByClassId(BigInteger classId) {
-        return null;
+    public void deleteClassSelectionByClassId(BigInteger classId) {
+
     }
 
     @Override
@@ -40,29 +40,25 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Boolean updateClassByClassId(BigInteger classId, ClassInfo newClass) throws ClassNotFoundException {
+    public void updateClassByClassId(BigInteger classId, ClassInfo newClass) throws ClassNotFoundException {
+
+    }
+
+    @Override
+    public void deleteClassByClassId(BigInteger classId) throws ClassNotFoundException {
+
+    }
+
+    @Override
+    public BigInteger insertCourseSelectionById(BigInteger userId, BigInteger classId) throws UserNotFoundException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public Boolean deleteClassByClassId(BigInteger classId) throws ClassNotFoundException {
-        return null;
+    public void deleteCourseSelectionById(BigInteger userId, BigInteger classId) throws UserNotFoundException, ClassNotFoundException {
+
     }
 
-    @Override
-    public String insertCourseSelectionById(BigInteger userId, BigInteger classId) throws UserNotFoundException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public Boolean deleteCourseSelectionById(BigInteger userId, BigInteger classId) throws UserNotFoundException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public Location getCallStatusById(BigInteger seminarId) throws SeminarNotFoundException {
-        return null;
-    }
 
     @Override
     public BigInteger insertClassById(BigInteger userId, BigInteger courseId, ClassInfo classInfo) throws UserNotFoundException, CourseNotFoundException {
@@ -70,13 +66,11 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Boolean deleteClassByCourseId(BigInteger courseId) throws CourseNotFoundException {
-        return null;
+    public void deleteClassByCourseId(BigInteger courseId) throws CourseNotFoundException {
     }
 
     @Override
-    public Boolean deleteScoreRuleById(BigInteger classId) throws ClassNotFoundException {
-        return null;
+    public void deleteScoreRuleById(BigInteger classId) throws ClassNotFoundException {
     }
 
     @Override
@@ -90,7 +84,16 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Boolean updateScoreRule(BigInteger classId, ClassInfo proportions) throws InvalidOperationException, ClassNotFoundException {
+    public void updateScoreRule(BigInteger classId, ClassInfo proportions) throws InvalidOperationException, ClassNotFoundException {
+    }
+
+    @Override
+    public Location getCallStatusById(BigInteger classId, BigInteger seminarId) throws SeminarNotFoundException {
+        return null;
+    }
+
+    @Override
+    public BigInteger CallInRollById(Location location) throws SeminarNotFoundException, ClassNotFoundException {
         return null;
     }
 }

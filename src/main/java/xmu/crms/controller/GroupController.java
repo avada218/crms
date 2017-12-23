@@ -94,7 +94,7 @@ public class GroupController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void cancelTopicSelection(@PathVariable("groupId") String groupId,
                                           @PathVariable("topicId") String topicId) {
-        topicService.deleteTopicById(new BigInteger(groupId), new BigInteger(topicId));
+        topicService.deleteSeminarGroupTopicById(new BigInteger(groupId), new BigInteger(topicId));
     }
 
     @GetMapping("/{groupId}/grade")

@@ -67,7 +67,7 @@ public class SeminarGroupService implements xmu.crms.service.SeminarGroupService
     }
 
     @Override
-    public SeminarGroup getSeminarGroupByGroupId(BigInteger groupId) throws IllegalArgumentException, GroupNotFoundException {
+    public List<SeminarGroupMember> getSeminarGroupByGroupId(BigInteger groupId) throws IllegalArgumentException, GroupNotFoundException {
         return null;
     }
 
