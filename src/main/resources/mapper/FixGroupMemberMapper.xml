@@ -12,6 +12,7 @@
 
     <select id="listFixGroupMemberByFixGroup" resultMap="fixGroupMemberResultMap">
         SELECT id, fix_group_id, student_id
+        FROM fix_group_member
         WHERE fix_group_id=#{id}
     </select>
 

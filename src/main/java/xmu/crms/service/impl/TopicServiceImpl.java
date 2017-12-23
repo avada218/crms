@@ -42,28 +42,26 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public Boolean updateTopicByTopicId(BigInteger topicId, Topic topic) throws TopicNotFoundException, IllegalArgumentException {
+    public void updateTopicByTopicId(BigInteger topicId, Topic topic) throws TopicNotFoundException, IllegalArgumentException {
         if (topicId.intValue() <= 0) {
             IllegalArgumentException exception = new IllegalArgumentException("topicId");
             throw exception;
         }
         topic.setId(topicId);
-        return topicDAO.updateTopicByTopicId(topic);
+        topicDAO.updateTopicByTopicId(topic);
     }
 
     @Override
-    public Boolean deleteTopicByTopicId(BigInteger topicId) throws IllegalArgumentException {
+    public void deleteTopicByTopicId(BigInteger topicId) throws IllegalArgumentException {
         if (topicId.intValue() <= 0) {
             throw new IllegalArgumentException("topicId");
         }
         //删除所有与该topic相关的选题记录
-        if (!deleteSeminarGroupTopicByTopicId(topicId)) {
-            return false;
-        }
+        deleteSeminarGroupTopicByTopicId(topicId);
         //删除该topic
         Topic topic = new Topic();
         topic.setId(topicId);
-        return topicDAO.deleteTopicByTopicId(topic);
+        topicDAO.deleteTopicByTopicId(topic);
     }
 
     @Override
@@ -88,7 +86,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public Boolean deleteTopicById(BigInteger groupId, BigInteger topicId) throws IllegalArgumentException {
+    public void deleteTopicById(BigInteger groupId, BigInteger topicId) throws IllegalArgumentException {
         if (groupId.intValue() <= 0) {
             throw new IllegalArgumentException("groupId");
         }
@@ -103,21 +101,21 @@ public class TopicServiceImpl implements TopicService {
         SeminarGroupTopic seminarGroupTopic = new SeminarGroupTopic();
         seminarGroupTopic.setSeminarGroup(seminarGroup);
         seminarGroupTopic.setTopic(topic);
-        return seminarGroupTopicDAO.deleteByGroupAndTopic(seminarGroupTopic);
+        seminarGroupTopicDAO.deleteByGroupAndTopic(seminarGroupTopic);
     }
 
     @Override
-    public Boolean deleteSeminarGroupTopicByTopicId(BigInteger topicId) throws IllegalArgumentException {
+    public void deleteSeminarGroupTopicByTopicId(BigInteger topicId) throws IllegalArgumentException {
         if (topicId.intValue() <= 0) {
             throw new IllegalArgumentException("topicId");
         }
         Topic topic = new Topic();
         topic.setId(topicId);
-        return seminarGroupTopicDAO.deleteByTopic(topic);
+        seminarGroupTopicDAO.deleteByTopic(topic);
     }
 
     @Override
-    public Boolean deleteTopicBySeminarId(BigInteger seminarId) throws IllegalArgumentException {
+    public void deleteTopicBySeminarId(BigInteger seminarId) throws IllegalArgumentException {
         if (seminarId.intValue() <= 0) {
             throw new IllegalArgumentException("seminarId");
         }
@@ -127,11 +125,8 @@ public class TopicServiceImpl implements TopicService {
         Iterator<Topic> iterator = topicList.iterator();
         while (iterator.hasNext()) {
             Topic topic = iterator.next();
-            if (!deleteTopicByTopicId(topic.getId())) {
-                return false;
-            }
+            deleteTopicByTopicId(topic.getId());
         }
-        return true;
     }
 
     @Override

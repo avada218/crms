@@ -24,14 +24,14 @@ public class FixGroupServiceImpl implements FixGroupService {
     @Autowired
     private FixGroupDao fixGroupDao;
 
-    @Autowired
-    private SeminarGroupService seminarGroupService;
+//    @Autowired
+//    private SeminarGroupService seminarGroupService;
 
     @Autowired
     private FixGroupMemberDAO fixGroupMemberDAO;
 
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
 
     @Override
     public BigInteger insertFixGroupByClassId(BigInteger classId, BigInteger userId) throws
@@ -152,7 +152,7 @@ public class FixGroupServiceImpl implements FixGroupService {
             throw new FixGroupNotFoundException();
         }
         List<User> members = listFixGroupMemberByGroupId(fixGroupId);
-        User student = userService.getUserByUserId(userId);
+//        User student = userService.getUserByUserId(userId);
         boolean contains = false;
         Iterator<User> iterator = members.iterator();
         while (iterator.hasNext()) {
@@ -167,6 +167,8 @@ public class FixGroupServiceImpl implements FixGroupService {
         }
         FixGroupMember fixGroupMember = new FixGroupMember();
         fixGroupMember.setFixGroup(fixGroup);
+        User student = new User();
+        student.setId(userId);
         fixGroupMember.setStudent(student);
         fixGroupMemberDAO.deleteStudentFromFixGroup(fixGroupMember);
     }
@@ -185,26 +187,6 @@ public class FixGroupServiceImpl implements FixGroupService {
 
     @Override
     public void fixedGroupToSeminarGroup(BigInteger semianrId, BigInteger fixedGroupId) throws IllegalArgumentException, FixGroupNotFoundException, SeminarNotFoundException {
-        SeminarGroup seminarGroup = new SeminarGroup();
-        Seminar seminar = new Seminar();
-        seminar.setId(semianrId);
-        seminarGroup.setSeminar(seminar);
-        FixGroup fixGroup = fixGroupDao.getFixGroupByGroupId(fixedGroupId);
-        seminarGroup.setFixGroup(fixGroup);
-        seminarGroup.setClassInfo(fixGroup.getClassInfo());
-        seminarGroup.setLeader(fixGroup.getLeader());
-        BigInteger seminarGroupId = seminarGroupService.insertSeminarGroupBySeminarId(semianrId, seminarGroup);
-        seminarGroup.setId(seminarGroupId);
-        //获取该fixGroup下的所有组员
-        List<User> members = listFixGroupMemberByGroupId(fixedGroupId);
-        //将这些组员插入到新建的seminarGroup中
-        Iterator<User> iterator = members.iterator();
-        while (iterator.hasNext()) {
-            User member = iterator.next();
-            SeminarGroupMember seminarGroupMember = new SeminarGroupMember();
-            seminarGroupMember.setSeminarGroup(seminarGroup);
-            seminarGroupMember.setStudent(member);
-            seminarGroupService.insertSeminarGroupMemberByGroupId(seminarGroupId, seminarGroupMember);
-        }
+
     }
 }
