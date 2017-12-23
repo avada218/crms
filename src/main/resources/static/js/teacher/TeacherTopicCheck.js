@@ -2,7 +2,7 @@ function string2date(str){
     return new Date(Date.parse(str.replace(/-/g,  "/")));
 }
 $(function () {
-    var topicId = localStorage.getItem("topicId");
+    var topicId = localStorage.hasOwnProperty("topicId") ? localStorage.getItem("topicId") : 1;
     var courseJson = localStorage.getItem("courseJson");
     if (courseJson != null) {
         courseJson = JSON.parse(courseJson);
@@ -42,6 +42,7 @@ $(function () {
             $("#groupMemberLimit").text(data.groupStudentLimit);
 
             //查询多少小组选择了该topic
+            //查询多少小组选择了该topic
             $.ajax({
                 // url:"/topic/"+topicId+"/group",
                 url:"http://rap.taobao.org/mockjsdata/29816/topic/257/group",
@@ -73,7 +74,7 @@ $(function () {
                 type:"DELETE",
                 success:function () {
                     alert("成功删除话题");
-                    window.history.back();
+                    window.location.href = "/teacher/seminarInfo";
                 },
                 error:function () {
                     alert("删除话题失败");

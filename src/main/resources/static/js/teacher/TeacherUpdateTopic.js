@@ -2,7 +2,6 @@ function getInfo() {
     var topicJson = localStorage.getItem("topicJson");
     if (topicJson != null) {
         topicJson = JSON.parse(topicJson);
-        console.log(topicJson);
         $("input[name=seminarName]").val(topicJson.name);
         $("#desc").val(topicJson.description);
         $("input[name=groupLimit]").val(topicJson.groupLimit);
@@ -11,9 +10,7 @@ function getInfo() {
     }
 }
 $(function () {
-    var topicId = localStorage.getItem("topicId");
-    // console.log(topicId);
-
+    var topicId = localStorage.hasOwnProperty("topicId") ? localStorage.getItem("topicId") : 1;
     var courseJson = localStorage.getItem("courseJson");
     if (courseJson != null) {
         courseJson = JSON.parse(courseJson);
@@ -26,13 +23,12 @@ $(function () {
     //点击了提交按钮
     $(".submit").click(function () {
         var topicInfo = {
-            serial:$("#serial").text(),
-            groupLimit: $("input[name=groupLimit]").val(),
+            // serial:$("#serial").text(),
+            groupNumberLimit: $("input[name=groupLimit]").val(),
             name:$("input[name=seminarName]").val(),
-            groupMemberLimit:$("input[name=groupMemberLimit]").val(),
+            groupStudentLimit:$("input[name=groupMemberLimit]").val(),
             description:$("#desc").val(),
-        }
-        console.log(topicInfo);
+        };
         $.ajax({
             url:"/topic/"+topicId,
             type:"PUT",
@@ -46,15 +42,15 @@ $(function () {
                 alert("修改失败");
             }
         })
-    })
+    });
 
     //点击了重置按钮后
-    $(".reset").click(function () {
+    $(".reset").on("click", function () {
         getInfo();
-    })
+    });
 
     //返回上一页
-    $(".returnButton").click(function () {
+    $(".returnButton").on("click", function () {
         window.history.back();
     })
-})
+});

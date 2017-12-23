@@ -2,10 +2,13 @@ package xmu.crms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import xmu.crms.entity.SeminarGroup;
 import xmu.crms.entity.Topic;
+import xmu.crms.exception.GroupNotFoundException;
 import xmu.crms.exception.TopicNotFoundException;
+import xmu.crms.service.SeminarGroupService;
 import xmu.crms.service.TopicService;
 
 import java.math.BigInteger;
@@ -23,7 +26,10 @@ import java.util.List;
 public class TopicController {
 
     @Autowired
-    TopicService topicService;
+    private TopicService topicService;
+
+    @Autowired
+    private SeminarGroupService seminarGroupService;
 
     @GetMapping("/{topicId}")
     @ResponseStatus(HttpStatus.OK)
@@ -33,6 +39,7 @@ public class TopicController {
     }
 
     @PutMapping("/{topicId}")
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void modifyTopic(@PathVariable("topicId") String topicId, @RequestBody Topic topic) throws TopicNotFoundException, IllegalArgumentException {
         BigInteger id = new BigInteger(topicId);
@@ -40,6 +47,7 @@ public class TopicController {
     }
 
     @DeleteMapping("/{topicId}")
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTopic(@PathVariable("topicId") String topicId) {
         topicService.deleteTopicByTopicId(new BigInteger(topicId));
@@ -47,8 +55,7 @@ public class TopicController {
 
     @GetMapping("/{topicId}/group")
     @ResponseStatus(HttpStatus.OK)
-    public List<SeminarGroup> getGroups(@PathVariable("topicId") int topicId) {
-        List<SeminarGroup> groups = new ArrayList<>();
-        return groups;
+    public List<SeminarGroup> getGroups(@PathVariable("topicId") String topicId) throws GroupNotFoundException{
+        return seminarGroupService.listGroupByTopicId(new BigInteger(topicId));
     }
 }

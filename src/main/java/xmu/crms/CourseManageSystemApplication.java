@@ -2,9 +2,12 @@ package xmu.crms;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import java.text.SimpleDateFormat;
 
@@ -14,6 +17,7 @@ import java.text.SimpleDateFormat;
  * @date 2017/12/01
  */
 @SpringBootApplication
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CourseManageSystemApplication {
 
 	public static void main(String[] args) {
@@ -35,6 +39,7 @@ public class CourseManageSystemApplication {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		return mapper;
 	}
 }

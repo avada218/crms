@@ -9,7 +9,7 @@ function getQueryString(name) {
     return context == null || context == "" || context == "undefined" ? "" : context;
 }
 
-var topicId = getQueryString("topicId") != "" ? getQueryString("topicId") : 257;
+var topicId = getQueryString("topicId") != "" ? getQueryString("topicId") : 1;
 var courseId = getQueryString("courseId") != "" ? getQueryString("courseId") : 23;
 var isFixedGroup = getQueryString("isFixedGroup") != "" ? getQueryString("isFixedGroup") : 1;
 
@@ -44,7 +44,7 @@ $(function () {
             console.log(data);
             $("#topicName").text(data.name);
             $("#topicDesc").text(data.description);
-            $("#groupLimit").text(data.groupLimit);
+            $("#groupLimit").text(data.groupNumberLimit);
             $("#groupLeft").text(data.groupLeft);
         }
     });

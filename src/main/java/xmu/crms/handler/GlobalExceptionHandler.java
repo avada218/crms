@@ -1,5 +1,9 @@
 package xmu.crms.handler;
 
+import jdk.nashorn.internal.runtime.logging.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,7 +21,6 @@ import java.util.List;
 @ControllerAdvice
 @RestController
 public class GlobalExceptionHandler {
-
 
     @ExceptionHandler(value = TopicNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

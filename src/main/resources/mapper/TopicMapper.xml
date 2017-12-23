@@ -33,7 +33,7 @@
                 group_number_limit = #{groupNumberLimit},
             </if>
             <if test="groupStudentLimit != null">
-                groupStudentLimit = #{groupStudentLimit},
+                group_student_limit = #{groupStudentLimit},
             </if>
             <if test="seminar != null">
                 seminar_id = #{seminar.id}

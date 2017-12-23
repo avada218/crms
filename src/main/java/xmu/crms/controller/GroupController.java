@@ -28,57 +28,34 @@ public class GroupController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public FixGroup getGroupInfo(@PathVariable("id") int id) {
-//        Group group = new Group();
-//        group.setId(28L);
-//        User leader = new User();
-//        leader.setId(8888L);
-//        leader.setName("张三");
-//        group.setLeader(leader);
-//        List<User> members = new ArrayList<>();
-//        User member1 = new User();
-//        member1.setId(5324L);
-//        member1.setName("李四");
-//        User member2 = new User();
-//        member2.setId(5678L);
-//        member2.setName("王五");
-//        members.add(member1);
-//        members.add(member2);
-//        group.setMembers(members);
-//        List<Topic> topics = new ArrayList<>();
-//        Topic topic = new Topic();
-//        topic.setId(257L);
-//        topic.setName("领域模型与模块");
-//        topics.add(topic);
-//        group.setTopics(topics);
-//        group.setReport("");
         return null;
     }
 
     @PutMapping("/{groupId}/resign")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void leaderResign(@PathVariable("groupId") int groupId,
-                                 @RequestBody User leader) {
+                             @RequestBody User leader) {
 
     }
 
     @PutMapping("/{groupId}/assign")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void leaderAssign(@PathVariable("groupId") int groupId,
-                                 @RequestBody User leader) {
+                             @RequestBody User leader) {
 
     }
 
     @PutMapping("/{groupId}/remove")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeMember(@PathVariable("groupId") int groupId,
-                                 @RequestBody User leader) {
+                             @RequestBody User leader) {
 
     }
 
     @PutMapping("/{groupId}/add")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addMember(@PathVariable("groupId") int groupId,
-                              @RequestBody User leader) {
+                          @RequestBody User leader) {
 
     }
 
