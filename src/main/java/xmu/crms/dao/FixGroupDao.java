@@ -33,11 +33,8 @@ public class FixGroupDao {
         if(fixGroup==null){
             throw new FixGroupNotFoundException();
         }
-        else{
-            fixGroupMapper.deleteFixGroupMemberByFixGroupId(fixGroupId);
-            return true;
-        }
-
+        fixGroupMapper.deleteFixGroupMemberByFixGroupId(fixGroupId);
+        return true;
     }
 
     /**
@@ -103,11 +100,7 @@ public class FixGroupDao {
     /**
      * @param classId
      * @return
-<<<<<<< HEAD
-     * @throws ClassNotFoundException
-=======
-     * @throws xmu.crms.exception.ClassesNotFoundException
->>>>>>> yexiaona-branch
+     * @throws ClassesNotFoundException
      */
     public boolean deleteFixGroupByClassId(BigInteger classId) throws ClassesNotFoundException {
         ClassInfo classInfo = fixGroupMapper.getClassInfoById(classId);

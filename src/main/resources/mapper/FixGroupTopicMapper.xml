@@ -6,12 +6,12 @@
     <resultMap id="fixGroupTopicResultMap" type="FixGroupTopic">
         <id property="id" column="id"/>
         <association property="fixGroup" column="fix_group_id" select="CommonMapper.selectFixGroup"/>
-        <association property="Topic" column="topic_id" select="CommonMapper.selectTopic"/>
+        <association property="topic" column="topic_id" select="CommonMapper.selectTopic"/>
     </resultMap>
 
     <select id="listFixGroupTopicByFixGroup" resultMap="fixGroupTopicResultMap">
         SELECT id, fix_group_id, topic_id
         FROM fix_group_topic
-        WHERE fix_group_id=#{fixGroup.id}
+        WHERE fix_group_id=#{id}
     </select>
 </mapper>

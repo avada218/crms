@@ -94,9 +94,8 @@ public class FixGroupMapperTest {
     }
 
     @Test
-    @Ignore
     public void deleteFixGroupByGroupIdTest() {
-        fixGroupMapper.deleteFixGroupByGroupId(new BigInteger("22"));
+        fixGroupMapper.deleteFixGroupByGroupId(new BigInteger("1"));
     }
 
     @Test
@@ -121,14 +120,13 @@ public class FixGroupMapperTest {
     }
 
     @Test
-    @Ignore
     public void updateSeminarGroupTest() {
         Seminar seminar = new Seminar();
         seminar.setId(new BigInteger("3"));
         ClassInfo classInfo = new ClassInfo();
-        classInfo.setId(new BigInteger("1"));
+        classInfo.setId(new BigInteger("2"));
         SeminarGroup seminarGroup = new SeminarGroup();
-        seminarGroup.setId(new BigInteger("37"));
+        seminarGroup.setId(new BigInteger("36"));
         seminarGroup.setClassInfo(classInfo);
         seminarGroup.setSeminar(seminar);
         int a = fixGroupMapper.updateSeminarGroup(seminarGroup);

@@ -10,8 +10,11 @@ import xmu.crms.exception.*;
 import xmu.crms.service.FixGroupService;
 import xmu.crms.service.SeminarGroupService;
 import xmu.crms.service.SeminarService;
+import xmu.crms.service.UserService;
 
 import java.math.BigInteger;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,8 +34,8 @@ public class FixGroupServiceImpl implements FixGroupService {
     @Autowired
     private FixGroupMemberDAO fixGroupMemberDAO;
 
-//    @Autowired
-//    private UserService userService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private FixGroupTopicDAO fixGroupTopicDAO;
@@ -43,21 +46,22 @@ public class FixGroupServiceImpl implements FixGroupService {
     @Override
     public BigInteger insertFixGroupByClassId(BigInteger classId, BigInteger userId) throws
             IllegalArgumentException,ClassesNotFoundException,UserNotFoundException {
-        if (classId.intValue() <= 0 || userId.intValue() <= 0) {
-            throw new IllegalArgumentException();
-        }else{
-            BigInteger addRow = fixGroupDao.insertFixGroupByClassId(classId,userId);
-            return addRow;
+        if (classId.intValue() <= 0) {
+            throw new IllegalArgumentException("classId");
         }
+        if (userId.intValue() <= 0) {
+            throw new IllegalArgumentException("userId");
+        }
+        BigInteger addRow = fixGroupDao.insertFixGroupByClassId(classId,userId);
+        return addRow;
     }
 
     @Override
     public void deleteFixGroupMemberByFixGroupId(BigInteger fixGroupId) throws IllegalArgumentException, FixGroupNotFoundException {
         if(fixGroupId.intValue()<=0){
             throw new IllegalArgumentException();
-        }else{
-            fixGroupDao.deleteFixGroupMemberByFixGroupId(fixGroupId);
         }
+        fixGroupDao.deleteFixGroupMemberByFixGroupId(fixGroupId);
     }
 
     @Override
@@ -99,11 +103,11 @@ public class FixGroupServiceImpl implements FixGroupService {
     }
 
     @Override
-    public void updateFixGroupByGroupId(BigInteger groupId, FixGroup fixGroupBO) throws IllegalArgumentException, FixGroupNotFoundException {
+    public void updateFixGroupByGroupId(BigInteger groupId, FixGroup fixGroup) throws IllegalArgumentException, FixGroupNotFoundException {
         if (groupId.intValue() <= 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("groupId");
         } else {
-            fixGroupDao.updateFixGroupByGroupId(groupId, fixGroupBO);
+            fixGroupDao.updateFixGroupByGroupId(groupId, fixGroup);
         }
     }
 
@@ -149,7 +153,7 @@ public class FixGroupServiceImpl implements FixGroupService {
             throw new FixGroupNotFoundException();
         }
         List<User> members = listFixGroupMemberByGroupId(fixGroupId);
-//        User student = userService.getUserByUserId(userId);
+        User student = userService.getUserByUserId(userId);
         boolean contains = false;
         Iterator<User> iterator = members.iterator();
         while (iterator.hasNext()) {
@@ -164,8 +168,6 @@ public class FixGroupServiceImpl implements FixGroupService {
         }
         FixGroupMember fixGroupMember = new FixGroupMember();
         fixGroupMember.setFixGroup(fixGroup);
-        User student = new User();
-        student.setId(userId);
         fixGroupMember.setStudent(student);
         fixGroupMemberDAO.deleteStudentFromFixGroup(fixGroupMember);
     }
@@ -195,14 +197,18 @@ public class FixGroupServiceImpl implements FixGroupService {
         //1. 获取seminar信息
         //2. 对比seminar时间与当前时间
         Seminar seminar = seminarService.getSeminarBySeminarId(semianrId);
+        Calendar calendar = Calendar.getInstance();
+        Date current = calendar.getTime();
+        if (current.after(seminar.getStartTime())) {
+            throw new IllegalArgumentException("seminar has started.");
+        }
         //将fixGroup的信息复制一份到seminarGroup
         FixGroup fixGroup = fixGroupDao.getFixGroupByGroupId(fixedGroupId);
         SeminarGroup seminarGroup = new SeminarGroup();
         seminarGroup.setLeader(fixGroup.getLeader());
         seminarGroup.setClassInfo(fixGroup.getClassInfo());
-        seminarGroup.setSeminar(seminar);
-        BigInteger seminarGroupId = BigInteger.valueOf(1);
-
+        BigInteger seminarGroupId = seminarGroupService.insertSeminarGroupBySeminarId(semianrId, seminarGroup);
+        seminarGroup.setId(seminarGroupId);
         //将fixGroupMember的信息复制一份到seminarGroupMember
         List<User> members = listFixGroupMemberByGroupId(fixedGroupId);
         Iterator<User> iterator = members.iterator();
@@ -214,8 +220,16 @@ public class FixGroupServiceImpl implements FixGroupService {
 
             }
         }
-
         //将fixGroupTopic信息复制到seminarGroupTopic中
         List<FixGroupTopic> topics = fixGroupTopicDAO.listFixGroupTopicByFixGroup(fixGroup);
+        Iterator<FixGroupTopic> topicIterator = topics.iterator();
+        while (topicIterator.hasNext()) {
+            FixGroupTopic fixGroupTopic = topicIterator.next();
+            try {
+                seminarGroupService.insertTopicByGroupId(seminarGroupId, fixGroupTopic.getTopic().getId());
+            } catch (Exception e) {
+
+            }
+        }
     }
 }

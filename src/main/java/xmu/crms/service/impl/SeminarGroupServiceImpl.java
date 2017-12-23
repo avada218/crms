@@ -5,6 +5,7 @@ import xmu.crms.entity.SeminarGroup;
 import xmu.crms.entity.SeminarGroupMember;
 import xmu.crms.entity.User;
 import xmu.crms.exception.*;
+import xmu.crms.service.SeminarGroupService;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * @Data: 2017/12/22 18:31
  */
 @Service
-public class SeminarGroupService implements xmu.crms.service.SeminarGroupService {
+public class SeminarGroupServiceImpl implements SeminarGroupService {
     @Override
     public void deleteSeminarGroupMemberBySeminarGroupId(BigInteger seminarGroupId) {
 
