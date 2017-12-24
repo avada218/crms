@@ -61,7 +61,7 @@ public class SeminarController {
     @GetMapping("/{seminarId}/my")
     @ResponseStatus(HttpStatus.OK)
     public StudentSeminar getRelatedSeminar(@PathVariable("seminarId") String seminarId)
-            throws SeminarNotFoundException, CourseNotFoundException, ClassNotFoundException, GroupNotFoundException {
+            throws SeminarNotFoundException, CourseNotFoundException, ClassesNotFoundException, GroupNotFoundException {
 
         StudentSeminar studentSeminar = new StudentSeminar();
         Seminar seminar = seminarService.getSeminarBySeminarId(new BigInteger(seminarId));
@@ -83,7 +83,7 @@ public class SeminarController {
         BigInteger userId = new BigInteger("1");
 
         BigInteger classId = new BigInteger("-1");
-        List<ClassInfo> classInfos = courseService.listClassByUserId(userId);
+        List<ClassInfo> classInfos = classService.listClassByUserId(userId);
         for (ClassInfo classInfo : classInfos
                 ) {
             if (classInfo.getCourse().getId().equals(course.getId())) {
@@ -133,7 +133,7 @@ public class SeminarController {
         seminarDetail.setEndTime(seminar.getEndTime());
 
         Course course = courseService.getCourseByCourseId(seminar.getCourse().getId());
-        List<ClassInfo> classInfos = courseService.listClassByUserId(userId);
+        List<ClassInfo> classInfos = classService.listClassByUserId(userId);
         ClassInfo classInfo = new ClassInfo();
         for (ClassInfo classInfo1 : classInfos
                 ) {

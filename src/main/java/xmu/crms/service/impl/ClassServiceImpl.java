@@ -3,10 +3,7 @@ package xmu.crms.service.impl;
 import org.springframework.stereotype.Service;
 import xmu.crms.entity.ClassInfo;
 import xmu.crms.entity.Location;
-import xmu.crms.exception.CourseNotFoundException;
-import xmu.crms.exception.InvalidOperationException;
-import xmu.crms.exception.SeminarNotFoundException;
-import xmu.crms.exception.UserNotFoundException;
+import xmu.crms.exception.*;
 import xmu.crms.service.ClassService;
 
 import java.math.BigInteger;
@@ -19,6 +16,7 @@ import java.util.List;
  */
 @Service
 public class ClassServiceImpl implements ClassService {
+
     @Override
     public void deleteClassSelectionByClassId(BigInteger classId) {
 
@@ -35,56 +33,28 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public ClassInfo getClassByClassId(BigInteger classId) throws ClassNotFoundException {
+    public ClassInfo getClassByClassId(BigInteger classId) throws ClassesNotFoundException {
         return null;
     }
 
     @Override
-    public void updateClassByClassId(BigInteger classId, ClassInfo newClass) throws ClassNotFoundException {
+    public void updateClassByClassId(BigInteger classId, ClassInfo newClass) throws ClassesNotFoundException {
 
     }
 
     @Override
-    public void deleteClassByClassId(BigInteger classId) throws ClassNotFoundException {
+    public void deleteClassByClassId(BigInteger classId) throws ClassesNotFoundException {
 
     }
 
     @Override
-    public BigInteger insertCourseSelectionById(BigInteger userId, BigInteger classId) throws UserNotFoundException, ClassNotFoundException {
+    public BigInteger insertCourseSelectionById(BigInteger userId, BigInteger classId) throws UserNotFoundException, ClassesNotFoundException {
         return null;
     }
 
     @Override
-    public void deleteCourseSelectionById(BigInteger userId, BigInteger classId) throws UserNotFoundException, ClassNotFoundException {
+    public void deleteCourseSelectionById(BigInteger userId, BigInteger classId) throws UserNotFoundException, ClassesNotFoundException {
 
-    }
-
-
-    @Override
-    public BigInteger insertClassById(BigInteger userId, BigInteger courseId, ClassInfo classInfo) throws UserNotFoundException, CourseNotFoundException {
-        return null;
-    }
-
-    @Override
-    public void deleteClassByCourseId(BigInteger courseId) throws CourseNotFoundException {
-    }
-
-    @Override
-    public void deleteScoreRuleById(BigInteger classId) throws ClassNotFoundException {
-    }
-
-    @Override
-    public ClassInfo getScoreRule(BigInteger classId) throws ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public BigInteger insertScoreRule(BigInteger classId, ClassInfo proportions) throws InvalidOperationException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public void updateScoreRule(BigInteger classId, ClassInfo proportions) throws InvalidOperationException, ClassNotFoundException {
     }
 
     @Override
@@ -93,7 +63,47 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public BigInteger CallInRollById(Location location) throws SeminarNotFoundException, ClassNotFoundException {
+    public BigInteger insertClassById(BigInteger courseId, ClassInfo classInfo) throws CourseNotFoundException {
+        return null;
+    }
+
+    @Override
+    public void deleteClassByCourseId(BigInteger courseId) throws CourseNotFoundException {
+
+    }
+
+    @Override
+    public void deleteScoreRuleById(BigInteger classId) throws ClassesNotFoundException {
+
+    }
+
+    @Override
+    public ClassInfo getScoreRule(BigInteger classId) throws ClassesNotFoundException {
+        return null;
+    }
+
+    @Override
+    public BigInteger insertScoreRule(BigInteger classId, ClassInfo proportions) throws InvalidOperationException, ClassesNotFoundException {
+        return null;
+    }
+
+    @Override
+    public void updateScoreRule(BigInteger classId, ClassInfo proportions) throws InvalidOperationException, ClassesNotFoundException {
+
+    }
+
+    @Override
+    public BigInteger callInRollById(Location location) throws SeminarNotFoundException, ClassesNotFoundException {
+        return null;
+    }
+
+    @Override
+    public void endCallRollById(Location location) throws SeminarNotFoundException, ClassesNotFoundException {
+
+    }
+
+    @Override
+    public List<ClassInfo> listClassByUserId(BigInteger userId) throws IllegalArgumentException, ClassesNotFoundException {
         return null;
     }
 }
