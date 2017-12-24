@@ -204,13 +204,13 @@ public class SeminarController {
 
     @GetMapping("/{seminarId}/group/my")
     @ResponseStatus(HttpStatus.OK)
-    public List<SeminarGroupMember> getMyGroup(@PathVariable("seminarId") String seminarId) throws GroupNotFoundException {
-        List<SeminarGroupMember> seminarGroupMembers;
+    public List<User> getMyGroup(@PathVariable("seminarId") String seminarId) throws GroupNotFoundException {
+        List<User> seminarGroupMembers;
 
         //todo
         BigInteger userId = new BigInteger("8");
         SeminarGroup seminarGroup = seminarGroupService.getSeminarGroupById(new BigInteger(seminarId), userId);
-        seminarGroupMembers = seminarGroupService.getSeminarGroupByGroupId(seminarGroup.getId());
+        seminarGroupMembers = seminarGroupService.listSeminarGroupMemberByGroupId(seminarGroup.getId());
         return seminarGroupMembers;
     }
 

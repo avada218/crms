@@ -206,7 +206,7 @@ public class FixGroupServiceImpl implements FixGroupService {
         SeminarGroup seminarGroup = new SeminarGroup();
         seminarGroup.setLeader(fixGroup.getLeader());
         seminarGroup.setClassInfo(fixGroup.getClassInfo());
-        BigInteger seminarGroupId = seminarGroupService.insertSeminarGroupBySeminarId(semianrId, seminarGroup);
+        BigInteger seminarGroupId = seminarGroupService.insertSeminarGroupBySeminarId(semianrId, fixGroup.getClassInfo().getId(), seminarGroup);
         seminarGroup.setId(seminarGroupId);
         //将fixGroupMember的信息复制一份到seminarGroupMember
         List<User> members = listFixGroupMemberByGroupId(fixedGroupId);
